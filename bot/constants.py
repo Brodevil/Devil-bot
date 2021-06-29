@@ -1,13 +1,13 @@
 from dotenv import load_dotenv
 from os import environ
 
-
 load_dotenv()
+
 
 class Client:
     BOT_NAME = "Mr. Devil"
     TOKEN = environ.get("TOKEN")
-    OWNER_ID = environ.get("OWNER_ID")
+    OWNER_ID = int(environ.get("OWNER_ID"))
 
 
 class Colours:
@@ -26,7 +26,6 @@ class Colours:
     grass_green = 0x66FF00
     gold = 0xE6C200
 
-    
 
 class Emojis:
     cross_mark = "\u274C"
@@ -36,7 +35,6 @@ class Emojis:
     envelope = "\U0001F4E8"
     ok_hand = ":ok_hand:"
     hand_raised = "\U0001F64B"
-
 
     # These icons are from Github's repo https://github.com/primer/octicons/
     issue_open = "<:IssueOpen:852596024777506817>"
@@ -73,9 +71,6 @@ class Emojis:
     status_idle = "<:status_idle:470326266625785866>"
     status_dnd = "<:status_dnd:470326272082313216>"
     status_offline = "<:status_offline:470326266537705472>"
-
-
-
 
 
 # Bot replies
@@ -131,4 +126,3 @@ POSITIVE_REPLIES = [
     "Aye aye, cap'n!",
     "I'll allow it.",
 ]
-

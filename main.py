@@ -1,9 +1,7 @@
 import logging
-import sys
 
-from discord.ext import commands 
+from discord.ext import commands
 import discord
-import asyncio
 
 from bot.commands import setup
 from bot.constants import Client
@@ -19,23 +17,21 @@ logger.addHandler(handler)
 
 intents = discord.Intents.default()
 intents.members = True
-activity = discord.Activity(type=discord.Game(name="The Bot is Currently under the Development by Brodevil#0001"))
+activity = discord.Game(name="The Bot is Currently under the Development by Brodevil#0001")
 bot = commands.Bot(command_prefix="!", activity=activity, status=discord.Status.online)
 
 
 @bot.event
 async def on_ready():
-    int('Bot had Logged in as :- {0} ({0.id})'.format(bot.user))
+    print('Bot had Logged in as :- {0} ({0.id})'.format(bot.user))
     print('------'*10)
-    user = await bot.get_user(Client.OWNER_ID)
-    icon = bot.avatar_url_as(format="png")
+    bot_owner = discord.Client.get_user(id=780449492620935168)
+    # icon = bot.(format="png")
+    #
+    # embed = discord.Embed(description="Connected!")
+    # embed.set_author(name="Mr. Devil", icon_url=icon)
 
-    embed = discord.Embed(description="Connected!")
-    embed.set_author(name="Mr. Devil", icon_url=icon)
-
-    await user.send(embed=embed)
-
-
+    await bot_owner.send("hello")
 
 setup(bot)
 bot.run(Client.TOKEN)
