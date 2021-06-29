@@ -55,7 +55,7 @@ class Commands(commands.Cog):
 
 
         embed = Embed(description=content, color=constants.Colours.orange)
-        embed.set_author(name=f"[{ctx.message.author}](https://discordapp.com/users/{ctx.message.author.id})", icon_url=icon)
+        embed.set_author(name=f"{ctx.message.author.name}", icon_url=icon,  url=(f"https://discordapp.com/users/{ctx.message.author.id}"))
         await channel.send(embed=embed)
 
 
@@ -69,6 +69,43 @@ class Commands(commands.Cog):
     @commands.command(pass_context=True, name="nick", aliases=("chnick", "nickname"))
     async def chnick(self, ctx, member: discord.Member, *, nick):
         await member.edit(nick=nick)
+
+
+    @commands.command(name="user", aliases=("u", ))
+    async def user(self, ctx: commands.Context, user: discord.Member = None):
+        if user is None:
+            user = ctx.message.author
+        
+        embed = Embed(title = user.name, color=constants.Colours.blue, url=(f"https://discordapp.com/users/{ctx.message.author.id}"))
+        embed.add_field(name="User Information", value="")
+        embed.add_field(name="ID", value=user.id, inline=True)
+        embed.add_field(name="Status", value=user.status, inline=True)
+        embed.add_field(name="Roles", value=user.top_role)
+        embed.add_field(name="Joined", value=user.joined_at)
+        embed.add_field(name="Created", value=user.created_at)
+        embed.set_thumbnail(url=user.avatar_url)
+
+        await ctx.send(embed=embed)
+        
+    
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        channel = member.guild.system_channel
+        if channel is not None:
+            embed = Embed(title="{}'s info".format(member.name), description="Welcome too {}".format(member.guild.name), color=constants.Colours.blue)
+            embed.add_field(name="Name", value=member.name, inline=True)
+            embed.add_field(name="ID", value=member.id, inline=True)
+            embed.add_field(name="Status", value=member.status, inline=True)
+            embed.add_field(name="Roles", value=member.top_role)
+            embed.add_field(name="Joined", value=member.joined_at)
+            embed.add_field(name="Created", value=member.created_at)
+            embed.set_thumbnail(url=member.avatar_url)
+            new_member = self.bot.get_user(member.id)
+            channel = member.guild.system_channel
+            if channel is not None:
+                await channel.send(embed=embed)
+            await new_member.send(embed=embed)
 
 
 
