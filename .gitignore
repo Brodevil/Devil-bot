@@ -9,7 +9,8 @@ venv/
 .vscode/
 
 # logs
-*.logs
+*.log
+discord.log
 
 # python cached
 *.pyc
