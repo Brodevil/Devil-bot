@@ -5,7 +5,7 @@ from discord.ext import commands
 import discord
 import asyncio
 
-from bot.exts.commands.commands import setup
+from bot.commands import setup
 from bot.constants import Client
 
 
