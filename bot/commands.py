@@ -76,15 +76,18 @@ class Commands(commands.Cog):
         if user is None:
             user = ctx.message.author
         
-        embed = Embed(title = user.name, color=constants.Colours.blue, url=(f"https://discordapp.com/users/{ctx.message.author.id}"))
-        embed.add_field(name="User Information", value="")
-        embed.add_field(name="ID", value=user.id, inline=True)
-        embed.add_field(name="Status", value=user.status, inline=True)
-        embed.add_field(name="Roles", value=user.top_role)
-        embed.add_field(name="Joined", value=user.joined_at)
-        embed.add_field(name="Created", value=user.created_at)
-        embed.set_thumbnail(url=user.avatar_url)
+        roles = ", ".join(role.mention for role in user.roles[1::-1])
+        
+        embed = Embed(title = user, color=constants.Colours.blue, inline=False)
+        embed.add_field(name="User Information ", 
+        value=f"Account Created : {str(user.created_at)[0:10]}  \nProfile : <@{user.id}>  \nID : {user.id}", 
+        inline=False)
 
+        embed.add_field(name="Member Information", 
+        value=f"Joined : {str(user.joined_at)[0:10]}  \nRoles : {roles}", 
+        inline=False)
+        
+        embed.set_thumbnail(url=user.avatar_url)
         await ctx.send(embed=embed)
         
     
