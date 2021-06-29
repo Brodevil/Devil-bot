@@ -25,7 +25,8 @@ class Commands(commands.Cog):
     
     @commands.command(name="ping")
     async def ping(self, ctx: commands.Context):
-            await ctx.send(f">>> **Pong!** \nGateway Latency:  {round(self.bot.latency * 1000)} ms")
+        embed = discord.Embed(title="Pong!", color=constants.Colours.blue)
+        await ctx.send(f">>> **Pong!** \nGateway Latency:  {round(self.bot.latency * 1000)} ms")
     
     
     @commands.command(name="quit", aliases=("close", "bye"))
