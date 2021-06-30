@@ -106,23 +106,34 @@ class Commands(commands.Cog):
         server = ctx.guild
 
         created = functions.time_since(server.created_at, max_units=3)
-        memberCount = server.members
+        memberCount = server.member_count
         
-        online = len(list(filter(lambda member : member.status == discord.Status.online and not member.bot, memberCount)))
-        bots = len(list(filter(lambda member : member.bot, memberCount)))
+        online = len(list(filter(lambda member : member.status == discord.Status.online and not member.bot, server.members)))
+        bots = len(list(filter(lambda member : member.bot, server.members)))
         offline = memberCount - (bots + online)
+        description = server.description
 
-        embed = discord.Embed(
-            title=server.name +"\n",
-            description=server.description,
+        if description is None:
+            description = f"Created : {created} \nID : {server.id}  \nVoice Region : {server.region}   \nRoles : {server.roles}"
+            description2 = f"Members Status : <:online_status:859727593872031794> {online} |  <:offline_status:859727545157943316> {offline} |  <:bot_tag:859726932752990238> {bots}"
+        else:
+            description = f"Description : {description} \n\nCreated : {created} \nID : {server.id}  \nVoice Region : {server.region}  \nRoles : {server.roles}"
+            description2 = f"Members Status : <:online_status:859727593872031794> {online} |  <:offline_status:859727545157943316> {offline} |  <:bot_tag:859726932752990238> {bots}"
+        
+
+        embed = Embed(
+            title="Server's Information!",
             color=discord.Color.blue()
         )
 
         embed.set_thumbnail(url=server.icon_url)
-        embed.add_field(
-            value=f"Created : {created} \nID : {server.id}  \nVoice Region : {server.region}  \nMembers Status : <:online_status:859727593872031794> {online} |  <:offline_status:859727545157943316> {offline} |  <:bot_tag:859726932752990238> {bots}"
-            )
-        ctx.send(embed=embed)
+
+        embed.add_field(name=server.name, value=description, inline=True)
+        embed.add_field(name="Hello!", value=description2)
+        
+
+        await ctx.send(embed=embed)
+
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -141,6 +152,19 @@ class Commands(commands.Cog):
             if channel is not None:
                 await channel.send(embed=embed)
             await new_member.send(embed=embed)
+        
+    
+
+    @commands.command(name="mute", pass_context = True)
+    async def mute(self, ctx, member: discord.Member):
+     if ctx.message.author.server_permissions.administrator or ctx.message.author.id == constants.Client.OWNER_ID:
+        role = discord.utils.get(member.server.roles, name='Muted')
+        await bot.add_roles(member, role)
+        embed=discord.Embed(title="User Muted!", description="**{0}** was muted by **{1}**!".format(member, ctx.message.author), color=0xff00f6)
+        await bot.say(embed=embed)
+     else:
+        embed=discord.Embed(title="Permission Denied.", description="You don't have permission to use this command.", color=0xff00f6)
+        await ctx.say(embed=embed)
 
 
 

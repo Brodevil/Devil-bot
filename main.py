@@ -2,10 +2,12 @@ import logging
 
 from discord.ext import commands
 import discord
+import asyncio
 
 from bot.commands import setup
 from bot.constants import Client
 
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorLoopPolicy())
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
@@ -20,6 +22,7 @@ activity = discord.Game(name="The Bot is Currently under the Development by Brod
 bot = commands.Bot(command_prefix="!", activity=activity, status=discord.Status.online)
 
 
+
 @bot.event
 async def on_ready():
     print('Bot had Logged in as :- {0} ({0.id})'.format(bot.user))
@@ -28,3 +31,4 @@ async def on_ready():
 
 setup(bot)
 bot.run(Client.TOKEN)
+
