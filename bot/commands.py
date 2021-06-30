@@ -56,7 +56,7 @@ class Commands(commands.Cog):
         
         icon = ctx.message.author.avatar_url_as(format="png")
         embed = Embed(description=content, color=constants.Colours.orange)
-        embed.set_author(name=f"{ctx.message.author}", icon_url=icon,  url=(f"https://discordapp.com/users/{ctx.message.author.id}"))
+        embed.set_author(name=ctx.message.author, icon_url=icon,  url=(f"https://discordapp.com/users/{ctx.message.author.id}"))
         
         await channel.send(embed=embed)
 
@@ -88,8 +88,8 @@ class Commands(commands.Cog):
         joined = functions.time_since(user.joined_at, max_units=3)
         
         embed = Embed(title =name, color=constants.Colours.blue, inline=False)
-        embed.add_field(name="User Information ", 
-        value=f"Account Created : {created}  \nProfile : <@{user.id}>  \nID : {user.id}", 
+        embed.add_field(name="User Information \n", 
+        value=f"Created : {created}  \nProfile : <@{user.id}>  \nID : {user.id}", 
         inline=False)
 
         embed.add_field(name="Member Information", 
@@ -100,6 +100,29 @@ class Commands(commands.Cog):
         await ctx.send(embed=embed)
         
     
+
+    @commands.command(name="server")
+    async def server_info(self, ctx: commands.Context):
+        server = ctx.guild
+
+        created = functions.time_since(server.created_at, max_units=3)
+        memberCount = server.members
+        
+        online = len(list(filter(lambda member : member.status == discord.Status.online and not member.bot, memberCount)))
+        bots = len(list(filter(lambda member : member.bot, memberCount)))
+        offline = memberCount - (bots + online)
+
+        embed = discord.Embed(
+            title=server.name +"\n",
+            description=server.description,
+            color=discord.Color.blue()
+        )
+
+        embed.set_thumbnail(url=server.icon_url)
+        embed.add_field(
+            value=f"Created : {created} \nID : {server.id}  \nVoice Region : {server.region}  \nMembers Status : <:online_status:859727593872031794> {online} |  <:offline_status:859727545157943316> {offline} |  <:bot_tag:859726932752990238> {bots}"
+            )
+        ctx.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
