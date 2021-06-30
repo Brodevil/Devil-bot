@@ -7,6 +7,8 @@ from discord.ext import commands
 from discord import Embed
 
 from bot import constants
+from bot import functions
+
 
 log = logging.getLogger(__name__)
 
@@ -51,11 +53,11 @@ class Commands(commands.Cog):
     @commands.command(name="dm")
     async def send_dm(self, ctx, member: discord.Member, *, content):
         channel = await member.create_dm()
+        
         icon = ctx.message.author.avatar_url_as(format="png")
-
-
         embed = Embed(description=content, color=constants.Colours.orange)
-        embed.set_author(name=f"{ctx.message.author.name}", icon_url=icon,  url=(f"https://discordapp.com/users/{ctx.message.author.id}"))
+        embed.set_author(name=f"{ctx.message.author}", icon_url=icon,  url=(f"https://discordapp.com/users/{ctx.message.author.id}"))
+        
         await channel.send(embed=embed)
 
 
@@ -75,16 +77,23 @@ class Commands(commands.Cog):
     async def user(self, ctx: commands.Context, user: discord.Member = None):
         if user is None:
             user = ctx.message.author
+
+        name = str(user)
+        if user.nick:
+            name = f"{user.nick} ({name})"
         
-        roles = ", ".join(role.mention for role in user.roles[1::-1])
+        roles = ", ".join(role.mention for role in user.roles[1:])
+    
+        created = functions.time_since(user.created_at, max_units=3)
+        joined = functions.time_since(user.joined_at, max_units=3)
         
-        embed = Embed(title = user, color=constants.Colours.blue, inline=False)
+        embed = Embed(title =name, color=constants.Colours.blue, inline=False)
         embed.add_field(name="User Information ", 
-        value=f"Account Created : {str(user.created_at)[0:10]}  \nProfile : <@{user.id}>  \nID : {user.id}", 
+        value=f"Account Created : {created}  \nProfile : <@{user.id}>  \nID : {user.id}", 
         inline=False)
 
         embed.add_field(name="Member Information", 
-        value=f"Joined : {str(user.joined_at)[0:10]}  \nRoles : {roles}", 
+        value=f"Joined : {joined}  \nRoles : {roles}", 
         inline=False)
         
         embed.set_thumbnail(url=user.avatar_url)
