@@ -7,7 +7,6 @@ import asyncio
 from bot.commands import setup
 from bot.constants import Client
 
-asyncio.set_event_loop_policy(asyncio.WindowsSelectorLoopPolicy())
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)

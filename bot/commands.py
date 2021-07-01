@@ -106,30 +106,33 @@ class Commands(commands.Cog):
         server = ctx.guild
 
         created = functions.time_since(server.created_at, max_units=3)
-        memberCount = server.member_count
         
-        online = len(list(filter(lambda member : member.status == discord.Status.online and not member.bot, server.members)))
-        bots = len(list(filter(lambda member : member.bot, server.members)))
-        offline = memberCount - (bots + online)
+
+        # member info
+        online = sum(member.status!=discord.Status.offline and not member.bot for member in server.members)
+        print(discord.Status.offline)
+        print(discord.Status.online)
+
         description = server.description
+        server_roles = len(ctx.guild.roles) - 1     # leaving @everyone
 
-        if description is None:
-            description = f"Created : {created} \nID : {server.id}  \nVoice Region : {server.region}   \nRoles : {server.roles}"
-            description2 = f"Members Status : <:online_status:859727593872031794> {online} |  <:offline_status:859727545157943316> {offline} |  <:bot_tag:859726932752990238> {bots}"
-        else:
-            description = f"Description : {description} \n\nCreated : {created} \nID : {server.id}  \nVoice Region : {server.region}  \nRoles : {server.roles}"
-            description2 = f"Members Status : <:online_status:859727593872031794> {online} |  <:offline_status:859727545157943316> {offline} |  <:bot_tag:859726932752990238> {bots}"
-        
+        server_info = [f"Created : {created}", f"ID : {server.id}", f"Voice Region : {server.region}", f"Roles : {server_roles}", 
+                        f"Members Status : <:online_status:859727593872031794> {online} |  <:offline_status:859727545157943316> {offline}"]
 
-        embed = Embed(
-            title="Server's Information!",
-            color=discord.Color.blue()
-        )
+        if description is not None:
+            server_info.insert(0, f"Description : {description}\n")
 
+        embed = Embed(title=server.name, color=discord.Color.blue(), description='\n'.join(server_info))
         embed.set_thumbnail(url=server.icon_url)
 
-        embed.add_field(name=server.name, value=description, inline=True)
-        embed.add_field(name="Hello!", value=description2)
+       
+       # Channesl
+        total_channels = len(ctx.guild.channels)
+        channel_counts = self.get_channel_type_counts(server)
+        channel_info = "\n".join(
+            f"{channel.title()}: {count}" for channel, count in sorted(channel_counts.items())
+        )
+        embed.add_field(name=f"Channels: {total_channels}", value=channel_info)
         
 
         await ctx.send(embed=embed)
