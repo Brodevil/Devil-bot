@@ -10,7 +10,6 @@ from discord import Embed
 from bot import constants
 from bot import functions
 
-
 log = logging.getLogger(__name__)
 
 
@@ -20,11 +19,9 @@ class Commands(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-
     @commands.command(name="hello", aliases=("hey", "hlo",))
     async def hello_world(self, ctx: commands.Context):
         await ctx.message.add_reaction("👋")
-
 
     @commands.command(name="ping")
     async def ping(self, ctx: commands.Context):
@@ -40,8 +37,7 @@ class Commands(commands.Cog):
 
         await message.edit(content="", embed=embed)
 
-
-    @commands.command(name="quit", aliases=("close", "bye", "logout", ))
+    @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
         is_owner = await ctx.bot.is_owner(ctx.author)
         if is_owner:
@@ -50,17 +46,16 @@ class Commands(commands.Cog):
             log.exception(f"{self.bot.user} had logged out by the bot author")
             sys.exit(0)
 
-
     @commands.command(name="dm")
     async def send_dm(self, ctx, member: discord.Member, *, content):
         channel = await member.create_dm()
-        
+
         icon = ctx.message.author.avatar_url_as(format="png")
         embed = Embed(description=content, color=constants.Colours.orange)
-        embed.set_author(name=ctx.message.author, icon_url=icon,  url=(f"https://discordapp.com/users/{ctx.message.author.id}"))
-        
-        await channel.send(embed=embed)
+        embed.set_author(name=ctx.message.author, icon_url=icon,
+                         url=(f"https://discordapp.com/users/{ctx.message.author.id}"))
 
+        await channel.send(embed=embed)
 
     @commands.command(name="setstatus", aliases=("status", "ss",))
     async def setstatus(self, ctx: commands.Context, *, text: str):
@@ -69,13 +64,11 @@ class Commands(commands.Cog):
             await self.bot.change_presence(activity=discord.Game(name=text))
             await ctx.message.add_reaction("👍")
 
-
     @commands.command(pass_context=True, name="nick", aliases=("chnick", "nickname"))
     async def chnick(self, ctx, member: discord.Member, *, nick):
         await member.edit(nick=nick)
 
-
-    @commands.command(name="user", aliases=("u", ))
+    @commands.command(name="user", aliases=("u",))
     async def user(self, ctx: commands.Context, user: discord.Member = None):
         if user is None:
             user = ctx.message.author
@@ -83,43 +76,41 @@ class Commands(commands.Cog):
         name = str(user)
         if user.nick:
             name = f"{user.nick} ({name})"
-        
+
         roles = ", ".join(role.mention for role in user.roles[1:])
-    
+
         created = functions.time_since(user.created_at, max_units=3)
         joined = functions.time_since(user.joined_at, max_units=3)
-        
-        embed = Embed(title =name, color=constants.Colours.blue, inline=False)
-        embed.add_field(name="User Information \n", 
-        value=f"Created : {created}  \nProfile : <@{user.id}>  \nID : {user.id}", 
-        inline=False)
 
-        embed.add_field(name="Member Information", 
-        value=f"Joined : {joined}  \nRoles : {roles}", 
-        inline=False)
-        
+        embed = Embed(title=name, color=constants.Colours.blue, inline=False)
+        embed.add_field(name="User Information \n",
+                        value=f"Created : {created}  \nProfile : <@{user.id}>  \nID : {user.id}",
+                        inline=False)
+
+        embed.add_field(name="Member Information",
+                        value=f"Joined : {joined}  \nRoles : {roles}",
+                        inline=False)
+
         embed.set_thumbnail(url=user.avatar_url)
         await ctx.send(embed=embed)
-        
-    
 
     @commands.command(name="server")
     async def server_info(self, ctx: commands.Context):
         server = ctx.guild
 
         created = functions.time_since(server.created_at, max_units=3)
-        
 
         # member info
-        online = sum(member.status!=discord.Status.offline and not member.bot for member in server.members)
+        online = sum(member.status != discord.Status.offline and not member.bot for member in server.members)
         bots = sum(member.bot is True for member in server.members)
         offline = server.member_count - (online + bots)
 
         description = server.description
-        server_roles = len(ctx.guild.roles) - 1     # leaving @everyone
+        server_roles = len(ctx.guild.roles) - 1  # leaving @everyone
 
-        server_info = [f"Created : {created}", f"ID : {server.id}", f"Voice Region : {server.region}", f"Roles : {server_roles}", 
-                        f"Members Status : <:online_status:859727593872031794> {online}   <:offline_status:859727545157943316> {offline}   <:bot_tag:859726932752990238> {bots}"]
+        server_info = [f"Created : {created}", f"ID : {server.id}", f"Voice Region : {server.region}",
+                       f"Roles : {server_roles}",
+                       f"Members Status : <:online_status:859727593872031794> {online}   <:offline_status:859727545157943316> {offline}   <:bot_tag:859726932752990238> {bots}"]
 
         if description is not None:
             server_info.insert(0, f"Description : {description}\n")
@@ -127,30 +118,26 @@ class Commands(commands.Cog):
         embed = Embed(title=server.name, color=discord.Color.blue(), description='\n'.join(server_info))
         embed.set_thumbnail(url=server.icon_url)
 
-       
-       # Channesl
+        # Channesl
         total_channels = len(server.channels)
         pprint(discord.ChannelType(server.channels[0]))
-
-
 
         # channel_info = "\n".join(
         #     f"{channel.title()}: {count}" for channel, count in sorted(channel_counts.items())
         # )
         # embed.add_field(name=f"Channels: {total_channels}", value=channel_info)
-        
 
         await ctx.send(embed=embed)
-
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
         channel = member.guild.system_channel
         if channel is not None:
-            embed = Embed(title="{}'s info".format(member.name), description="Welcome too {}".format(member.guild.name), color=constants.Colours.blue)
-            embed.add_field(name="Name", value=member.name, inline=True)
-            embed.add_field(name="ID", value=member.id, inline=True)
-            embed.add_field(name="Status", value=member.status, inline=True)
+            embed = Embed(title="{}'s info".format(member.name), description="Welcome too {}".format(member.guild.name),
+                          color=constants.Colours.blue)
+            embed.add_field(name="Name", value=member.name)
+            embed.add_field(name="ID", value=member.id)
+            embed.add_field(name="Status", value=member.status)
             embed.add_field(name="Roles", value=member.top_role)
             embed.add_field(name="Joined", value=member.joined_at)
             embed.add_field(name="Created", value=member.created_at)
@@ -160,20 +147,20 @@ class Commands(commands.Cog):
             if channel is not None:
                 await channel.send(embed=embed)
             await new_member.send(embed=embed)
-        
-    
 
-    @commands.command(name="mute", pass_context = True)
+    @commands.command(name="mute", pass_context=True)
     async def mute(self, ctx, member: discord.Member):
-     if ctx.message.author.server_permissions.administrator or ctx.message.author.id == constants.Client.OWNER_ID:
-        role = discord.utils.get(member.server.roles, name='Muted')
-        await bot.add_roles(member, role)
-        embed=discord.Embed(title="User Muted!", description="**{0}** was muted by **{1}**!".format(member, ctx.message.author), color=0xff00f6)
-        await bot.say(embed=embed)
-     else:
-        embed=discord.Embed(title="Permission Denied.", description="You don't have permission to use this command.", color=0xff00f6)
-        await ctx.say(embed=embed)
-
+        if ctx.message.author.server_permissions.administrator or ctx.message.author.id == constants.Client.OWNER_ID:
+            role = discord.utils.get(member.server.roles, name='Muted')
+            await bot.add_roles(member, role)
+            embed = discord.Embed(title="User Muted!",
+                                  description="**{0}** was muted by **{1}**!".format(member, ctx.message.author),
+                                  color=0xff00f6)
+            await bot.say(embed=embed)
+        else:
+            embed = discord.Embed(title="Permission Denied.",
+                                  description="You don't have permission to use this command.", color=0xff00f6)
+            await ctx.say(embed=embed)
 
 
 def setup(bot: commands.Bot):

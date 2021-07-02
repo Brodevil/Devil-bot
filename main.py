@@ -2,7 +2,6 @@ import logging
 
 from discord.ext import commands
 import discord
-import asyncio
 
 from bot.commands import setup
 from bot.constants import Client
@@ -17,8 +16,8 @@ logger.addHandler(handler)
 
 intents = discord.Intents(messages=True, guilds=True)
 intents.reactions = True
-intents.typing = True
-intents.presences = True
+intents.typing = False
+intents.presences = False
 intents.members = True
 
 activity = discord.Game(name="The Bot is Currently under the Development by Brodevil#0001")
@@ -33,4 +32,3 @@ async def on_ready():
 
 setup(bot)
 bot.run(Client.TOKEN)
-
