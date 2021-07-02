@@ -15,11 +15,14 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 
-intents = discord.Intents.default()
+intents = discord.Intents(messages=True, guilds=True)
+intents.reactions = True
+intents.typing = True
+intents.presences = True
 intents.members = True
-activity = discord.Game(name="The Bot is Currently under the Development by Brodevil#0001")
-bot = commands.Bot(command_prefix="!", activity=activity, status=discord.Status.online)
 
+activity = discord.Game(name="The Bot is Currently under the Development by Brodevil#0001")
+bot = commands.Bot(command_prefix="!", activity=activity, status=discord.Status.online, intents=intents)
 
 
 @bot.event

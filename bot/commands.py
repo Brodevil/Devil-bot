@@ -1,6 +1,7 @@
 import logging
 import sys
 import time
+from pprint import pprint
 
 import discord
 from discord.ext import commands
@@ -108,18 +109,17 @@ class Commands(commands.Cog):
 
         created = functions.time_since(server.created_at, max_units=3)
         
-        print(server.members)
+
         # member info
-        online = len(list(member.status!=discord.Status.offline and not member.bot for member in server.members))
-        bots = len(list(member.bot is True for member in server.members))
+        online = sum(member.status!=discord.Status.offline and not member.bot for member in server.members)
+        bots = sum(member.bot is True for member in server.members)
         offline = server.member_count - (online + bots)
-        print(online, offline, bots)
 
         description = server.description
         server_roles = len(ctx.guild.roles) - 1     # leaving @everyone
 
         server_info = [f"Created : {created}", f"ID : {server.id}", f"Voice Region : {server.region}", f"Roles : {server_roles}", 
-                        f"Members Status : <:online_status:859727593872031794> {online}   <:offline_status:859727545157943316> {offline}"]
+                        f"Members Status : <:online_status:859727593872031794> {online}   <:offline_status:859727545157943316> {offline}   <:bot_tag:859726932752990238> {bots}"]
 
         if description is not None:
             server_info.insert(0, f"Description : {description}\n")
@@ -129,8 +129,11 @@ class Commands(commands.Cog):
 
        
        # Channesl
-        # total_channels = len(ctx.guild.channels)
-        # channel_counts = self.bot.get_channel_type_counts(server)
+        total_channels = len(server.channels)
+        pprint(discord.ChannelType(server.channels[0]))
+
+
+
         # channel_info = "\n".join(
         #     f"{channel.title()}: {count}" for channel, count in sorted(channel_counts.items())
         # )
