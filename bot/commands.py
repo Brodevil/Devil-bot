@@ -79,8 +79,8 @@ class Commands(commands.Cog):
 
         roles = ", ".join(role.mention for role in user.roles[1:])
 
-        created = functions.time_since(user.created_at, max_units=3)
-        joined = functions.time_since(user.joined_at, max_units=3)
+        created = time.time_since(user.created_at, max_units=3)
+        joined = time.time_since(user.joined_at, max_units=3)
 
         embed = Embed(title=name, color=constants.Colours.blue, inline=False)
         embed.add_field(name="User Information \n",
@@ -96,14 +96,15 @@ class Commands(commands.Cog):
 
     @commands.command(name="server")
     async def server_info(self, ctx: commands.Context):
-        server = ctx.guild
 
-        created = functions.time_since(server.created_at, max_units=3)
+        server = ctx.guild
+        created = time.time_since(server.created_at, max_units=3)
 
         # member info
         online = sum(member.status != discord.Status.offline and not member.bot for member in server.members)
         bots = sum(member.bot is True for member in server.members)
         offline = server.member_count - (online + bots)
+
 
         description = server.description
         server_roles = len(ctx.guild.roles) - 1  # leaving @everyone
@@ -115,13 +116,13 @@ class Commands(commands.Cog):
         if description is not None:
             server_info.insert(0, f"Description : {description}\n")
 
-        embed = Embed(title=server.name, color=discord.Color.blue(), description='\n'.join(server_info))
-        embed.set_thumbnail(url=server.icon_url)
-
-
         # Channel
         total_channels = len(server.channels)
         pprint(discord.ChannelType(server.channels[0]))
+
+        embed = Embed(title=server.name, color=discord.Color.blue(), description='\n'.join(server_info))
+        embed.set_thumbnail(url=server.icon_url)
+
 
 
         # channel_info = "\n".join(
