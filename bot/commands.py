@@ -8,7 +8,8 @@ from discord.ext import commands
 from discord import Embed
 
 from bot import constants
-from bot.utils import time
+from bot.utils.time import time_since
+
 
 log = logging.getLogger(__name__)
 
@@ -53,7 +54,7 @@ class Commands(commands.Cog):
         icon = ctx.message.author.avatar_url_as(format="png")
         embed = Embed(description=content, color=constants.Colours.orange)
         embed.set_author(name=ctx.message.author, icon_url=icon,
-                         url=(f"https://discordapp.com/users/{ctx.message.author.id}"))
+                         url=f"https://discordapp.com/users/{ctx.message.author.id}")
 
         await channel.send(embed=embed)
 
@@ -79,8 +80,8 @@ class Commands(commands.Cog):
 
         roles = ", ".join(role.mention for role in user.roles[1:])
 
-        created = time.time_since(user.created_at, max_units=3)
-        joined = time.time_since(user.joined_at, max_units=3)
+        created = time_since(user.created_at, max_units=3)
+        joined = time_since(user.joined_at, max_units=3)
 
         embed = Embed(title=name, color=constants.Colours.blue, inline=False)
         embed.add_field(name="User Information \n",
@@ -98,7 +99,7 @@ class Commands(commands.Cog):
     async def server_info(self, ctx: commands.Context):
 
         server = ctx.guild
-        created = time.time_since(server.created_at, max_units=3)
+        created = time_since(server.created_at, max_units=3)
 
         # member info
         online = sum(member.status != discord.Status.offline and not member.bot for member in server.members)
