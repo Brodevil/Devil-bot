@@ -66,6 +66,7 @@ class Commands(commands.Cog):
         is_owner = await ctx.bot.is_owner(ctx.author)
         if is_owner:
             await self.bot.change_presence(activity=discord.Game(name=text))
+            await ctx.message.add_reaction("👍")
 
 
     @commands.command(pass_context=True, name="nick", aliases=("chnick", "nickname"))
@@ -107,17 +108,18 @@ class Commands(commands.Cog):
 
         created = functions.time_since(server.created_at, max_units=3)
         
-
+        print(server.members)
         # member info
-        online = sum(member.status!=discord.Status.offline and not member.bot for member in server.members)
-        print(discord.Status.offline)
-        print(discord.Status.online)
+        online = len(list(member.status!=discord.Status.offline and not member.bot for member in server.members))
+        bots = len(list(member.bot is True for member in server.members))
+        offline = server.member_count - (online + bots)
+        print(online, offline, bots)
 
         description = server.description
         server_roles = len(ctx.guild.roles) - 1     # leaving @everyone
 
         server_info = [f"Created : {created}", f"ID : {server.id}", f"Voice Region : {server.region}", f"Roles : {server_roles}", 
-                        f"Members Status : <:online_status:859727593872031794> {online} |  <:offline_status:859727545157943316> {offline}"]
+                        f"Members Status : <:online_status:859727593872031794> {online}   <:offline_status:859727545157943316> {offline}"]
 
         if description is not None:
             server_info.insert(0, f"Description : {description}\n")
@@ -127,12 +129,12 @@ class Commands(commands.Cog):
 
        
        # Channesl
-        total_channels = len(ctx.guild.channels)
-        channel_counts = self.get_channel_type_counts(server)
-        channel_info = "\n".join(
-            f"{channel.title()}: {count}" for channel, count in sorted(channel_counts.items())
-        )
-        embed.add_field(name=f"Channels: {total_channels}", value=channel_info)
+        # total_channels = len(ctx.guild.channels)
+        # channel_counts = self.bot.get_channel_type_counts(server)
+        # channel_info = "\n".join(
+        #     f"{channel.title()}: {count}" for channel, count in sorted(channel_counts.items())
+        # )
+        # embed.add_field(name=f"Channels: {total_channels}", value=channel_info)
         
 
         await ctx.send(embed=embed)

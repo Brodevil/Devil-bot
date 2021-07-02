@@ -1,5 +1,3 @@
-from discord.ext import commands
-
-
-
-
+# Camel case 
+# calsal case 
+# snake case 
