@@ -8,7 +8,7 @@ from discord.ext import commands
 from discord import Embed
 
 from bot import constants
-from bot import functions
+from bot.utils import time
 
 log = logging.getLogger(__name__)
 
@@ -118,9 +118,11 @@ class Commands(commands.Cog):
         embed = Embed(title=server.name, color=discord.Color.blue(), description='\n'.join(server_info))
         embed.set_thumbnail(url=server.icon_url)
 
-        # Channesl
+
+        # Channel
         total_channels = len(server.channels)
         pprint(discord.ChannelType(server.channels[0]))
+
 
         # channel_info = "\n".join(
         #     f"{channel.title()}: {count}" for channel, count in sorted(channel_counts.items())
@@ -152,11 +154,11 @@ class Commands(commands.Cog):
     async def mute(self, ctx, member: discord.Member):
         if ctx.message.author.server_permissions.administrator or ctx.message.author.id == constants.Client.OWNER_ID:
             role = discord.utils.get(member.server.roles, name='Muted')
-            await bot.add_roles(member, role)
+            await ctx.add_roles(member, role)
             embed = discord.Embed(title="User Muted!",
                                   description="**{0}** was muted by **{1}**!".format(member, ctx.message.author),
                                   color=0xff00f6)
-            await bot.say(embed=embed)
+            await ctx.say(embed=embed)
         else:
             embed = discord.Embed(title="Permission Denied.",
                                   description="You don't have permission to use this command.", color=0xff00f6)
