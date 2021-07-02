@@ -16,8 +16,6 @@ logger.addHandler(handler)
 
 intents = discord.Intents(messages=True, guilds=True)
 intents.reactions = True
-intents.typing = False
-intents.presences = False
 intents.members = True
 
 activity = discord.Game(name="The Bot is Currently under the Development by Brodevil#0001")
