@@ -1,7 +1,27 @@
+import logging
+
 from dotenv import load_dotenv
 from os import environ
 
+from typing import Dict, NamedTuple
+
+
+__all__ = (
+    "Channels",
+    "Client",
+    "Colours",
+    "Emojis",
+    "ERROR_REPLIES",
+    "POSITIVE_REPLIES",
+    "NEGATIVE_REPLIES"
+)
+
+logging.getLogger(__name__)
 load_dotenv()
+
+
+class Channels(NamedTuple):
+    LOG_CHANNEL = environ.get("LOG_CHANNEL")
 
 
 class Client:
