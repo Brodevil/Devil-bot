@@ -1,27 +1,22 @@
+import logging
+
 from discord.ext import commands
 import discord 
 
+from bot.constants import Channels
+from bot.exts.backend.logging import setup
 
-# Camel case 
-# calsal case 
-# snake case 
-
-
-
-# Tasks :
-"""
-1. Bot class
-2. file formating
-3. utils, resources, exts
-4. cogs
-5. commmands in all seperact classes
-6. fun commands
-
-
-"""
-
+logging.getLogger(__name__)
 
 
 class Bot(commands.bot):
     def __init__(self):
         super().__init__()
+
+
+
+
+    async def on_ready(self):
+        print('Bot had Logged in as :- {0} ({0.id})'.format(self.user))
+        print('------' * 10)
+
