@@ -1,4 +1,4 @@
-from discord.ext.commands import bot 
+from discord.ext import commands
 import discord 
 
 
@@ -22,6 +22,6 @@ import discord
 
 
 
-class Bot(bot):
+class Bot(commands.bot):
     def __init__(self):
         super().__init__()
