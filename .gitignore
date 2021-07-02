@@ -18,3 +18,6 @@ discord.log
 __pycache__/
 
 
+# rough python file for just testing or running somthing
+rough.py
+
