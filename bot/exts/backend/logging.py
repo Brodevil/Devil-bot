@@ -1,9 +1,10 @@
 import logging
 
+from discord.ext.commands import Bot
 from discord import Embed
 from discord.ext.commands import Cog
 
-from bot.bot import Bot
+
 from bot.constants import Channels
 
 
@@ -19,7 +20,6 @@ class Logging(Cog):
 
 
     async def startup_log(self) -> None:
-        await self.bot.wait_until_guild_available()
         log.info("Bot connected!")
 
         embed = Embed(description="Connected!")
@@ -29,7 +29,7 @@ class Logging(Cog):
             icon_url=self.bot.user.avatar_url
         )
 
-        await self.bot.get_channel(Channels.dev_log).send(embed=embed)
+        await self.bot.get_channel(Channels.LOG_CHANNEL).send(embed=embed)
 
 
 def setup(bot: Bot) -> None:

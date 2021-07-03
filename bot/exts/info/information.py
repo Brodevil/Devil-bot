@@ -9,7 +9,7 @@ from discord import Embed
 from bot import constants
 from bot.utils.time import time_since
 
-logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 
@@ -94,3 +94,8 @@ class Information(commands.Cog):
             # embed.add_field(name=f"Channels: {total_channels}", value=channel_info)
 
             await ctx.send(embed=embed)
+
+
+def setup(bot: commands.Bot) -> None:
+    """Load the Logging cog."""
+    bot.add_cog(Information(bot))
