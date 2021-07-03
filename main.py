@@ -1,22 +1,33 @@
 import logging
+import sys
 
-import discord
+import traceback
 
 from bot.bot import bot
 from bot.constants import Client
 
 
-logging.getLogger(__name__)
+
+log = logging.getLogger(__name__)
 
 
-cogs = [
+extensions = [
     "bot.exts.backend.logging",
-    "bot.commands"
+    "bot.commands",
+    "bot.exts.moderation.messages"
 
 ]
 
-for cog in cogs:
-    bot.load_extension(cog)
 
+for extension in extensions:
+    try:
+        bot.load_extension(extension)
+    except Exception as e:
+        print(f'Error loading {extension}', file=sys.stderr)
+        traceback.print_exc()
+        log.error(f"Error Loding {extension}")
+
+else:
+    log.info("Loaded all the Extensions")
 
 bot.run(Client.TOKEN)
