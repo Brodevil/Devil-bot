@@ -34,6 +34,33 @@ class Bot_Controls(commands.Cog):
         if is_owner:
             await self.bot.change_presence(activity=discord.Game(name=text))
             await ctx.message.add_reaction("👍")
+
+            log.info(f"Bot's status changed to  :- {text}")
+        
+
+    @commands.command(name="dm")
+    async def send_dm(self, ctx, member: discord.Member, show_name:bool = True, *, content):
+        is_owner = await ctx.bot.is_owner(ctx.author)
+        if is_owner:
+            channel = await member.create_dm()
+                   
+            if show_name:
+                name = ctx.message.author.name
+                url = f"https://discordapp.com/users/{ctx.message.author.id}"
+                icon = ctx.message.author.avatar_url_as(format="png")
+
+            else:
+                name = self.bot.user.name
+                url = f"https://discordapp.com/users/{self.bot.user.id}"
+                icon = self.bot.user.avatar_url_as(format="png")
+            
+
+            embed = discord.Embed(description=content, color=discord.Color.orange)
+            embed.set_author(name=name, icon_url=icon, url=url)
+
+            await channel.send(embed=embed)
+            await ctx.message.add_reaction("👌")
+
         
 
 def setup(bot: commands.Bot):
