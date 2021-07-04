@@ -72,7 +72,12 @@ class Emojis:
     x = "\U0001f1fd"
     o = "\U0001f1f4"
 
-    status_online = "<:status_online:470326272351010816>"
-    status_offline = "<:status_offline:470326266537705472>"
+    status_online = "<:online:803963245567541289>"
+    status_offline = "<:offline:803963259207286834>"
+    status_idle = "<:idle:803963256141512724>"
+    status_dnd = "<:dnd:803963262269259796>"
+
+    discord_nitro = "<:discord_nitro:861120906034020372>"
+
 
 
