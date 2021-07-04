@@ -24,7 +24,7 @@ class Logging(Cog):
 
         embed = Embed(description="Connected!")
         embed.set_author(
-            name=self.bot.name,
+            name=self.bot.user.name,
             url="https://github.com/Brodevil/Devil-bot",
             icon_url=self.bot.user.avatar_url
         )
