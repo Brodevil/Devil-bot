@@ -1,7 +1,5 @@
 import logging
-
-from dotenv import load_dotenv
-from os import environ
+import config 
 
 from typing import Dict, NamedTuple
 
@@ -14,17 +12,16 @@ __all__ = (
 )
 
 logging.getLogger(__name__)
-load_dotenv()
 
 
 class Channels(NamedTuple):
-    LOG_CHANNEL = environ.get("LOG_CHANNEL")
+    LOG_CHANNEL = config.LOG_CHANNEL
 
 
 class Client:
     BOT_NAME = "Mr. Devil"
-    TOKEN = environ.get("TOKEN")
-    OWNER_ID = int(environ.get("OWNER_ID"))
+    TOKEN = config.TOKEN
+    OWNER_ID = config.Variables.OWNER_ID
 
 
 class Colours:
