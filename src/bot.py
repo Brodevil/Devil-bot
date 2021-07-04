@@ -24,18 +24,26 @@ class Bot(commands.Bot):
         print('------' * 11)
     
 
-    def loading_extensions(self, extensions : callable_iterator, reload=False ):
-        for extension in extensions:
+    def loading_extensions(self, extensions : callable_iterator, reload=False, extension=None):
+        if extension is None:
+            for extension in extensions:
+                try:
+                    if reload:
+                        self.reload_extension(extension)
+                    else:
+                        self.load_extension(extension)
+                except Exception as error:
+                    print('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error),  file=sys.stderr)
+                    traceback.print_exc()
+                    log.error('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error))
+        else:
             try:
-                if reload:
-                    self.reload_extension(extension)
-                else:
-                    self.load_extension(extension)
+                self.reload_extension(extension)
             except Exception as error:
                 print('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error),  file=sys.stderr)
                 traceback.print_exc()
                 log.error('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error))
-    
+
 
 
 _intents = discord.Intents(messages=True, guilds=True)
