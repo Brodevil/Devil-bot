@@ -1,9 +1,7 @@
 import logging
 
-from discord.ext.commands import Bot
+from discord.ext import commands
 from discord import Embed
-from discord.ext.commands import Cog
-
 
 from bot.constants import Channels
 
@@ -11,10 +9,10 @@ from bot.constants import Channels
 log = logging.getLogger(__name__)
 
 
-class Logging(Cog):
+class Logging(commands.Cog):
     """Debug logging module."""
 
-    def __init__(self, bot: Bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.bot.loop.create_task(self.startup_log())
 
@@ -32,6 +30,6 @@ class Logging(Cog):
         await self.bot.get_channel(Channels.LOG_CHANNEL).send(embed=embed)
 
 
-def setup(bot: Bot) -> None:
+def setup(bot: commands.Bot) -> None:
     """Load the Logging cog."""
     bot.add_cog(Logging(bot))
