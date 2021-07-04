@@ -38,19 +38,12 @@ class Commands(commands.Cog):
 
         await message.edit(content="", embed=embed)
 
-    @commands.command(name="quit", aliases=("close", "bye", "logout",))
-    async def quit(self, ctx: commands.Context):
-        is_owner = await ctx.bot.is_owner(ctx.author)
-        if is_owner:
-            await ctx.message.add_reaction("👋")
-            await self.bot.close()
-            log.exception(f"{self.bot.user} had logged out by the bot author")
-            sys.exit(0)
-
 
     @commands.command(pass_context=True, name="nick", aliases=("chnick", "nickname"))
     async def chnick(self, ctx, member: discord.Member, *, nick):
         await member.edit(nick=nick)
+
+
 
 
 
