@@ -77,7 +77,9 @@ class Emojis:
     status_idle = "<:idle:803963256141512724>"
     status_dnd = "<:dnd:803963262269259796>"
 
+    bots = "<:bot_tag:859726932752990238>"
     discord_nitro = "<:discord_nitro:861120906034020372>"
+
 
 
 

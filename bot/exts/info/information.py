@@ -86,17 +86,21 @@ class Information(commands.Cog):
             bots = sum(member.bot is True for member in server.members)
             offline = server.member_count - (online + bots)
 
+            member_info = [f"{constants.Emojis.status_online}  {online}", f"{constants.Emojis.status_offline}  {offline} ", f"{constants.Emojis.bots}  {bots}"]
+
 
             # Channel
             total_channels = len(server.channels)
+           
+            channels_info = [f"Stage Channels : {len(server.stage_channels)}", f"Text Channels : {len(server.text_channels)}", 
+                             f"Voice Channels : {len(server.voice_channels)}", f"Categories : {len(server.categories)}"]
+
 
             embed = Embed(title=server.name, color=discord.Color.blue(), description='\n'.join(server_info))
             embed.set_thumbnail(url=server.icon_url)
 
-            # channel_info = "\n".join(
-            #     f"{channel.title()}: {count}" for channel, count in sorted(channel_counts.items())
-            # )
-            # embed.add_field(name=f"Channels: {total_channels}", value=channel_info)
+            embed.add_field(name=f'Channels : {total_channels}', value="\n".join(channels_info))
+            embed.add_field(name=f"Members : {total_members}", value="\n".join())
 
             await ctx.send(embed=embed)
 
