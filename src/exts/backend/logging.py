@@ -3,7 +3,7 @@ import logging
 from discord.ext import commands
 from discord import Embed
 
-from bot.constants import Channels
+from src.constants import Channels
 
 
 log = logging.getLogger(__name__)

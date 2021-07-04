@@ -3,7 +3,7 @@ import logging
 from discord.ext import commands
 import discord 
 
-from bot.constants import Channels
+from src.constants import Channels
 
 
 log = logging.getLogger(__name__)
@@ -13,7 +13,7 @@ __all__ = ("Bot", "bot")
 
 
 class Bot(commands.Bot):
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
 
 

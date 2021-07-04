@@ -3,8 +3,8 @@ import sys
 
 import traceback
 
-from bot.bot import bot
-from bot.constants import Client
+from src.bot import bot
+from src.constants import Client
 
 
 log = logging.getLogger(__name__)
@@ -12,10 +12,10 @@ log = logging.getLogger(__name__)
 
 # extensions loading
 extensions = [
-    "bot.exts.backend.logging",
-    "bot.commands",
-    "bot.exts.moderation.bot_control",
-    "bot.exts.info.information"
+    "src.exts.backend.logging",
+    "src.commands",
+    "src.exts.moderation.bot_control",
+    "src.exts.info.information"
 
 ]
 

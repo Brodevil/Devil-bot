@@ -5,8 +5,8 @@ from discord.ext import commands
 import discord
 from discord import Embed
 
-from bot import constants
-from bot.utils.time import time_since
+from src import constants
+from src.utils.time import time_since
 
 log = logging.getLogger(__name__)
 
