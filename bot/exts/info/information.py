@@ -1,6 +1,5 @@
 import logging
 import time
-from pprint import pprint
 
 from discord.ext import commands
 import discord
@@ -66,27 +65,30 @@ class Information(commands.Cog):
         @commands.command(name="server")
         async def server_info(self, ctx: commands.Context):
             """ Server infomations """
+
+
+            # server info
             server = ctx.guild
+            description = server.description
             created = time_since(server.created_at, max_units=3)
+            server_roles = len(ctx.guild.roles) - 1  # leaving @everyone
+
+            server_info = [f"Created : {created}", f"ID : {server.id}", f"Voice Region : {server.region}",
+                           f"Roles : {server_roles}", f"Server Boosts :  **{server.premium_subscription_count}** {constants.Emojis.discord_nitro}"]
+
+            if description is not None:
+                server_info.insert(0, f"Description : {description}\n")
+        
 
             # member info
+            total_members = server.member_count
             online = sum(member.status != discord.Status.offline and not member.bot for member in server.members)
             bots = sum(member.bot is True for member in server.members)
             offline = server.member_count - (online + bots)
 
-            description = server.description
-            server_roles = len(ctx.guild.roles) - 1  # leaving @everyone
-
-            server_info = [f"Created : {created}", f"ID : {server.id}", f"Voice Region : {server.region}",
-                           f"Roles : {server_roles}",
-                           f"Members Status : <:online_status:859727593872031794> {online}   <:offline_status:859727545157943316> {offline}   <:bot_tag:859726932752990238> {bots}"]
-
-            if description is not None:
-                server_info.insert(0, f"Description : {description}\n")
 
             # Channel
             total_channels = len(server.channels)
-            pprint(discord.ChannelType(server.channels[0]))
 
             embed = Embed(title=server.name, color=discord.Color.blue(), description='\n'.join(server_info))
             embed.set_thumbnail(url=server.icon_url)
