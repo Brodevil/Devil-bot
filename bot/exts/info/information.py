@@ -74,7 +74,7 @@ class Information(commands.Cog):
             server_roles = len(ctx.guild.roles) - 1  # leaving @everyone
 
             server_info = [f"Created : {created}", f"ID : {server.id}", f"Voice Region : {server.region}",
-                           f"Roles : {server_roles}", f"Server Boosts :  **{server.premium_subscription_count}** {constants.Emojis.discord_nitro}"]
+                           f"Roles : {server_roles}", f"Server Boosts :  **{server.premium_subscription_count}** {constants.Emojis.nitro_boost}"]
 
             if description is not None:
                 server_info.insert(0, f"Description : {description}\n")
@@ -95,12 +95,11 @@ class Information(commands.Cog):
             channels_info = [f"Stage Channels : {len(server.stage_channels)}", f"Text Channels : {len(server.text_channels)}", 
                              f"Voice Channels : {len(server.voice_channels)}", f"Categories : {len(server.categories)}"]
 
-
+            # embed
             embed = Embed(title=server.name, color=discord.Color.blue(), description='\n'.join(server_info))
             embed.set_thumbnail(url=server.icon_url)
-
             embed.add_field(name=f'Channels : {total_channels}', value="\n".join(channels_info))
-            embed.add_field(name=f"Members : {total_members}", value="\n".join())
+            embed.add_field(name=f"Members : {total_members}", value="\n".join(member_info))
 
             await ctx.send(embed=embed)
 

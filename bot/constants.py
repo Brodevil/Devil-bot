@@ -78,7 +78,7 @@ class Emojis:
     status_dnd = "<:dnd:803963262269259796>"
 
     bots = "<:bot_tag:859726932752990238>"
-    discord_nitro = "<:discord_nitro:861120906034020372>"
+    nitro_boost = "<a:nitro_boost:861146239084658709>"
 
 
 
