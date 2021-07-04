@@ -21,6 +21,7 @@ class Information(commands.Cog):
 
     @commands.command(name="user", aliases=("u",))
     async def user(self, ctx: commands.Context, user: discord.Member = None):
+        """ user informations """
         if user is None:
             user = ctx.message.author
 
@@ -45,8 +46,10 @@ class Information(commands.Cog):
         embed.set_thumbnail(url=user.avatar_url)
         await ctx.send(embed=embed)
 
+
         @commands.command(name="ping")
         async def ping(self, ctx: commands.Context):
+            """ping of Bot"""
             start_time = time.time()
             message = await ctx.send("Testing Ping...")
             end_time = time.time()
@@ -62,7 +65,7 @@ class Information(commands.Cog):
 
         @commands.command(name="server")
         async def server_info(self, ctx: commands.Context):
-
+            """ Server infomations """
             server = ctx.guild
             created = time_since(server.created_at, max_units=3)
 
