@@ -1,0 +1,9 @@
+{
+    "cogs": [
+        "bot.exts.backend.logging",
+        "bot.exts.moderation.bot_control",
+        "bot.exts.info.information",
+        "bot.commands"
+
+    ]
+}

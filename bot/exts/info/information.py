@@ -36,10 +36,11 @@ class Information(commands.Cog):
 
 
     @commands.command(name="user", aliases=("u",))
+    @commands.guild_only()
     async def user(self, ctx: commands.Context, user: discord.Member = None):
         """ user informations """
         if user is None:
-            user = ctx.message.author
+            user = ctx.author
 
         name = str(user)
         if user.nick:
@@ -105,6 +106,6 @@ class Information(commands.Cog):
             await ctx.send(embed=embed)
 
 
-def setup(bot: commands.Bot) -> None:
+def setup(bot: commands.Bot):
     """Load the Logging cog."""
     bot.add_cog(Information(bot))

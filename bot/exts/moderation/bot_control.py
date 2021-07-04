@@ -14,7 +14,6 @@ class Bot_Controls(commands.Cog):
     """Bot Control by owner of the Bot"""
     
     def __init__(self, bot: commands.Bot):
-        super().__init__(bot)
         self.bot = bot
     
     
