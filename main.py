@@ -14,7 +14,8 @@ log = logging.getLogger(__name__)
 extensions = [
     "bot.exts.backend.logging",
     "bot.commands",
-    "bot.exts.moderation.messages"
+    "bot.exts.moderation.messages",
+    "bot.exts.info.information"
 
 ]
 
