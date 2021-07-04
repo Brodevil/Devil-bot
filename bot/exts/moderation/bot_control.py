@@ -39,8 +39,9 @@ class Bot_Controls(commands.Cog):
         
 
     @commands.command(name="dm")
-    async def send_dm(self, ctx, member: discord.Member, show_name:bool = True, *, content):
+    async def send_dm(self, ctx, member: discord.Member, *, content, show_name:bool = True):
         is_owner = await ctx.bot.is_owner(ctx.author)
+        
         if is_owner:
             channel = await member.create_dm()
                    

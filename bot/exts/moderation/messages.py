@@ -9,7 +9,6 @@ log = logging.getLogger(__name__)
 class Messaging(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
-        super().__init__(bot)
         self.bot = bot
 
     
