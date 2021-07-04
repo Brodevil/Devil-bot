@@ -17,6 +17,23 @@ class Information(commands.Cog):
 
     def __init__(self, bot: commands.bot):
         self.bot = bot
+    
+
+    @commands.command(name="ping")
+    async def ping(self, ctx: commands.Context):
+        """ping of Bot"""
+        start_time = time.time()
+        message = await ctx.send("Testing Ping...")
+        end_time = time.time()
+
+        embed = Embed(
+            title="Pong!",
+            color=constants.Colours.blue)
+        embed.add_field(name=f"Gateway Latency : ", value=f"{round(self.bot.latency * 1000)} ms", inline=False)
+        embed.add_field(name=f"Discord API latency :", value=f"{str(end_time - start_time)[2:5]} ms", inline=False)
+
+        await message.edit(content="", embed=embed)
+
 
     @commands.command(name="user", aliases=("u",))
     async def user(self, ctx: commands.Context, user: discord.Member = None):
@@ -46,23 +63,7 @@ class Information(commands.Cog):
         await ctx.send(embed=embed)
 
 
-        @commands.command(name="ping")
-        async def ping(self, ctx: commands.Context):
-            """ping of Bot"""
-            start_time = time.time()
-            message = await ctx.send("Testing Ping...")
-            end_time = time.time()
-
-            embed = Embed(
-                title="Pong!",
-                color=constants.Colours.blue)
-            embed.add_field(name=f"Gateway Latency : ", value=f"{round(self.bot.latency * 1000)} ms", inline=False)
-            embed.add_field(name=f"Discord API latency :", value=f"{str(end_time - start_time)[2:5]} ms", inline=False)
-
-            await message.edit(content="", embed=embed)
-
-
-        @commands.command(name="server")
+        @commands.command(name="server", aliases=("server_info", ))
         async def server_info(self, ctx: commands.Context):
             """ Server infomations """
 
