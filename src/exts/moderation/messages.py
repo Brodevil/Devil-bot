@@ -24,10 +24,12 @@ class Messaging(commands.Cog):
     async def clear(self, ctx: commands.Context, num):
         """Deleting messages"""
         num = int(num)
-        print(num)       
         deleted = await ctx.channel.purge(limit=num)
-        print(deleted)
-        await ctx.say('Deleted {} message(s)'.format(len(deleted)))
+
+        msg = await ctx.send('Deleted {} message(s)'.format(len(deleted)))
+        await asyncio.sleep(4.0)
+
+        await msg.delete()
 
 
 

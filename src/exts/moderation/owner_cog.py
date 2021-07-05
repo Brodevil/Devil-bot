@@ -22,6 +22,7 @@ class Bot_Controls(commands.Cog):
     
     
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
+    @commands.is_owner()
     async def quit(self, ctx: commands.Context):
         await ctx.message.add_reaction("✅")
         await ctx.message.add_reaction("🚫")
@@ -47,39 +48,36 @@ class Bot_Controls(commands.Cog):
         
     
     @commands.command(name="status", aliases=("set_status", ))
+    @commands.is_owner()
     async def setstatus(self, ctx: commands.Context, *, text: str):
-        is_owner = await ctx.bot.is_owner(ctx.author)
-        if is_owner:
-            await self.bot.change_presence(activity=discord.Game(name=text))
-            await ctx.message.add_reaction("👍")
+        await self.bot.change_presence(activity=discord.Game(name=text))
+        await ctx.message.add_reaction("👍")
 
-            log.info(f"Bot's status changed to  :- {text}")
+        log.info(f"Bot's status changed to  :- {text}")
         
 
     @commands.command(name="dm")
+    @commands.is_owner()
     async def send_dm(self, ctx, member: discord.Member, *, content, show_name:bool = True):
         """ Direct Messaging the user """
-        is_owner = await ctx.bot.is_owner(ctx.author)
+        channel = await member.create_dm()
+                
+        if show_name:
+            name = ctx.message.author.name
+            url = f"https://discordapp.com/users/{ctx.message.author.id}"
+            icon = ctx.message.author.avatar_url_as(format="png")
+
+        else:
+            name = self.bot.user.name
+            url = f"https://discordapp.com/users/{self.bot.user.id}"
+            icon = self.bot.user.avatar_url_as(format="png")
         
-        if is_owner:
-            channel = await member.create_dm()
-                   
-            if show_name:
-                name = ctx.message.author.name
-                url = f"https://discordapp.com/users/{ctx.message.author.id}"
-                icon = ctx.message.author.avatar_url_as(format="png")
 
-            else:
-                name = self.bot.user.name
-                url = f"https://discordapp.com/users/{self.bot.user.id}"
-                icon = self.bot.user.avatar_url_as(format="png")
-            
+        embed = discord.Embed(description=content, color=constants.Colours.soft_red)
+        embed.set_author(name=name, icon_url=icon, url=url)
 
-            embed = discord.Embed(description=content, color=constants.Colours.soft_red)
-            embed.set_author(name=name, icon_url=icon, url=url)
-
-            await channel.send(embed=embed)
-            await ctx.message.add_reaction("👌")
+        await channel.send(embed=embed)
+        await ctx.message.add_reaction("👌")
 
         
 
