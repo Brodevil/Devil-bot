@@ -6,7 +6,7 @@ import traceback
 import discord 
 from discord.ext import commands
 
-from src.constants import Channels
+from src.constants import Channels      # noqa
 
 
 log = logging.getLogger(__name__)
@@ -23,6 +23,13 @@ class Bot(commands.Bot):
         print('Bot had Logged in as :- {0} (ID : {0.id})'.format(self.user))
         print('------' * 11)
     
+    async def run_task(self, task, args: tuple = None):
+        if args is None:
+            await task()
+        
+        else:
+            await task(*args)
+    
 
     def loading_extensions(self, extensions : list=None, reload=False, extension=None):
         if extension is None and extensions is not None:
@@ -32,7 +39,6 @@ class Bot(commands.Bot):
                         self.reload_extension(extension)
                     else:
                         self.load_extension(extension)
-                        print(extension)
                 except Exception as error:
                     print('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error),  file=sys.stderr)
                     traceback.print_exc()
@@ -47,9 +53,11 @@ class Bot(commands.Bot):
 
 
 
-_intents = discord.Intents(messages=True, guilds=True)
-_intents.reactions = True
-_intents.members = True
+_intents = discord.Intents.default()
+_intents.reactions = False
+_intents.members = False
+_intents.typing = False
+_intents.presences = False
 
 activity = discord.Game(name="The Bot is Currently under the Development by Brodevil#0001")
 bot = Bot(command_prefix="!", activity=activity, status=discord.Status.dnd, intents=_intents)
