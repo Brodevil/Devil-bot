@@ -20,27 +20,11 @@ __all__ = ("Bot", "bot")
 class Bot(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
-        self.startup_log()
-
+        
     async def on_ready(self):
         print('Bot had Logged in as :- {0} (ID : {0.id})'.format(self.user))
         print('------' * 11)
     
-
-    async def startup_log(self):
-        await self.wait_until_ready()
-        
-        log.info("Bot connected!")
-
-        embed = discord.Embed(description="Connected!")
-        embed.set_author(
-            name=self.bot.user.name,
-            icon_url=self.bot.user.avatar_url
-        )
-
-        log_channel = self.bot.get_channel(Channels.LOG_CHANNEL)
-        await log_channel.send(embed=embed)
-
 
     def loading_extensions(self, extensions : list=None, reload=False, extension=None):
         if extension is None and extensions is not None:
