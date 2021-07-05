@@ -4,8 +4,8 @@ import sys
 import traceback
 import json 
 
-from src.bot import bot
-from src.constants import Client
+from src.bot import bot             # noqa
+from src.constants import Client     # noqa
 
 
 
