@@ -2,9 +2,13 @@ import logging
 import sys
 
 from discord.ext import commands
+from discord import Embed
 import discord 
 
-from src import constants
+import asyncio
+
+from src import constants       # noqa
+
 
 log = logging.getLogger(__name__)
 __all__ = ("Bot_Controls")
@@ -21,7 +25,23 @@ class Bot_Controls(commands.Cog):
     async def quit(self, ctx: commands.Context):
         is_owner = await ctx.bot.is_owner(ctx.author)
         if is_owner:
-            await ctx.message.add_reaction("👋")
+            await ctx.message.add_reaction("✅")
+            await ctx.message.add_reaction("🚫")
+
+            def check(reaction, user):
+                return user == ctx.message.author and str(reaction.emoji) == '✅'
+
+        try:
+            reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
+        
+        except asyncio.TimeoutError:
+            embed = Embed(title="Action Canceled!", color=constants.Colours.soft_red)
+            await ctx.send(embed=embed)
+        
+        else:
+            embed = Embed(title="Logged Out!", color=constants.Colours.soft_green)
+            await ctx.send(embed=embed)
+
             await self.bot.logout()
             await self.bot.close()
             log.exception(f"{self.bot.user} had logged out by the bot author")
