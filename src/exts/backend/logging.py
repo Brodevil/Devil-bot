@@ -9,14 +9,9 @@ from src.constants import Channels              # noqa
 log = logging.getLogger(__name__)
 
 
-class Logging(commands.Cog):
-    """Debug logging module."""
+class Logging():
 
-    def __init__(self, bot: commands.Bot):
-        self.bot = bot
-        self.bot.run_task(self.startup_log)
-
-
+    @staticmethod
     async def startup_log(self):
         log.info("Bot connected!")
 
@@ -30,7 +25,3 @@ class Logging(commands.Cog):
         await log_channel.send(embed=embed)
     
 
-
-def setup(bot: commands.Bot):
-    """Load the Logging cog."""
-    bot.add_cog(Logging(bot))

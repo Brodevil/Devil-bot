@@ -5,8 +5,10 @@ import traceback
 
 import discord 
 from discord.ext import commands
+from discord.ext import tasks
 
 from src.constants import Channels      # noqa
+from src.ext.backend.logging import Logging           # noqa
 
 
 log = logging.getLogger(__name__)
@@ -23,13 +25,9 @@ class Bot(commands.Bot):
         print('Bot had Logged in as :- {0} (ID : {0.id})'.format(self.user))
         print('------' * 11)
     
-    async def run_task(self, task, args: tuple = None):
-        if args is None:
-            await task()
-        
-        else:
-            await task(*args)
-    
+    async def statup_log(self):
+        await Logging.startup_log()
+
 
     def loading_extensions(self, extensions : list=None, reload=False, extension=None):
         if extension is None and extensions is not None:
