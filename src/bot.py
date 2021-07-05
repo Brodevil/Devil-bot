@@ -24,14 +24,15 @@ class Bot(commands.Bot):
         print('------' * 11)
     
 
-    def loading_extensions(self, extensions : callable_iterator, reload=False, extension=None):
-        if extension is None:
+    def loading_extensions(self, extensions : list=None, reload=False, extension=None):
+        if extension is None and extensions is not None:
             for extension in extensions:
                 try:
                     if reload:
                         self.reload_extension(extension)
                     else:
                         self.load_extension(extension)
+                        print(extension)
                 except Exception as error:
                     print('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error),  file=sys.stderr)
                     traceback.print_exc()
