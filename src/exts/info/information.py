@@ -31,7 +31,7 @@ class Information(commands.Cog):
             color=constants.Colours.blue)
         embed.add_field(name=f"Gateway Latency : ", value=f"{round(self.bot.latency * 1000)} ms", inline=False)
         embed.add_field(name=f"Discord API latency :", value=f"{str(end_time - start_time)[2:5]} ms", inline=False)
-
+        embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url_as(format="png"))
         await message.edit(content="", embed=embed)
         await ctx.message.add_reaction("🏓")
 
@@ -46,8 +46,8 @@ class Information(commands.Cog):
         created = time_since(server.created_at, max_units=3)
         server_roles = len(ctx.guild.roles) - 1  # leaving @everyone
 
-        server_info = [f"📆 Created : {created}", f"🆔 ID : {server.id}", f"<:3581_voice_emoji:840975836781477938> Voice Region : {server.region}",
-                        f"🔐 Roles : {server_roles}", f"**{constants.Emojis.nitro_boost} Server Boosts :  {server.premium_subscription_count}**"]
+        server_info = [f"📆 **Created** : {created}", f"🆔 **ID** : {server.id}", f"<:3581_voice_emoji:840975836781477938> **Voice Region** : {server.region}",
+                        f"🔐 **Roles** : {server_roles}", f"**{constants.Emojis.nitro_boost} Server Boosts :  {server.premium_subscription_count}**"]
 
         if description is not None:
             server_info.insert(0, f"**Description** : {description}\n")
@@ -59,60 +59,50 @@ class Information(commands.Cog):
         bots = sum(member.bot is True for member in server.members)
         offline = server.member_count - (online + bots)
 
-        print(online, offline, bots)
-
-        member_info = [f"{constants.Emojis.status_online}  {online}", f"{constants.Emojis.status_offline}  {offline} ", f"{constants.Emojis.bots}  {bots}"]
-
+        member_info = [f"{constants.Emojis.status_online} **Online** : {online}", f"{constants.Emojis.status_offline} **Offline** : {offline} ", f"{constants.Emojis.bots} **Bots** : {bots}"]
 
         # Channel
         total_channels = len(server.channels)
         
-        channels_info = [f"Stage Channels : {len(server.stage_channels)}", f"Text Channels : {len(server.text_channels)}", 
-                            f"Voice Channels : {len(server.voice_channels)}", f"Categories : {len(server.categories)}"]
+        channels_info = [f"**Stage Channels** : {len(server.stage_channels)}", f"**Text Channels** : {len(server.text_channels)}", 
+                            f"**Voice Channels** : {len(server.voice_channels)}", f"**Categories** : {len(server.categories)}"]
 
         # embed
         embed = Embed(title=server.name, color=discord.Color.blue(), description='\n'.join(server_info), icon=server.icon_url)
         embed.set_thumbnail(url=server.icon_url)
         embed.add_field(name=f'<:3410_Channel_fluffys:840975836832071710> Channels : {total_channels}', value="\n".join(channels_info))
         embed.add_field(name=f"👥 Members : {total_members}", value="\n".join(member_info))
-
+        embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url_as(format="png"))
         await ctx.send(embed=embed)
 
 
 
-    @commands.command(name="user", aliases=("u",))
+    @commands.command(name="user", aliases=("u", "member"))
     async def user(self, ctx: commands.Context, user: discord.Member = None):
         """ user informations """
         if user is None:
             user = ctx.author
 
         name = str(user)
-        if user.nick:
-            name = f"{user.nick} ({name})"
-
         roles = ", ".join(role.mention for role in user.roles[1:])
 
         created = time_since(user.created_at, max_units=3)
         joined = time_since(user.joined_at, max_units=3)
 
-        user_info = [f"📆 Created : {created}", f"👤 Profile : <@{user.id}>",  f"🆔 ID : {user.id}"]
-        member_info = [f"Joined : {joined}", f"Roles : {roles}"]
-    
-        if user.status:
-            user_info.append(f"💬 Status : {user.status}")
+        user_info = [f"📆 **Created** : {created}", f"🆔 **ID** : {user.id}", f"👤 **Profile** : <@{user.id}>"]
+        member_info = [f"**<:member_joined:861573073873141781> Joined** : {joined}", f"**👷 Roles** : {roles}"]
+
+        if user.nick:
+            name = f"{user.nick} ({name})"
+            member_info.insert(1, f"**📛 Nick Name** : {user.nick}")
 
         embed = Embed(title=name, color=constants.Colours.blue, inline=False)
-        embed.add_field(name="User Information \n",
-                        value="\n".join(user_info),
-                        inline=False)
-
-        embed.add_field(name="Member Information",
-                        value=f"Joined : {joined}  \nRoles : {roles}",
-                        inline=False)
-
+        embed.add_field(name="User Information \n", value="\n".join(user_info), inline=False)
+        embed.add_field(name="Member Information", value="\n".join(member_info), inline=False)
         embed.set_thumbnail(url=user.avatar_url)
+        embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url_as(format="png"))
+        
         await ctx.send(embed=embed)
-
 
 
 

@@ -55,9 +55,9 @@ class Bot(commands.Bot):
 
 _intents = discord.Intents.default()
 _intents.reactions = False
-_intents.members = False
+_intents.members = True
 _intents.typing = False
-_intents.presences = False
+_intents.presences = True
 
 activity = discord.Game(name="The Bot is Currently under the Development by Brodevil#0001")
 bot = Bot(command_prefix="!", activity=activity, status=discord.Status.dnd, intents=_intents)
