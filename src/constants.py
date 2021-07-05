@@ -76,7 +76,3 @@ class Emojis:
 
     bots = "<:bot_tag:859726932752990238>"
     nitro_boost = "<a:nitro_boost:861146239084658709>"
-
-
-
-

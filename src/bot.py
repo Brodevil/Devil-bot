@@ -8,7 +8,7 @@ from discord.ext import commands
 from discord.ext import tasks
 
 from src.constants import Channels      # noqa
-from src.ext.backend.logging import Logging           # noqa
+from src.exts.backend.logging import Logging           # noqa
 
 
 log = logging.getLogger(__name__)
@@ -20,13 +20,26 @@ __all__ = ("Bot", "bot")
 class Bot(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
+        self.startup_log()
 
     async def on_ready(self):
         print('Bot had Logged in as :- {0} (ID : {0.id})'.format(self.user))
         print('------' * 11)
     
-    async def statup_log(self):
-        await Logging.startup_log()
+
+    async def startup_log(self):
+        await self.wait_until_ready()
+        
+        log.info("Bot connected!")
+
+        embed = discord.Embed(description="Connected!")
+        embed.set_author(
+            name=self.bot.user.name,
+            icon_url=self.bot.user.avatar_url
+        )
+
+        log_channel = self.bot.get_channel(Channels.LOG_CHANNEL)
+        await log_channel.send(embed=embed)
 
 
     def loading_extensions(self, extensions : list=None, reload=False, extension=None):

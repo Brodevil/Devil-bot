@@ -3,13 +3,15 @@ import logging
 from discord.ext import commands
 from discord import Embed
 
-from src.constants import Channels              # noqa
+
 
 
 log = logging.getLogger(__name__)
 
 
 class Logging():
+    def __init__(self, bot: commands.Bot):
+        self.bot = bot
 
     @staticmethod
     async def startup_log(self):

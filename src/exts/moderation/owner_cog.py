@@ -23,13 +23,11 @@ class Bot_Controls(commands.Cog):
     
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
-        is_owner = await ctx.bot.is_owner(ctx.author)
-        if is_owner:
-            await ctx.message.add_reaction("✅")
-            await ctx.message.add_reaction("🚫")
+        await ctx.message.add_reaction("✅")
+        await ctx.message.add_reaction("🚫")
 
-            def check(reaction, user):
-                return user == ctx.message.author and str(reaction.emoji) == '✅'
+        def check(reaction, user):
+            return user == ctx.message.author and str(reaction.emoji) == '✅'
 
         try:
             reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
