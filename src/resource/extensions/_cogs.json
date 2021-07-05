@@ -1,7 +1,7 @@
 {
     "cogs": [
         "src.exts.backend.logging",
-        "src.exts.moderation.bot_control",
+        "src.exts.moderation.owner_cog",
         "src.exts.info.information",
         "src.commands"
 

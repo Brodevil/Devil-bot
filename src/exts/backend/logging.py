@@ -14,9 +14,9 @@ class Logging(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.bot.loop.create_task(self.startup_log())
+        
 
-
+    @self.bot.event()
     async def startup_log(self):
         log.info("Bot connected!")
 
@@ -26,7 +26,8 @@ class Logging(commands.Cog):
             icon_url=self.bot.user.avatar_url
         )
 
-        await self.bot.get_channel(Channels.LOG_CHANNEL).send(embed=embed)
+        log_channel = self.bot.get_channel(Channels.LOG_CHANNEL)
+        await log_channel.send(embed=embed)
 
 
 def setup(bot: commands.Bot):

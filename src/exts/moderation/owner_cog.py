@@ -4,6 +4,7 @@ import sys
 from discord.ext import commands
 import discord 
 
+from src import constants
 
 log = logging.getLogger(__name__)
 __all__ = ("Bot_Controls")
@@ -21,6 +22,7 @@ class Bot_Controls(commands.Cog):
         is_owner = await ctx.bot.is_owner(ctx.author)
         if is_owner:
             await ctx.message.add_reaction("👋")
+            await self.bot.logout()
             await self.bot.close()
             log.exception(f"{self.bot.user} had logged out by the bot author")
             sys.exit(0)
@@ -38,6 +40,7 @@ class Bot_Controls(commands.Cog):
 
     @commands.command(name="dm")
     async def send_dm(self, ctx, member: discord.Member, *, content, show_name:bool = True):
+        """ Direct Messaging the user """
         is_owner = await ctx.bot.is_owner(ctx.author)
         
         if is_owner:
@@ -54,7 +57,7 @@ class Bot_Controls(commands.Cog):
                 icon = self.bot.user.avatar_url_as(format="png")
             
 
-            embed = discord.Embed(description=content, color=discord.Color.orange)
+            embed = discord.Embed(description=content, color=constants.Colours.soft_red)
             embed.set_author(name=name, icon_url=icon, url=url)
 
             await channel.send(embed=embed)

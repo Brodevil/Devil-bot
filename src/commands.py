@@ -7,8 +7,8 @@ import discord
 from discord.ext import commands
 from discord import Embed
 
-from bot import constants
-from bot.utils.time import time_since
+from src import constants
+from src.utils.time import time_since
 
 
 log = logging.getLogger(__name__)
@@ -23,27 +23,6 @@ class Commands(commands.Cog):
     @commands.command(name="hello", aliases=("hey", "hlo",))
     async def hello_world(self, ctx: commands.Context):
         await ctx.message.add_reaction("👋")
-
-    @commands.command(name="ping")
-    async def ping(self, ctx: commands.Context):
-        start_time = time.time()
-        message = await ctx.send("Testing Ping...")
-        end_time = time.time()
-
-        embed = Embed(
-            title="Pong!",
-            color=constants.Colours.blue)
-        embed.add_field(name=f"Gateway Latency : ", value=f"{round(self.bot.latency * 1000)} ms", inline=False)
-        embed.add_field(name=f"Discord API latency :", value=f"{str(end_time - start_time)[2:5]} ms", inline=False)
-
-        await message.edit(content="", embed=embed)
-
-
-    @commands.command(pass_context=True, name="nick", aliases=("chnick", "nickname"))
-    async def chnick(self, ctx, member: discord.Member, *, nick):
-        await member.edit(nick=nick)
-
-
 
 
 

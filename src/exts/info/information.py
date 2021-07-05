@@ -36,7 +36,6 @@ class Information(commands.Cog):
 
 
     @commands.command(name="user", aliases=("u",))
-    @commands.guild_only()
     async def user(self, ctx: commands.Context, user: discord.Member = None):
         """ user informations """
         if user is None:
@@ -64,10 +63,9 @@ class Information(commands.Cog):
         await ctx.send(embed=embed)
 
 
-        @commands.command(name="server", aliases=("server_info", ))
+        @commands.command(name="server", aliases=("server_info",))
         async def server_info(self, ctx: commands.Context):
             """ Server infomations """
-
 
             # server info
             server = ctx.guild
