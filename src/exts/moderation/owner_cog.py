@@ -25,27 +25,15 @@ class Bot_Controls(commands.Cog):
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
     @commands.is_owner()
     async def quit(self, ctx: commands.Context):
-        await ctx.message.add_reaction("✅")
-        await ctx.message.add_reaction("🚫")
+        react_yes = await ctx.message.add_reaction("✅")
 
-        def check(reaction, user):
-            return user == ctx.message.author and str(reaction.emoji) == '✅'
+        embed = Embed(title="Logged Out!", color=constants.Colours.soft_green)
+        await ctx.send(embed=embed)
 
-        try:
-            reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
-        
-        except asyncio.TimeoutError:
-            embed = Embed(title="Action Canceled!", color=constants.Colours.soft_red)
-            await ctx.send(embed=embed)
-        
-        else:
-            embed = Embed(title="Logged Out!", color=constants.Colours.soft_green)
-            await ctx.send(embed=embed)
-
-            await self.bot.logout()
-            await self.bot.close()
-            log.exception(f"{self.bot.user} had logged out by the bot author")
-            sys.exit(0)
+        await self.bot.logout()
+        await self.bot.close()
+        log.exception(f"{self.bot.user} had logged out by the bot author")
+        sys.exit(0)
         
     
     @commands.command(name="status", aliases=("set_status", ))

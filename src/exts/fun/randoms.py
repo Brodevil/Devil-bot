@@ -17,10 +17,10 @@ class Random_fun(commands.Cog):
         self.bot = bot
 
     @commands.command(name="guess", aliases=("guess_num",), pass_context=True)
-    async def guess_num(self, ctx: commands.Context, num1: int = 1, num2: int = 10):
+    async def guess_num(self, ctx: commands.Context):
 
-        num1, num2 = int(num1), int(num2)
-        embed = Embed(name=f"Guess a number from {num1} to {num2}, You had 5 chances to Guess number 😈!", color=Colours.grass_green)
+        num1, num2 = 1, 15
+        embed = Embed(description=f"**Guess a number from {num1} to {num2}, You had 5 chances to Guess number 😈!**", color=Colours.soft_red)
 
         await ctx.send(embed=embed)
         answer = random.randint(num1, num2)
@@ -28,13 +28,15 @@ class Random_fun(commands.Cog):
 
         while guess != 0:
             try:
-                user_guess = int(await client.wait_for('message', check=checkers.random_num_check(ctx.author), timeout=10))
+                user_guess = await self.bot.wait_for('message', check=checkers.random_num_check(ctx.author), timeout=10)
             except asyncio.TimeoutError:
                 await ctx.send(f"**Time out!, {guess} Guesses Left now!**")
                 continue
 
+            user_guess = int(user_guess.content)
+
             if user_guess == answer:
-                embed = Embed(name=f"😎 Congratulation! \nYou guessed correct answer {answer}, in {guess} Guesses.\nGood job!", color=Colours.blue)
+                embed = Embed(description=f"**Congratulation!\nYou had used {guess} Guesses.\nGood job!**", color=Colours.blue)
                 await ctx.send(embed=embed)
                 break
 
@@ -47,14 +49,8 @@ class Random_fun(commands.Cog):
             guess -= 1
 
         else:
-            embed = Embed(name="You loss! Please Try again", colour=Colours.soft_red)
+            embed = Embed(description="**You loss! Please Try again**", colour=Colours.soft_red)
             await ctx.send(embed=embed)
-
-
-    @guess_num.error
-    def debug_guess_num(self, ctx: commands.Context, error):
-        if isinstance(error, commands.errors.MissingRequiredArgument):
-            ctx.send("**Please also put the number range you want to guess\nFor Example**```\n!guess 1 10```")
 
 
 

@@ -31,6 +31,14 @@ class Messaging(commands.Cog):
 
         await msg.delete()
 
+    @clear.error
+    async def clear_error(self, ctx: commands.Context, error):
+        if isinstance(error, MissingPermissions):
+            message = "Missing Manage Messages permission(s)"
+
+            embed = discord.Embed(description=message, colour=constants.Colours.soft_red)
+
+            await ctx.send(embed=embed)
 
 
 def setup(bot: commands.Bot):

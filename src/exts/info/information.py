@@ -35,7 +35,7 @@ class Information(commands.Cog):
         await message.edit(content="", embed=embed)
         await ctx.message.add_reaction("🏓")
 
-
+    @commands.guild_only()
     @commands.command(name="server", aliases=("server_info", "guild"))
     async def server_info(self, ctx: commands.Context):
         """ Server information """
@@ -76,7 +76,7 @@ class Information(commands.Cog):
         await ctx.send(embed=embed)
 
 
-
+    @commands.guild_only()
     @commands.command(name="user", aliases=("u", "member"))
     async def user(self, ctx: commands.Context, user: discord.Member = None):
         """ user informations """
