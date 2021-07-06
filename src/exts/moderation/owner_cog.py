@@ -7,11 +7,12 @@ import discord
 
 import asyncio
 
-from src import constants       # noqa
+from src import constants
+from src.exts.utils import converter
 
 
 log = logging.getLogger(__name__)
-__all__ = ("Bot_Controls")
+__all__ = ("Bot_Controls", "setup")
 
 
 class Bot_Controls(commands.Cog):
@@ -58,10 +59,11 @@ class Bot_Controls(commands.Cog):
 
     @commands.command(name="dm")
     @commands.is_owner()
-    async def send_dm(self, ctx, member: discord.Member, *, content, show_name:bool = True):
+    async def send_dm(self, ctx, member: discord.Member, *, content, show_name: str):
         """ Direct Messaging the user """
         channel = await member.create_dm()
-                
+        show_name = converter.msg_bool(show_name)
+
         if show_name:
             name = ctx.message.author.name
             url = f"https://discordapp.com/users/{ctx.message.author.id}"
