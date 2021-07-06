@@ -15,13 +15,13 @@ logging.getLogger(__name__)
 
 
 class Channels(NamedTuple):
-    LOG_CHANNEL = config.Variables.LOG_CHANNEL
+    LOG_CHANNEL = config.LOG_CHANNEL
 
 
 class Client:
     BOT_NAME = "Mr. Devil"
-    TOKEN = config.Variables.TOKEN
-    OWNER_ID = config.Variables.OWNER_ID
+    TOKEN = config.TOKEN
+    OWNER_ID = config.OWNER_ID
 
 
 class Colours:

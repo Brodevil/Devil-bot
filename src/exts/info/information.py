@@ -36,9 +36,9 @@ class Information(commands.Cog):
         await ctx.message.add_reaction("🏓")
 
 
-    @commands.command(name="server", aliases=("server_info",))
+    @commands.command(name="server", aliases=("server_info", "guild"))
     async def server_info(self, ctx: commands.Context):
-        """ Server infomations """
+        """ Server information """
 
         # server info
         server = ctx.guild
