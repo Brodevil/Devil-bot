@@ -5,6 +5,7 @@ import asyncio
 
 from discord.ext import commands
 from discord import Embed
+import discord
 
 
 from src.constants import Colours           # noqa
@@ -17,7 +18,7 @@ class Random_fun(commands.Cog):
         self.bot = bot
 
     @commands.command(name="guess", aliases=("guess_num",), pass_context=True)
-    async def guess_num(self, ctx: commands.Context, num1: int = 1, num2: int = 15):
+    async def guess_num(self, ctx: commands.Context, num1: int = 1, num2: int = 10):
 
         num1, num2 = int(num1), int(num2)
         embed = Embed(description=f"**Guess a number from {num1} to {num2}, You had 5 chances to Guess number 😈!**", color=Colours.soft_red)
@@ -36,7 +37,7 @@ class Random_fun(commands.Cog):
             user_guess = int(user_guess.content)
 
             if user_guess == answer:
-                embed = Embed(description=f"**🥳 Congratulation!\nYou had answered in {guess} Guesses.**", color=Colours.blue)
+                embed = Embed(description=f"**🥳 Congratulation!\nYou had Correctly answered in {5-guess} Guesses.**", color=Colours.blue)
                 await ctx.send(embed=embed)
                 break
 
@@ -52,6 +53,10 @@ class Random_fun(commands.Cog):
             embed = Embed(description="**You loss! Please Try again**", colour=Colours.soft_red)
             await ctx.send(embed=embed)
 
+
+    @commands.command(name="thief", aliases=("hold", "caught", ))
+    async def caught_user(self, ctx: commands.Context, member: discord.Role, *, reason: str):
+        pass
 
 
 def setup(bot: commands.Bot):
