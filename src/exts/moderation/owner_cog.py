@@ -7,8 +7,8 @@ import discord
 
 import asyncio
 
-from src import constants
-from src.exts.utils import converter
+from src import constants                   # noqa
+from src.exts.utils import converter        # noqa
 
 
 log = logging.getLogger(__name__)
