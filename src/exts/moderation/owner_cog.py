@@ -38,23 +38,11 @@ class Bot_Controls(commands.Cog):
     
     @commands.command(name="status", aliases=("set_status", ))
     @commands.is_owner()
-    async def setstatus(self, ctx: commands.Context, *, text: str, status: str = "online"):
-        
-        if status == "online":
-            status = discord.Status.online
-        
-        elif status == "dnd" or "do not" in status:
-            status = discord.Status.dnd
-        
-        elif status == "idle":
-            status = discord.Status.idle
-        
-        elif status == "offline" or status == "invisible":
-            status = discord.Status.offline
-        
-        
+    async def setstatus(self, ctx: commands.Context, *, text: str):
+        self.bot.status.append(text)
         await self.bot.change_presence(activity=discord.Game(name=text))
         await ctx.message.add_reaction("👍")
+        await ctx.message.reply("Added a new status!")
 
         log.info(f"Bot's status changed to  :- {text}")
         

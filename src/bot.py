@@ -7,6 +7,8 @@ import discord
 from discord.ext import commands
 from discord.ext import tasks
 
+from  itertools import cycle
+
 from src.constants import Channels      # noqa
 from src.exts.backend.logging import Logging           # noqa
 
@@ -18,13 +20,26 @@ __all__ = ("Bot", "bot")
 
 
 class Bot(commands.Bot):
+    """Base bot instance."""
+
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
-        
+        self.status = ["The Bot is Currently under the Development by Brodevil#0001", "Hey!", "To kese hain aap log", "RONIT#8477 is Best", 
+                        "Nothing special, Just under Development :)", "PLAYGING A GAME", "Author : Brodevil#0001", f'Over {len(set(super().get_all_members()))} users!', 
+                        f'Over {len(super().guilds)} guilds!','Forgot your prefix? @mention me!', 'over your mind']
+        self.change_status.start()
+
     async def on_ready(self):
         print('Bot had Logged in as :- {0} (ID : {0.id})'.format(self.user))
         print('------' * 11)
     
+
+    @tasks.loop(seconds=10.0)
+    async def change_status(self):
+        self.status = cycle(self.status)
+        status = next(self.status)
+        await super().change_presence(status=status, activity=discord.Game(next(cycle(self.status))), )
+        
 
     def loading_extensions(self, extensions : list=None, reload=False, extension=None):
         if extension is None and extensions is not None:
@@ -54,5 +69,6 @@ _intents.members = True
 _intents.typing = False
 _intents.presences = True
 
+status=discord.Status.online
 activity = discord.Game(name="The Bot is Currently under the Development by Brodevil#0001")
-bot = Bot(command_prefix="!", activity=activity, status=discord.Status.dnd, intents=_intents)
+bot = Bot(command_prefix="!", activity=activity, status=status, intents=_intents)
