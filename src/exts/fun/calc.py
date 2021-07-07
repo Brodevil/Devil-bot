@@ -25,12 +25,13 @@ class Calculation(commands.Cog):
     @calculator.error 
     async def calculator_error(self, ctx: commands.Context, _error):
         if isinstance(_error, errors.MissingRequiredArgument):
-            message = f"**You should also mention the Calculation term :**\n```\n!calc 2+9-3/3**3/3```"
+            message = f"**You should also mention the Calculation term :**\n```\n!calc <expression>```\n\nCalculate the Mathematical basics experssions\n" \
+                      f"Know more about the Arithmetics Operators [here](https://www.w3schools.com/python/gloss_python_arithmetic_operators.asp), which you can Use in command! "
 
         else:
             return
         
-        embed = discord.Embed(description=message, color=Colours.soft_red)
+        embed = discord.Embed(description=message,)
         await ctx.send(embed=embed)
 
 
