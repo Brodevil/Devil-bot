@@ -26,14 +26,13 @@ class Calculation(commands.Cog):
     async def calculator_error(self, ctx: commands.Context, _error):
         if isinstance(_error, errors.MissingRequiredArgument):
             message = f"**You should also mention the Calculation term :**\n```\n!calc <expression>```\n\nCalculate the Mathematical basics experssions\n" \
-                      f"Know more about the Arithmetics Operators [here](https://www.w3schools.com/python/gloss_python_arithmetic_operators.asp), which you can Use in command! "
+                      f"Know more about the Arithmetics Operators [here](https://www.w3schools.com/python/gloss_python_arithmetic_operators.asp), \nwhich you can use in command! "
 
         else:
             return
         
         embed = discord.Embed(description=message,)
         await ctx.send(embed=embed)
-
 
     
 def setup(bot: commands.Bot):

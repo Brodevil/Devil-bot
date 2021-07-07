@@ -34,17 +34,17 @@ class Random_fun(commands.Cog):
                 await ctx.send(f"**{ctx.message.author.mention} Time out!, Please try again**")
                 break
 
-            user_guess = int(user_guess.content)
+            guess_num = int(user_guess.content)
 
-            if user_guess == answer:
+            if guess_num == answer:
                 embed = Embed(description=f"**🥳 Congratulation!\nYou had Correctly answered in {5-guess} Guess <a:Tick:808218568457715742>.**", color=Colours.blue)
                 await user_guess.reply(embed=embed)
                 break
 
-            elif user_guess > answer:
+            elif guess_num > answer:
                 await ctx.send(f"**{ctx.message.author.name}, Try to go lower! {guess} Guesses left.**")
 
-            elif user_guess < answer:
+            elif guess_num < answer:
                 await ctx.send(f"**{ctx.message.author.name}, Try to go higher! {guess} Guesses left.**")
 
             guess -= 1
@@ -57,6 +57,7 @@ class Random_fun(commands.Cog):
     @commands.command(name="thief", aliases=("hold", "caught", ))
     async def caught_user(self, ctx: commands.Context, member: discord.Role, *, reason: str):
         pass
+
 
 
 def setup(bot: commands.Bot):
