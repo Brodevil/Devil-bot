@@ -4,7 +4,7 @@ __all__ = ("calc_expression", )
 
 sings = ["+", "-", "/", "//", "*",  "**", "%"]
 
-def check_expression(expression):
+def check_expression(expression: str):
     for _ in expression:
         if _ in sings:
             return True 
