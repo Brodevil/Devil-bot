@@ -1,6 +1,3 @@
-import re
-
-
 def msg_bool(msg: str):
     if msg in ('yes', 'y', 'true', 't', '1', 'enable', 'on'):
         return True
@@ -15,9 +12,5 @@ def acute_remover(msg: str):
     elif msg.startswith("`") and msg.endswith("`"):
         return msg[1:-1]
     
-    msg = msg.replace("```", "").replace("```", "")
-    msg = msg.replace("```\n", "").replace("```", "")
-    msg = msg.replace("`", "").replace("`", "")
-
     return msg
     

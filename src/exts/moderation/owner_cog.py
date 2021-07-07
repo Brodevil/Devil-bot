@@ -38,7 +38,7 @@ class Bot_Controls(commands.Cog):
     
     @commands.command(name="status", aliases=("set_status", ))
     @commands.is_owner()
-    async def setstatus(self, ctx: commands.Context, *, text: str):
+    async def setstatus(self, ctx: commands.Context, status: discord., *, text: str):
         await self.bot.change_presence(activity=discord.Game(name=text))
         await ctx.message.add_reaction("👍")
 

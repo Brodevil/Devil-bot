@@ -37,7 +37,7 @@ class Random_fun(commands.Cog):
             guess_num = int(user_guess.content)
 
             if guess_num == answer:
-                embed = Embed(description=f"**🥳 Congratulation!\nYou had Correctly answered in {5-guess} Guess <a:Tick:808218568457715742>.**", color=Colours.blue)
+                embed = Embed(description=f"**🥳 Congratulation!\n<a:Tick:808218568457715742> You had Correctly answered in {5-guess} Guess.**", color=Colours.blue)
                 await user_guess.reply(embed=embed)
                 break
 
