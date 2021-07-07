@@ -35,7 +35,7 @@ class Messaging(commands.Cog):
     @clear.error
     async def clear_error(self, ctx: commands.Context, error):
         if isinstance(error, MissingPermissions):
-            message = "Missing Manage Messages permission(s)"
+            message = "🔐 Missing Manage Messages permission(s)"
 
             embed = discord.Embed(description=message, colour=constants.Colours.soft_red)
 

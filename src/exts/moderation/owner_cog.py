@@ -27,7 +27,7 @@ class Bot_Controls(commands.Cog):
     async def quit(self, ctx: commands.Context):
         react_yes = await ctx.message.add_reaction("✅")
 
-        embed = Embed(title="Logged Out!", color=constants.Colours.soft_green)
+        embed = Embed(title="🏃 Logged Out!", color=constants.Colours.soft_green)
         await ctx.send(embed=embed)
 
         await self.bot.logout()

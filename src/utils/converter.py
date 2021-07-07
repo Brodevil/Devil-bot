@@ -9,6 +9,15 @@ def msg_bool(msg: str):
 
 
 def acute_remover(msg: str):
-    msg = msg.replace("```py\n", "").replace("```", "")
+    if msg.startswith("```") and msg.endswith("```"):
+        return "\n".join(msg.split("\n")[1:-3])
+    
+    elif msg.startswith("`") and msg.endswith("`"):
+        return msg[1:-1]
+    
+    msg = msg.replace("```", "").replace("```", "")
+    msg = msg.replace("```\n", "").replace("```", "")
     msg = msg.replace("`", "").replace("`", "")
+
+    return msg
     
