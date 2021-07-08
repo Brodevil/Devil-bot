@@ -24,10 +24,12 @@ class Bot(commands.Bot):
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
-        self.status = ["The Bot is Currently under the Development by Brodevil#0001", "Hey!", "To kese hain aap log", "RONIT#8477 is Best", 
+        self.status = iter(["The Bot is Currently under the Development by Brodevil#0001", "Hey!", "To kese hain aap log", "RONIT#8477 is Best", 
                         "Nothing special, Just under Development :)", "PLAYGING A GAME", "Author : Brodevil#0001", f'Over {len(set(super().get_all_members()))} users!', 
-                        f'Over {len(super().guilds)} guilds!','Forgot your prefix? @mention me!', 'over your mind']
+                        f'Over {len(super().guilds)} guilds!','Forgot your prefix? @mention me!', 'over your mind'])
+        
         self.change_status.start()
+
 
     async def on_ready(self):
         print('Bot had Logged in as :- {0} (ID : {0.id})'.format(self.user))
@@ -36,9 +38,8 @@ class Bot(commands.Bot):
 
     @tasks.loop(seconds=10.0)
     async def change_status(self):
-        self.status = cycle(self.status)
-        status = next(self.status)
-        await super().change_presence(status=status, activity=discord.Game(next(cycle(self.status))), )
+        next_status = next(self.status)
+        await super().change_presence(status=status, activity=discord.Game(next_status), )
         
 
     def loading_extensions(self, extensions : list=None, reload=False, extension=None):
