@@ -7,6 +7,7 @@ from discord.ext import commands
 from discord import Embed
 import discord
 
+import typing 
 
 from src.constants import Colours           # noqa
 from src.exts.utils import checkers         # noqa
@@ -55,15 +56,17 @@ class Random_fun(commands.Cog):
 
 
     @commands.command(name="thief", aliases=("hold", "caught", ))
-    async def caught_user(self, ctx: commands.Context, role: discord.Role, *, reason: str):
+    async def caught_user(self, ctx: commands.Context, role: typing.Optional[discord.Role]=None, *, reason: str):
         if role is None:
             role = ctx.message.guild.default_role
         
         thief = random.choice(role.members)
 
-        embed = Embed(description=f"**{thief.mention} is the Thief!**\n\nI had been caught due to the reason :\n```\n{reason```")
-        embed
+        embed = Embed(description=f"**{thief.mention} is the Thief!**\n\nI had been caught due to the reason :\n```\n{reason}```")
+        embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url_as(format="png"))
 
+        await ctx.send(embed=embed)
+        
         
 
 def setup(bot: commands.Bot):
