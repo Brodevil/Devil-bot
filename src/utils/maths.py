@@ -1,6 +1,6 @@
 from math import *
 
-__all__ = ("calc_expression", )
+__all__ = ("check_expression", "calc_expression")
 
 sings = ["+", "-", "/", "//", "*",  "**", "%"]
 
@@ -27,8 +27,11 @@ def calc_expresion(expression: str):
         return None
     
     elif check_expression(expression):
-        ouput = eval(expression)
-        return ouput
+        try:
+            ouput = eval(expression)
+            return ouput
+        except Exception:
+            return None
     
     else:
         return None
