@@ -55,10 +55,16 @@ class Random_fun(commands.Cog):
 
 
     @commands.command(name="thief", aliases=("hold", "caught", ))
-    async def caught_user(self, ctx: commands.Context, member: discord.Role, *, reason: str):
-        pass
+    async def caught_user(self, ctx: commands.Context, role: discord.Role, *, reason: str):
+        if role is None:
+            role = ctx.message.guild.default_role
+        
+        thief = random.choice(role.members)
 
+        embed = Embed(description=f"**{thief.mention} is the Thief!**\n\nI had been caught due to the reason :\n```\n{reason```")
+        embed
 
+        
 
 def setup(bot: commands.Bot):
     bot.add_cog(Random_fun(bot))
