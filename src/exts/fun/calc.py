@@ -3,6 +3,8 @@ from discord.ext import commands
 import discord
 
 from src.constants import Colours  # noqa
+from src.utils.maths import calc_expresion  # noqa
+from src.utils.converter import acute_remover   # noqa
 
 
 class Calculation(commands.Cog):
@@ -12,22 +14,22 @@ class Calculation(commands.Cog):
     
     @commands.command(name="calc", aliases=("calculate", ))
     async def calculator(self, ctx: commands.Context, *,  term : str):
-        try:
-            answer = eval(term)
-        except Exception:
-            pass
-
-        else:
+        term = acute_remover(term)
+        answer = calc_expresion(term)
+        
+        if answer is not None:
             embed = discord.Embed(description=f"**Your Answer is : **\n```\n{answer}```", color=Colours.yellow)
-            await ctx.reply(embed=embed)
-
+            await ctx.reply(embed=embed)    
+        
+        else:
+            raise errors.MissingRequiredArgument
+            
 
     @calculator.error 
     async def calculator_error(self, ctx: commands.Context, _error):
         if isinstance(_error, errors.MissingRequiredArgument):
             message = f"**You should also mention the Calculation term :**\n```\n!calc <expression>```\n\nCalculate the Mathematical basics experssions\n" \
                       f"Know more about the Arithmetics Operators [here](https://www.w3schools.com/python/gloss_python_arithmetic_operators.asp), \nwhich you can use in command! "
-
         else:
             return
         
