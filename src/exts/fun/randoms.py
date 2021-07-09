@@ -38,7 +38,7 @@ class Random_fun(commands.Cog):
             guess_num = int(user_guess.content)
 
             if guess_num == answer:
-                embed = Embed(description=f"**🥳 Congratulation!\n<a:Tick:808218568457715742> You had Correctly answered in {5-guess} Guess.**", color=Colours.blue)
+                embed = Embed(description=f"**🥳 Congratulation!\n<a:Tick:808218568457715742> You had Correctly answered in {5-guess+1} Guess.**", color=Colours.blue)
                 await user_guess.reply(embed=embed)
                 break
 
@@ -62,7 +62,7 @@ class Random_fun(commands.Cog):
         
         thief = random.choice(role.members)
 
-        embed = Embed(description=f"**{thief.mention} is the Thief!**\n\nI had been caught due to the reason :\n```\n{reason}```")
+        embed = Embed(description=f"**{thief.mention} is the Thief!**\n\n{thief.name} been caught due to the reason :\n```\n{reason}```")
         embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url_as(format="png"))
 
         await ctx.send(embed=embed)
