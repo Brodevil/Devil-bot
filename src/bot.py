@@ -24,9 +24,9 @@ class Bot(commands.Bot):
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
-        self.status = iter(["The Bot is Currently under the Development by Brodevil#0001", "Hey!", "To kese hain aap log", "RONIT#8477 is Best", 
+        self.statuses = ["The Bot is Currently under the Development by Brodevil#0001", "Hey!", "To kese hain aap log", "RONIT#8477 is Best", 
                         "Nothing special, Just under Development :)", "PLAYGING A GAME", "Author : Brodevil#0001", f'Over {len(set(super().get_all_members()))} users!', 
-                        f'Over {len(super().guilds)} guilds!','Forgot your prefix? @mention me!', 'over your mind'])
+                        f'Over {len(super().guilds)} guilds!','Forgot your prefix? @mention me!', 'over your mind']
         
         self.change_status.start()
 
@@ -38,9 +38,17 @@ class Bot(commands.Bot):
 
     @tasks.loop(seconds=10.0)
     async def change_status(self):
-        next_status = next(self.status)
-        await super().change_presence(status=status, activity=discord.Game(next_status), )
+        super().wait_until_ready()
+        for _ in self.statuses:
+
+            await super().change_presence(status=discord.Status.idle, activity=discord.Game(_), )
+            
         
+
+
+    async def on_mention(self, message):
+        pass
+
 
     def loading_extensions(self, extensions : list=None, reload=False, extension=None):
         if extension is None and extensions is not None:
@@ -65,9 +73,9 @@ class Bot(commands.Bot):
 
 
 _intents = discord.Intents.default()
-_intents.reactions = False
+_intents.reactions = True
 _intents.members = True
-_intents.typing = False
+_intents.typing = True
 _intents.presences = True
 
 status=discord.Status.online
