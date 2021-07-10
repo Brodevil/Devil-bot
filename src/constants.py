@@ -62,6 +62,8 @@ class Emojis:
         9: "\u0039\ufe0f\u20e3"
     }
 
+    
+
     confirmation = "\u2705"
     decline = "\u274c"
 
