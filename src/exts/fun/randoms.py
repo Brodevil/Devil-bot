@@ -38,7 +38,7 @@ class Random_fun(commands.Cog):
             guess_num = int(user_guess.content)
 
             if guess_num == answer:
-                embed = Embed(description=f"**🥳 Congratulation!\n<a:Tick:808218568457715742> You had Correctly answered in {5-guess+1} Guess.**", color=Colours.blue)
+                embed = Embed(description=f"**🥳 Congratulation!\nYou had <a:Correct:863427548423782441> Correctly answered in {5-guess+1} Guess.**", color=Colours.blue)
                 await user_guess.reply(embed=embed)
                 break
 
@@ -68,9 +68,10 @@ class Random_fun(commands.Cog):
         await ctx.send(embed=embed)
         
     
-    @commands.command(name="dice", aliases=("dice_throw", "roll_dice")
+    @commands.command(name="dice", aliases=("dice_throw", "roll_dice"))
     async def roll_dice(self, ctx: commands.Context):
-        pass
+        await ctx.send("\u0031\ufe0f\u20e3")
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Random_fun(bot))
