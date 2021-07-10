@@ -2,12 +2,11 @@ import logging
 import sys
 
 import traceback
+import asyncio
 
 import discord 
 from discord.ext import commands
 from discord.ext import tasks
-
-from  itertools import cycle
 
 from src.constants import Channels      # noqa
 from src.exts.backend.logging import Logging           # noqa
@@ -26,7 +25,7 @@ class Bot(commands.Bot):
         super().__init__(**kwargs)
         self.statuses = ["The Bot is Currently under the Development by Brodevil#0001", "Hey!", "To kese hain aap log", "RONIT#8477 is Best", 
                         "Nothing special, Just under Development :)", "PLAYGING A GAME", "Author : Brodevil#0001", f'Over {len(set(super().get_all_members()))} users!', 
-                        f'Over {len(super().servers)} guilds!','Forgot your prefix? @mention me!', 'over your mind']
+                        f'Over {len(super().guilds)} guilds!','Forgot your prefix? @mention me!', 'over your mind']
         
         self.change_status.start()
 
@@ -38,16 +37,12 @@ class Bot(commands.Bot):
 
     @tasks.loop(seconds=10.0)
     async def change_status(self):
-        super().wait_until_ready()
-        for _ in self.statuses:
-
-            await super().change_presence(status=discord.Status.idle, activity=discord.Game(_), )
-
+        """Changing the status on loop yee!"""
+        await super().wait_until_ready()
         
-
-
-    async def on_mention(self, message):
-        pass
+        for _ in self.statuses:
+            await super().change_presence(status=status, activity=discord.Game(_), )   
+            await asyncio.sleep(30.0)
 
 
     def loading_extensions(self, extensions : list=None, reload=False, extension=None):
