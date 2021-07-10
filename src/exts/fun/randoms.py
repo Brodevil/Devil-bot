@@ -11,6 +11,7 @@ import typing
 
 from src.constants import Colours           # noqa
 from src.exts.utils import checkers         # noqa
+from src.constants import Emojis            # noqa
 
 
 class Random_fun(commands.Cog):
@@ -70,8 +71,11 @@ class Random_fun(commands.Cog):
     
     @commands.command(name="dice", aliases=("dice_throw", "roll_dice"))
     async def roll_dice(self, ctx: commands.Context):
-        await ctx.send("\u0031\ufe0f\u20e3")
+        dice_number =- random.randint(1, 6)
+        dice = Emojis.dices[dice_number]
 
+        await ctx.reply(dice)
+    
 
 def setup(bot: commands.Bot):
     bot.add_cog(Random_fun(bot))
