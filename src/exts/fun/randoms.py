@@ -32,7 +32,7 @@ class Random_fun(commands.Cog):
             try:
                 user_guess = await self.bot.wait_for('message', check=checkers.random_num_check(ctx.author), timeout=10)
             except asyncio.TimeoutError:
-                await ctx.send(f"**{ctx.message.author.mention} Time out!, Please try again**")
+                await ctx.send(f"**{ctx.message.author.mention}\n⏰ Time out!, Please try again**")
                 break
 
             guess_num = int(user_guess.content)
@@ -43,15 +43,15 @@ class Random_fun(commands.Cog):
                 break
 
             elif guess_num > answer:
-                await ctx.send(f"**{ctx.message.author.name}, Try to go lower! {guess} Guesses left.**")
+                await ctx.send(f"**{ctx.message.author.name}, Try to go ⬇️ lower! {guess} Guesses left.**")
 
             elif guess_num < answer:
-                await ctx.send(f"**{ctx.message.author.name}, Try to go higher! {guess} Guesses left.**")
+                await ctx.send(f"**{ctx.message.author.name}, Try to go ⬆️ higher! {guess} Guesses left.**")
 
             guess -= 1
 
         else:
-            embed = Embed(description="**You loss! Please Try again**", colour=Colours.soft_red)
+            embed = Embed(description="**I am Sorry 😔\nYou loss! Please Try again**", colour=Colours.soft_red)
             await ctx.send(embed=embed)
 
 
@@ -67,7 +67,10 @@ class Random_fun(commands.Cog):
 
         await ctx.send(embed=embed)
         
-        
+    
+    @commands.command(name="dice", aliases=("dice_throw", "roll_dice")
+    async def roll_dice(self, ctx: commands.Context):
+        pass
 
 def setup(bot: commands.Bot):
     bot.add_cog(Random_fun(bot))
