@@ -6,6 +6,7 @@ from discord import Embed
 import discord 
 
 import asyncio
+from typing import Optional
 
 from src import constants                   # noqa
 from src.utils import converter        # noqa
@@ -49,7 +50,7 @@ class Bot_Controls(commands.Cog):
 
     @commands.command(name="dm")
     @commands.is_owner()
-    async def send_dm(self, ctx, member: discord.Member, *, content, show_name: str):
+    async def send_dm(self, ctx, member: discord.Member, *, content, show_name: Optional[bool]= True):
         """ Direct Messaging the user """
         channel = await member.create_dm()
         show_name = converter.msg_bool(show_name)
