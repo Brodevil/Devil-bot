@@ -7,7 +7,7 @@ from discord.ext import commands
 from discord import Embed
 import discord
 
-import typing 
+from typing import Optional
 
 from src.constants import Colours           # noqa
 from src.exts.utils import checkers         # noqa
@@ -57,7 +57,7 @@ class Random_fun(commands.Cog):
 
 
     @commands.command(name="thief", aliases=("hold", "caught", ))
-    async def caught_user(self, ctx: commands.Context, role: typing.Optional[discord.Role]=None, *, reason: str):
+    async def caught_user(self, ctx: commands.Context, role: Optional[discord.Role]=None, *, reason: Optional[str] = "No any Reason!"):
         if role is None:
             role = ctx.message.guild.default_role
         
@@ -69,13 +69,26 @@ class Random_fun(commands.Cog):
         await ctx.send(embed=embed)
         
     
-    @commands.command(name="dice", aliases=("dice_throw", "roll_dice"))
+    @commands.command(name="dice", aliases=("throw_dice", "roll_dice"))
     async def roll_dice(self, ctx: commands.Context):
-        dice_number =- random.randint(1, 6)
+        """
+        **Dice** :
+        ```
+        !dice 
+        ```
+
+        Can also use : `throw_dice`, `roll_dice`
+
+        Get the random output of from 1 to 6
+        As the Dice had throw.        
+        """
+        dice_number = random.randint(0, 5)
         dice = Emojis.dices[dice_number]
 
         await ctx.reply(dice)
     
+
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Random_fun(bot))
