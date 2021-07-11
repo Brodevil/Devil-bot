@@ -14,6 +14,17 @@ class Calculation(commands.Cog):
     
     @commands.command(name="calc", aliases=("calculate", ))
     async def calculator(self, ctx: commands.Context, *,  term : str):
+        """
+        **Calculate** :
+        ```
+        !calc <experssion>
+        ```
+        Can also use : `calculate`
+
+        This command Basically calculate the Basic Mathemacial Experssions
+        Know more about the Arithmetics Operators [here](http://www2.hawaii.edu/~takebaya/cent110/selection/arithmetic_operators.png), 
+        which you can use in command! 
+        """
         term = acute_remover(term)
         answer = calc_expresion(term)
         
@@ -28,10 +39,9 @@ class Calculation(commands.Cog):
     @calculator.error 
     async def calculator_error(self, ctx: commands.Context, _error):
         if isinstance(_error, errors.MissingRequiredArgument):
-            message = f"**You should also mention the Calculation term :**\n```\n!calc <expression>```\n\nCalculate the Mathematical basics experssions\n" \
-                      f"Know more about the Arithmetics Operators [here](https://www.w3schools.com/python/gloss_python_arithmetic_operators.asp), \nwhich you can use in command! "
+            message = self.calculator.__doc__
         else:
-            return
+            ctx.send(message)
         
         embed = discord.Embed(description=message,)
         await ctx.send(embed=embed)
