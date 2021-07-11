@@ -1,7 +1,7 @@
 def msg_bool(msg: str):
-    if msg in ('yes', 'y', 'true', 't', '1', 'enable', 'on'):
+    if msg in ('yes', 'y', 'true', 't', '1', 'enable', 'on', "True"):
         return True
-    elif msg in ('no', 'n', 'false', 'f', '0', 'disable', 'off'):
+    elif msg in ('no', 'n', 'false', 'f', '0', 'disable', 'off', "False"):
         return False
 
 
