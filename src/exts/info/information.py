@@ -28,7 +28,7 @@ class Information(commands.Cog):
 
         embed = Embed(
             title="Pong!",
-            color=constants.Colours.blue)
+            color=constants.Colours.soft_red)
         embed.add_field(name=f"Gateway Latency : ", value=f"{round(self.bot.latency * 1000)} ms", inline=False)
         embed.add_field(name=f"Discord API latency :", value=f"{str(end_time - start_time)[2:5]} ms", inline=False)
         embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url_as(format="png"))
