@@ -1,7 +1,4 @@
 import logging
-import sys
-
-import traceback
 import json 
 
 from src.bot import bot             # noqa
