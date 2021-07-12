@@ -26,10 +26,8 @@ class Messaging(commands.Cog):
         num = int(num)
         deleted = await ctx.channel.purge(limit=num)
 
-        msg = await ctx.send('🗑️ Deleted {} message(s)'.format(len(deleted)))
-        await asyncio.sleep(4.0)
+        await ctx.send('🗑️ Deleted {} message(s)'.format(len(deleted)), delete_after=5)
 
-        await msg.delete()
 
 
     @clear.error
