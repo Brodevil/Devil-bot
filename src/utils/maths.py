@@ -1,12 +1,14 @@
 from math import *
+from keyword import kwlist
 
 __all__ = ("check_expression", "calc_expression")
 
 sings = ["+", "-", "/", "//", "*",  "**", "%"]
+charactors = ["_", "$", "@", "!", "(", ")", "=", "|", "\\", "'", '"', "?", "<", ">", "[", "]", "{", "}"]
 
-def check_expression(expression: str):
+def check_expression(expression: str, checker_list: list):
     for _ in expression:
-        if _ in sings:
+        if _ in check_expression:
             return True 
     
     else:
@@ -17,7 +19,7 @@ def check_expression(expression: str):
 def calc_expresion(expression: str):
     """ Calculate the Mathematical Expression using Python"""
     
-    if "import" in expression:
+    if check_expression(expression, kwlist):
         return None
     
     elif "  " in expression:
@@ -26,7 +28,13 @@ def calc_expresion(expression: str):
     elif "print" in expression:
         return None
     
-    elif check_expression(expression):
+    elif "input" in expression:
+        return None
+    
+    elif check_expression(expression, charactors):
+        return None
+    
+    elif check_expression(expression, sings):
         try:
             ouput = eval(expression)
             return ouput
