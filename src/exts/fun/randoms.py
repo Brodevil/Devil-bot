@@ -44,10 +44,10 @@ class Random_fun(commands.Cog):
                 break
 
             elif guess_num > answer:
-                await ctx.send(f"**{ctx.message.author.name}, Try to go ⬇️ lower! {guess} Guesses left.**")
+                await ctx.send(f"**{ctx.message.author.name}, Try to go ⬇️ lower! {guess-1} Guesses left.**", delete_after=3)
 
             elif guess_num < answer:
-                await ctx.send(f"**{ctx.message.author.name}, Try to go ⬆️ higher! {guess} Guesses left.**")
+                await ctx.send(f"**{ctx.message.author.name}, Try to go ⬆️ higher! {guess-1} Guesses left.**", delete_after=3)
 
             guess -= 1
 
@@ -87,8 +87,7 @@ class Random_fun(commands.Cog):
 
         await ctx.reply(dice)
     
-
-
+    
 
 def setup(bot: commands.Bot):
     bot.add_cog(Random_fun(bot))
