@@ -15,7 +15,7 @@ class Calculation(commands.Cog):
     @commands.command(name="calc", aliases=("calculate", ))
     async def calculator(self, ctx: commands.Context, *,  term : str):
         """
-        **Calculate** :
+        Calculate Mathemacial Experssions :
         ```
         !calc <experssion>
         ```
