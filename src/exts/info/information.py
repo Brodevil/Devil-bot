@@ -35,6 +35,7 @@ class Information(commands.Cog):
         await message.edit(content="", embed=embed)
         await ctx.message.add_reaction("🏓")
 
+
     @commands.guild_only()
     @commands.command(name="server", aliases=("server_info", "guild"))
     async def server_info(self, ctx: commands.Context):
