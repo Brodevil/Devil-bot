@@ -2,7 +2,7 @@
     "cogs": [
         "src.exts.backend.logging",
         "src.exts.fun.randoms",
-        "src.exts.info.calc.py",
+        "src.exts.info.calc",
         "src.exts.info.information",
         "src.exts.moderation.owner_cog",
         "src.exts.moderation.messages",
