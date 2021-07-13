@@ -7,8 +7,10 @@ sings = ["+", "-", "/", "//", "*",  "**", "%"]
 charactors = ["_", "$", "@", "!", "(", ")", "=", "|", "\\", "'", '"', "?", "<", ">", "[", "]", "{", "}"]
 
 def check_expression(expression: str, checker_list: list):
-    for _ in expression:
-        if _ in check_expression:
+    for _ in expression.split():
+        print(expression.split())
+        print(expression)
+        if _ in checker_list:
             return True 
     
     else:
