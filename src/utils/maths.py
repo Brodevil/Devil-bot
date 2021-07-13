@@ -6,13 +6,12 @@ __all__ = ("check_expression", "calc_expression")
 sings = ["+", "-", "/", "//", "*",  "**", "%"]
 charactors = ["_", "$", "@", "!", "(", ")", "=", "|", "\\", "'", '"', "?", "<", ">", "[", "]", "{", "}"]
 
-def check_expression(expression: str, checker_list: list):
-    for _ in expression.split():
-        print(expression.split())
-        print(expression)
+def check_expression(expression: str, checker_list: list, check_word: bool = True):
+    for _ in expression.split() if check_word else list(expression):
+
         if _ in checker_list:
             return True 
-    
+        
     else:
         return False 
 
@@ -35,15 +34,17 @@ def calc_expresion(expression: str):
     
     elif check_expression(expression, charactors):
         return None
-    
-    elif check_expression(expression, sings):
+
+    elif check_expression(expression, sings, check_word=False):
         try:
             ouput = eval(expression)
-            return ouput
         except Exception:
             return None
-    
+        else:
+            return ouput
+
     else:
+        print("this")
         return None
     
         
