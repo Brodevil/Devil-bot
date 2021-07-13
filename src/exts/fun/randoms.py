@@ -42,7 +42,11 @@ class Random_fun(commands.Cog):
                 embed = Embed(description=f"**🥳 Congratulation!\nYou had <a:Correct:863427548423782441> Correctly answered in {5-guess+1} Guess.**", color=Colours.blue)
                 await user_guess.reply(embed=embed)
                 break
-
+            
+            elif guess_num != answer and guess == 1:
+                embed = Embed(description="**I am Sorry 😔\nYou loss! Please Try again**", colour=Colours.soft_red)
+                await ctx.send(embed=embed)
+            
             elif guess_num > answer:
                 await ctx.send(f"**{ctx.message.author.name}, Try to go ⬇️ lower! {guess-1} Guesses left.**", delete_after=3)
 
@@ -86,8 +90,7 @@ class Random_fun(commands.Cog):
         dice = Emojis.dices[dice_number]
 
         await ctx.reply(dice)
-    
-    
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Random_fun(bot))
