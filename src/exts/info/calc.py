@@ -27,9 +27,9 @@ class Calculation(commands.Cog):
         """
         term = acute_remover(term)
         answer = calc_expresion(term)
-        
+        print(answer)
         if answer is not None:
-            embed = discord.Embed(description=f"**Your Answer is : **\n```\n{answer}```", color=Colours.yellow)
+            embed = discord.Embed(description=f"**Your Answer is : **\n```\n{answer}```", color=Colours.soft_red)
             await ctx.reply(embed=embed)    
         
         else:
