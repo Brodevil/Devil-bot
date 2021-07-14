@@ -1,4 +1,5 @@
-from discord.ext.commands import errors
+from inspect import Parameter, _ParameterKind
+
 from discord.ext import commands
 import discord
 
@@ -12,38 +13,37 @@ class Calculation(commands.Cog):
         self.bot = bot
 
     
-    @commands.command(name="calc", aliases=("calculate", ))
+    @commands.command(name="calculate", aliases=("calc", ))
     async def calculator(self, ctx: commands.Context, *,  term : str):
         """
-        Calculate Mathemacial Experssions :
-        ```
-        !calc <experssion>
-        ```
-        Can also use : `calculate`
-
-        This command Basically calculate the Basic Mathemacial Experssions
-        Know more about the Arithmetics Operators [here](http://www2.hawaii.edu/~takebaya/cent110/selection/arithmetic_operators.png), 
-        which you can use in command! 
+        Calculate 
         """
         term = acute_remover(term)
         answer = calc_expresion(term)
-        print(answer)
+
         if answer is not None:
             embed = discord.Embed(description=f"**Your Answer is : **\n```\n{answer}```", color=Colours.soft_red)
             await ctx.reply(embed=embed)    
         
         else:
-            raise errors.MissingRequiredArgument()
+            raise commands.MissingRequiredArgument(
+                        Parameter(name="prefix", kind=_ParameterKind.VAR_POSITIONAL))
             
 
     @calculator.error 
     async def calculator_error(self, ctx: commands.Context, _error):
-        if isinstance(_error, errors.MissingRequiredArgument):
-            message = self.calculator.__doc__
-        else:
-            ctx.send(message)
+        if isinstance(_error, commands.MissingRequiredArgument):
+            message = """
+            This command calculates the Basic Mathemacial Experssions
+            Know more about the Arithmetics Operators [here](http://www2.hawaii.edu/~takebaya/cent110/selection/arithmetic_operators.png), 
+            which you can use in command! 
+            """
         
-        embed = discord.Embed(description=message,)
+        else:
+            await ctx.send(message)
+        
+        embed = discord.Embed(title="Calculate!", description="```!calculate <experssion>```",)
+        embed.add_field(name=f"Can also use : `{', '.join(ctx.command.aliases)}`", value=message)
         await ctx.send(embed=embed)
 
     
