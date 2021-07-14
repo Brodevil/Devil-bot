@@ -33,7 +33,7 @@ class Calculation(commands.Cog):
             await ctx.reply(embed=embed)    
         
         else:
-            raise errors.MissingRequiredArgument
+            raise errors.MissingRequiredArgument()
             
 
     @calculator.error 
