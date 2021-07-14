@@ -44,7 +44,6 @@ def calc_expresion(expression: str):
             return ouput
 
     else:
-        print("this")
         return None
     
         
