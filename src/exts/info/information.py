@@ -1,5 +1,4 @@
 import logging
-import time
 
 from discord.ext import commands
 import discord
@@ -89,6 +88,10 @@ class Information(commands.Cog):
         await ctx.send(embed=embed)
 
 
+    @commands.Cog.listener()
+    async def on_error(self, ctx: commands.Context, error):
+        ctx.send(error)
+    
 
 def setup(bot: commands.Bot):
     """Load the Logging cog."""
