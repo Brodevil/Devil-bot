@@ -7,8 +7,8 @@ import discord
 from discord.ext import commands
 from discord import Embed
 
-from src import constants
-from src.utils.time import time_since
+from src import constants               # noqa
+from src.utils.time import time_since   # noqa
 
 
 log = logging.getLogger(__name__)
