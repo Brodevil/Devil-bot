@@ -3,6 +3,7 @@ import sys
 
 import traceback
 import asyncio
+import json 
 
 import discord 
 from discord.ext import commands
@@ -21,12 +22,9 @@ __all__ = ("Bot", "bot")
 class Bot(commands.Bot):
     """Base bot instance."""
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, statuses, **kwargs):
         super().__init__(**kwargs)
-        self.statuses = ["The Bot is Currently under the Development by Brodevil#0001", "Hey!", "To kese hain aap log", "RONIT#8477 is Best", 
-                        "Nothing special, Just under Development :)", "PLAYGING A GAME", "Author : Brodevil#0001", f'Over {len(set(super().get_all_members()))} users!', 
-                        f'Over {len(super().guilds)} guilds!','Forgot your prefix? @mention me!', 'over your mind']
-        
+        self.statuses = statuses
         self.change_status.start()
 
 
@@ -35,7 +33,7 @@ class Bot(commands.Bot):
         print('------' * 11)
     
 
-    @tasks.loop(seconds=10.0)
+    @tasks.loop(seconds=30.0)
     async def change_status(self):
         """Changing the status on loop yee!"""
         await super().wait_until_ready()
@@ -67,6 +65,10 @@ class Bot(commands.Bot):
 
 
 
+with open("src\\resource\\extensions\\status.json", "wt") as _status:
+    _status = json.load(_status)
+    _status = list(_status["Bot_Status"])
+
 _intents = discord.Intents.default()
 _intents.reactions = True
 _intents.members = True
@@ -75,4 +77,11 @@ _intents.presences = True
 
 status=discord.Status.online
 activity = discord.Game(name="The Bot is Currently under the Development by Brodevil#0001")
-bot = Bot(command_prefix="!", activity=activity, status=status, intents=_intents)
+
+bot = Bot(
+    statuses=_status,
+    command_prefix="!", 
+    activity=activity, 
+    status=status, 
+    intents=_intents
+    )
