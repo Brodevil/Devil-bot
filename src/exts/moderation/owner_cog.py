@@ -22,9 +22,9 @@ class Bot_Controls(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
     
-    
-    @commands.command(name="quit", aliases=("close", "bye", "logout",))
+
     @commands.is_owner()
+    @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
         react_yes = await ctx.message.add_reaction("✅")
 
@@ -37,8 +37,8 @@ class Bot_Controls(commands.Cog):
         sys.exit(0)
         
     
-    @commands.command(name="status", aliases=("set_status", ))
     @commands.is_owner()
+    @commands.command(name="status", aliases=("set_status", ))
     async def setstatus(self, ctx: commands.Context, *, text: str):
         self.bot.status.append(text)
         await self.bot.change_presence(activity=discord.Game(name=text))
@@ -48,8 +48,8 @@ class Bot_Controls(commands.Cog):
         log.info(f"Bot's status changed to  :- {text}")
         
 
-    @commands.command(name="dm")
     @commands.is_owner()
+    @commands.command(name="dm")
     async def send_dm(self, ctx, member: discord.Member, *, content, show_name: Optional[converter.msg_bool] = True):
         """ Direct Messaging the user """
         channel = await member.create_dm()
@@ -72,6 +72,10 @@ class Bot_Controls(commands.Cog):
         await ctx.message.add_reaction("👌")
 
         
+    async def cog_command_error(self, ctx, error):
+        """ Simply just send the error """
+        await ctx.send(error)
+    
 
 def setup(bot: commands.Bot):
     bot.add_cog(Bot_Controls(bot))
