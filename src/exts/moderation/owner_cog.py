@@ -26,6 +26,7 @@ class Bot_Controls(commands.Cog):
     @commands.is_owner()
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
+        """Logout the bot!"""
         react_yes = await ctx.message.add_reaction("✅")
 
         embed = Embed(title="🏃 Logged Out!", color=constants.Colours.soft_green)
@@ -40,6 +41,7 @@ class Bot_Controls(commands.Cog):
     @commands.is_owner()
     @commands.command(name="status", aliases=("set_status", ))
     async def setstatus(self, ctx: commands.Context, *, text: str):
+        """Adding the more status and run it"""
         self.bot.status.append(text)
         await self.bot.change_presence(activity=discord.Game(name=text))
         await ctx.message.add_reaction("👍")
@@ -50,9 +52,9 @@ class Bot_Controls(commands.Cog):
 
     @commands.is_owner()
     @commands.command(name="dm")
-    async def send_dm(self, ctx, member: discord.Member, *, content, show_name: Optional[converter.msg_bool] = True):
+    async def send_dm(self, ctx, User: discord.Member, *, content, show_name: Optional[converter.msg_bool] = True):
         """ Direct Messaging the user """
-        channel = await member.create_dm()
+        channel = await User.create_dm()
 
         if show_name:
             name = ctx.message.author.name
