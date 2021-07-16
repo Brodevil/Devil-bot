@@ -23,7 +23,6 @@ class Bot_Controls(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
     
-
     @commands.is_owner()
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
@@ -41,13 +40,25 @@ class Bot_Controls(commands.Cog):
     
     @commands.is_owner()
     @commands.command(name="status", aliases=("set_status", "activity"))
-    async def setstatus(self, ctx: commands.Context, *, text: str):
+    async def setstatus(self, ctx: commands.Context, status: Optional[str] = None, run_loop : Optional[converter.msg_bool] = True, *, text: str):
         """Adding the more status and run it"""
+        
+        if status is not None and status in ['dnd', 'do_not_disturb', 'idle', 'invisible', 'offline', 'online']:
+            self.bot.status = status
+        else:
+            self.bot.status = discord.Status.online
+
+
+        if run_loop == False:
+            self.bot.change_status.cancel()
+            await self.bot.change_presence(status=self.bot.status, activity=discord.Game(name=text))
+            return
+        
+        
         self.bot.activies.append(text)
 
         with open("src\\resource\\extensions\\status.json", "wt") as activies:
-            activies.write(json.dump(self.bot.activies))
-        
+            activies.write(json.dump(self.bot.activies)
 
         await self.bot.change_presence(activity=discord.Game(name=text))
         await ctx.message.add_reaction("👍")
