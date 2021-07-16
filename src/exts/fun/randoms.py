@@ -9,9 +9,9 @@ import discord
 
 from typing import Optional
 
-from src.constants import Colours           # noqa
-from src.exts.utils import checkers         # noqa
-from src.constants import Emojis            # noqa
+from src.constants import Colours           
+from src.exts.utils import checkers         
+from src.constants import Emojis            
 
 
 class Random_fun(commands.Cog):

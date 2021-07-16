@@ -9,8 +9,8 @@ import asyncio
 from typing import Optional
 import json
 
-from src import constants                   
-from src.utils import converter        
+from src import constants                   # noqa
+from src.utils import converter        # noqa
 
 
 log = logging.getLogger(__name__)
