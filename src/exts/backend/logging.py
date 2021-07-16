@@ -3,8 +3,8 @@ import logging
 from discord.ext import commands
 from discord import Embed
 
-from src.constants import Channels          # noqa
-from src.constants import Colours           # noqa
+from src.constants import Channels          
+from src.constants import Colours           
 
 log = logging.getLogger(__name__)
 
