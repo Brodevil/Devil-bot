@@ -12,7 +12,6 @@ from discord.ext import tasks
 from src.constants import Channels      
 from src.exts.backend.logging import Logging           
 
-
 log = logging.getLogger(__name__)
 
 __all__ = ("Bot", "bot")
