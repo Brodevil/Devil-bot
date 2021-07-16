@@ -9,8 +9,8 @@ import discord
 from discord.ext import commands
 from discord.ext import tasks
 
-from src.constants import Channels      # noqa
-from src.exts.backend.logging import Logging           # noqa
+from src.constants import Channels      
+from src.exts.backend.logging import Logging           
 
 
 log = logging.getLogger(__name__)
@@ -22,9 +22,10 @@ __all__ = ("Bot", "bot")
 class Bot(commands.Bot):
     """Base bot instance."""
 
-    def __init__(self, statuses, **kwargs):
+    def __init__(self, activies, status, **kwargs):
         super().__init__(**kwargs)
-        self.statuses = statuses
+        self.activies = activies
+        self.status = status
         self.change_status.start()
 
 
@@ -38,8 +39,8 @@ class Bot(commands.Bot):
         """Changing the status on loop yee!"""
         await super().wait_until_ready()
         
-        for _ in self.statuses:
-            await super().change_presence(status=status, activity=discord.Game(_), )   
+        for _ in self.activies:
+            await super().change_presence(status=self.status, activity=discord.Game(_), )   
             await asyncio.sleep(30.0)
 
 
@@ -65,9 +66,9 @@ class Bot(commands.Bot):
 
 
 
-with open("src\\resource\\extensions\\status.json", "wt") as _status:
-    _status = json.load(_status)
-    _status = list(_status["Bot_Status"])
+with open("src\\resource\\extensions\\status.json") as _activies:
+    _activies = json.load(_status)
+    _activies = list(_status["Bot_Status"])
 
 _intents = discord.Intents.default()
 _intents.reactions = True
@@ -76,12 +77,10 @@ _intents.typing = True
 _intents.presences = True
 
 status=discord.Status.online
-activity = discord.Game(name="The Bot is Currently under the Development by Brodevil#0001")
 
 bot = Bot(
-    statuses=_status,
+    activies=_activies,
     command_prefix="!", 
-    activity=activity, 
     status=status, 
     intents=_intents
     )
