@@ -7,9 +7,10 @@ import discord
 
 import asyncio
 from typing import Optional
+import json
 
-from src import constants                   # noqa
-from src.utils import converter        # noqa
+from src import constants                   
+from src.utils import converter        
 
 
 log = logging.getLogger(__name__)
@@ -27,7 +28,7 @@ class Bot_Controls(commands.Cog):
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
         """Logout the bot!"""
-        react_yes = await ctx.message.add_reaction("✅")
+        await ctx.message.add_reaction("✅")
 
         embed = Embed(title="🏃 Logged Out!", color=constants.Colours.soft_green)
         await ctx.send(embed=embed)
@@ -39,10 +40,15 @@ class Bot_Controls(commands.Cog):
         
     
     @commands.is_owner()
-    @commands.command(name="status", aliases=("set_status", ))
+    @commands.command(name="status", aliases=("set_status", "activity"))
     async def setstatus(self, ctx: commands.Context, *, text: str):
         """Adding the more status and run it"""
-        self.bot.status.append(text)
+        self.bot.activies.append(text)
+
+        with open("src\\resource\\extensions\\status.json", "wt") as activies:
+            activies.write(json.dump(self.bot.activies))
+        
+
         await self.bot.change_presence(activity=discord.Game(name=text))
         await ctx.message.add_reaction("👍")
         await ctx.message.reply("Added a new status!")
