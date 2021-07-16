@@ -6,7 +6,7 @@ from discord.ext.commands import Bot
 from discord.ext import commands 
 from discord import Embed
 
-from src import constants                   # noqa
+from src import constants                   
 
 
 logging.getLogger(__name__)

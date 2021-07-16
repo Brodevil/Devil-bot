@@ -6,8 +6,8 @@ from discord.ext.commands import has_permissions, MissingPermissions
 
 import asyncio
 
-from src import constants   # noqa
-from src.constants import Channels              # noqa
+from src import constants   
+from src.constants import Channels              
 
 log = logging.getLogger(__name__)
 

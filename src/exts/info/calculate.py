@@ -3,9 +3,9 @@ from inspect import Parameter, _ParameterKind
 from discord.ext import commands
 import discord
 
-from src.constants import Colours  # noqa
-from src.utils.maths import calc_expresion  # noqa
-from src.utils.converter import acute_remover   # noqa
+from src.constants import Colours  
+from src.utils.maths import calc_expresion  
+from src.utils.converter import acute_remover   
 
 
 class Calculation(commands.Cog):
