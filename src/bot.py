@@ -66,8 +66,8 @@ class Bot(commands.Bot):
 
 
 with open("src\\resource\\extensions\\status.json") as _activies:
-    _activies = json.load(_status)
-    _activies = list(_status["Bot_Status"])
+    _activies = json.load(_activies)
+    _activies = list(_activies["Bot_Status"])
 
 _intents = discord.Intents.default()
 _intents.reactions = True
