@@ -39,37 +39,8 @@ class Bot_Controls(commands.Cog):
         
     
     @commands.is_owner()
-    @commands.command(name="status", aliases=("set_status", "activity"))
-    async def setstatus(self, ctx: commands.Context, status: Optional[str] = None, run_loop : Optional[converter.msg_bool] = True, *, text: str):
-        """Adding the more status and run it"""
-        
-        if status is not None and status in ['dnd', 'do_not_disturb', 'idle', 'invisible', 'offline', 'online']:
-            self.bot.status = status
-        else:
-            self.bot.status = discord.Status.online
-
-
-        if run_loop == False:
-            self.bot.change_status.cancel()
-            await self.bot.change_presence(status=self.bot.status, activity=discord.Game(name=text))
-            return
-        
-        
-        self.bot.activies.append(text)
-
-        with open("src\\resource\\extensions\\status.json", "wt") as activies:
-            activies.write(json.dump(self.bot.activies)
-
-        await self.bot.change_presence(activity=discord.Game(name=text))
-        await ctx.message.add_reaction("👍")
-        await ctx.message.reply("Added a new status!")
-
-        log.info(f"Bot's status changed to  :- {text}")
-        
-
-    @commands.is_owner()
     @commands.command(name="dm")
-    async def send_dm(self, ctx, User: discord.Member, *, content, show_name: Optional[converter.msg_bool] = True):
+    async def send_dm(self, ctx, User: discord.Member, show_name: Optional[converter.msg_bool] = "t", *, content):
         """ Direct Messaging the user """
         channel = await User.create_dm()
 
@@ -89,6 +60,41 @@ class Bot_Controls(commands.Cog):
 
         await channel.send(embed=embed)
         await ctx.message.add_reaction("👌")
+    
+
+    @commands.is_owner()
+    @commands.command(name="status", aliases=("set_status", "activity"))
+    async def setstatus(self, ctx: commands.Context, status: Optional[str] = None, run_loop : Optional[converter.msg_bool] = True, *, text: str):
+        """Adding the more status and run it"""
+        
+        if status is not None and status in ['dnd', 'do_not_disturb', 'idle', 'invisible', 'offline', 'online']:
+            self.bot.status = status
+        else:
+            self.bot.status = discord.Status.online
+
+
+        if run_loop == False:
+            self.bot.change_status.cancel()
+            await self.bot.change_presence(status=self.bot.status, activity=discord.Game(name=text))
+            log.info(f"Bot's status loop stoped and status changed to  :- {text}")
+            return
+        
+        self.bot.activies.append(text)
+
+        with open("src\\resource\\extensions\\status.json", "r+") as activies:
+            data = json.load(activies)
+            data["Bot_Status"].append(text)
+            activies.seek(0)
+            json.dump(data, activies, indent=4)
+            f.truncate()
+
+        await self.bot.change_presence(status=self.bot.status, activity=discord.Game(name=text))
+        await ctx.message.add_reaction("👍")
+        await ctx.message.reply("Added a new status!")
+
+        log.info(f"Added {text} in bot status loop")
+        
+
 
         
     async def cog_command_error(self, ctx, error):
