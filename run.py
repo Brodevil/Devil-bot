@@ -3,7 +3,6 @@ import json
 
 from src.bot import bot             # noqa
 from src.constants import Client     # noqa
-from discord.ext import command     # noqa
 
 
 log = logging.getLogger('discord')
@@ -12,7 +11,7 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 log.addHandler(handler)
 
-@bot.event()
+@bot.event
 async def on_message(message):
     if message.author == bot.user:
         return
