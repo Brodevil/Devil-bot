@@ -6,7 +6,7 @@ from discord import Embed
 import discord 
 
 import asyncio
-from typing import Literal
+from typing import Literal, Optional
 import json
 
 from src import constants                   # noqa
@@ -65,37 +65,43 @@ class Bot_Controls(commands.Cog):
 
     @commands.is_owner()
     @commands.command(name="status", aliases=("set_status", "activity"))
-    async def setstatus(self, ctx: commands.Context, status: Optional[str] = None, run_loop : Optional[converter.msg_bool] = True, *, text: str):
+    async def setstatus(self, ctx: commands.Context, 
+                        status: Literal[['dnd', 'do_not_disturb', 'idle', 'invisible', 'offline', 'online']] = None, 
+                        run_loop : Optional[converter.msg_bool] = True, *, 
+                        text: Optional[str] = None):
+                    
         """Adding the more status and run it"""
         
-        if status is not None and status in ['dnd', 'do_not_disturb', 'idle', 'invisible', 'offline', 'online']:
-            self.bot.status = status
-        else:
-            self.bot.status = discord.Status.online
-
+        self.bot.status = status
 
         if run_loop == False:
             self.bot.change_status.cancel()
-            await self.bot.change_presence(status=self.bot.status, activity=discord.Game(name=text))
             log.info(f"Bot's status loop stoped and status changed to  :- {text}")
-            return
+            
+        else:
+            self.bot.activies.insert(0, text)
+            with open("src\\resource\\extensions\\status.json", "r+") as activies:
+                data = json.load(activies)
+                data["Bot_Status"].insert(0, text)
+                activies.seek(0)
+                json.dump(data, activies, indent=4)
+                activies.truncate()
+            
+            await ctx.reply("Added a new status!")
         
-        self.bot.activies.append(text)
-
-        with open("src\\resource\\extensions\\status.json", "r+") as activies:
-            data = json.load(activies)
-            data["Bot_Status"].append(text)
-            activies.seek(0)
-            json.dump(data, activies, indent=4)
-            f.truncate()
-
+        
+        if run_loop == True and self.bot.chnage_status.is_running() == False:
+            self.bot.change_status.start()
+            await ctx.reply("Started the Activity Loop!")
+                
+        
         await self.bot.change_presence(status=self.bot.status, activity=discord.Game(name=text))
         await ctx.message.add_reaction("👍")
-        await ctx.message.reply("Added a new status!")
+        
+
 
         log.info(f"Added {text} in bot status loop")
         
-
 
         
     async def cog_command_error(self, ctx, error):
