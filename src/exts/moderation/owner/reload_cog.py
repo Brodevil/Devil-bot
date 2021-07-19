@@ -8,7 +8,7 @@ from discord.ext import commands
 
 __all__ = ("Reload_cog", "setup")
 
-class Relod_cogs(Cog):
+class Reload_cogs(Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
 
@@ -20,5 +20,5 @@ class Relod_cogs(Cog):
 
 
 def setup(bot: Bot):
-    bot.add_cog(Relod_cogs(bot))
+    bot.add_cog(Reload_cogs(bot))
 
