@@ -1,3 +1,5 @@
+
+
 def msg_bool(msg: str):
     if msg in ('yes', 'y', 'true', 't', '1', 'enable', 'on', "True", True):
         return True
