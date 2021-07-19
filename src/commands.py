@@ -1,7 +1,5 @@
 import logging
-import sys
-import time
-from pprint import pprint
+import typing 
 
 import discord
 from discord.ext import commands
@@ -20,7 +18,7 @@ class Commands(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.command(name="hello", aliases=("hey", "hlo",))
+    @commands.command(name="hello", aliases=("hey", "hlo", "test"))
     async def hello_world(self, ctx: commands.Context):
         await ctx.message.add_reaction("👋")
 
