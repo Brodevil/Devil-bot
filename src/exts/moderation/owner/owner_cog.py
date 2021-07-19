@@ -28,6 +28,7 @@ class Bot_Controls(commands.Cog):
     async def quit(self, ctx: commands.Context):
         """Logout the bot!"""
         await ctx.message.add_reaction("✅")
+        
 
         embed = Embed(title="🏃 Logged Out!", color=constants.Colours.soft_green)
         await ctx.send(embed=embed)
@@ -42,8 +43,7 @@ class Bot_Controls(commands.Cog):
     @commands.command(name="dm")
     async def send_dm(self, ctx: commands.Context, 
                     User: discord.Member, 
-                    show_name: Literal['yes', 'y', 'true', 't', '1', 'enable', 'on', "True", True, 'no', 'n', 'false', 'f', '0', 'disable', 'off', "False", False] = True,
-                    *, content):
+                    show_name: Literal['yes', 'y', 'true', 't', '1', 'enable', 'on', "True", True, 'no', 'n', 'false', 'f', '0', 'disable', 'off', "False", False], *, content):
                     
         """ Direct Messaging the user """
         channel = await User.create_dm()
