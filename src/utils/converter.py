@@ -1,5 +1,7 @@
 
 
+total_bools = ['yes', 'y', 'true', 't', '1', 'enable', 'on', "True", True, 'no', 'n', 'false', 'f', '0', 'disable', 'off', "False", False]
+
 def msg_bool(msg: str):
     if msg in ('yes', 'y', 'true', 't', '1', 'enable', 'on', "True", True):
         return True
