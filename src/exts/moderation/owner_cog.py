@@ -99,7 +99,7 @@ class Bot_Controls(commands.Cog):
         
     async def cog_command_error(self, ctx, error):
         """ Simply just send the error """
-        await ctx.send(error)
+        await ctx.reply(error)
     
 
 def setup(bot: commands.Bot):
