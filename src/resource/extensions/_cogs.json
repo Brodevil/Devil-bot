@@ -5,8 +5,8 @@
         "src.exts.info.calculate",
         "src.exts.info.information",
         "src.exts.info.bot_info",
-        "src.exts.moderation.owner_cog",
         "src.exts.moderation.messages",
+        "src.exts.moderation.owner.owner_cog",
         "src.commands"
 
     ]
