@@ -40,7 +40,11 @@ class Bot_Controls(commands.Cog):
     
     @commands.is_owner()
     @commands.command(name="dm")
-    async def send_dm(self, ctx, User: discord.Member, show_name: Literal[converter.total_bools] = True, *, content):
+    async def send_dm(self, ctx: commands.Context, 
+                    User: discord.Member, 
+                    show_name: Literal['yes', 'y', 'true', 't', '1', 'enable', 'on', "True", True, 'no', 'n', 'false', 'f', '0', 'disable', 'off', "False", False] = True,
+                    *, content):
+                    
         """ Direct Messaging the user """
         channel = await User.create_dm()
         show_name = converter.msg_bool(show_name)
@@ -66,19 +70,25 @@ class Bot_Controls(commands.Cog):
     @commands.is_owner()
     @commands.command(name="status", aliases=("set_status", "activity"))
     async def setstatus(self, ctx: commands.Context, 
-                        status: Literal[['dnd', 'do_not_disturb', 'idle', 'invisible', 'offline', 'online']] = None, 
+                        status: Literal['dnd', 'do_not_disturb', 'idle', 'invisible', 'offline', 'online'] = None, 
                         run_loop : Optional[converter.msg_bool] = True, *, 
                         text: Optional[str] = None):
                     
         """Adding the more status and run it"""
-        
+        # status
         self.bot.status = status
 
+        # loop
         if run_loop == False:
             self.bot.change_status.cancel()
             log.info(f"Bot's status loop stoped and status changed to  :- {text}")
-            
-        else:
+                
+        
+        if run_loop == True and self.bot.chnage_status.is_running() == False:
+            self.bot.change_status.start()
+            await ctx.reply("Started the Activity Loop")
+        
+        if text is not None:
             self.bot.activies.insert(0, text)
             with open("src\\resource\\extensions\\status.json", "r+") as activies:
                 data = json.load(activies)
@@ -88,12 +98,7 @@ class Bot_Controls(commands.Cog):
                 activies.truncate()
             
             await ctx.reply("Added a new status!")
-        
-        
-        if run_loop == True and self.bot.chnage_status.is_running() == False:
-            self.bot.change_status.start()
-            await ctx.reply("Started the Activity Loop!")
-                
+    
         
         await self.bot.change_presence(status=self.bot.status, activity=discord.Game(name=text))
         await ctx.message.add_reaction("👍")
@@ -104,9 +109,10 @@ class Bot_Controls(commands.Cog):
         
 
         
-    async def cog_command_error(self, ctx, error):
-        """ Simply just send the error """
-        await ctx.reply(error)
+    # async def cog_command_error(self, ctx, error):
+    #     """ Simply just send the error """
+    #     print(error)
+    #     await ctx.reply(error)
     
 
 def setup(bot: commands.Bot):
