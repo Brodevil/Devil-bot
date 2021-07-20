@@ -1,0 +1,14 @@
+{
+    "cogs": [
+        "src.exts.backend.logging",
+        "src.exts.fun.randoms",
+        "src.exts.info.calculate",
+        "src.exts.info.information",
+        "src.exts.info.bot_info",
+        "src.exts.moderation.messages",
+        "src.exts.moderation.owner.owner_cog",
+        "src.exts.moderation.owner.reload_cog",
+        "src.commands"
+
+    ]
+}
