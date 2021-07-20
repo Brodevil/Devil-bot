@@ -56,11 +56,6 @@ class Bot(commands.Bot):
                     traceback.print_exc()
                     log.error('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error))
 
-                    yield 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error)
-            
-            else:
-                return True
-
         else:   
             try:
                 self.reload_extension(extension)
