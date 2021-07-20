@@ -43,7 +43,7 @@ class Bot(commands.Bot):
             await asyncio.sleep(30.0)
 
 
-    def loading_extensions(self, extensions : list=None, reload=False, extension=None):
+    def loading_extensions(self,  extensions : list=None, reload=False, extension=None):
         if extension is None and extensions is not None:
             for extension in extensions:
                 try:
@@ -55,7 +55,13 @@ class Bot(commands.Bot):
                     print('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error),  file=sys.stderr)
                     traceback.print_exc()
                     log.error('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error))
-        else:
+
+                    yield 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error)
+            
+            else:
+                return True
+
+        else:   
             try:
                 self.reload_extension(extension)
             except Exception as error:
@@ -63,7 +69,9 @@ class Bot(commands.Bot):
                 traceback.print_exc()
                 log.error('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error))
 
-
+                return 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error)
+            else:
+                return True 
 
 with open("src\\resource\\extensions\\status.json") as _activies:
     _activies = json.load(_activies)
