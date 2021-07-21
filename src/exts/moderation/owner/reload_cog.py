@@ -32,19 +32,14 @@ class Reload_cogs(Cog):
                 
         if cog is None:
             self.bot.loading_extensions(extensions=cogs, reload=True)
-            await ctx.message.add_reaction("👍")
+            await ctx.reply("Reloaded All the Cogs!")
 
-        elif cog in cog:
-            work = self.bot.load_extension(reload=True, extension=cog)
-            if work:
-                await ctx.message.add_reaction("👍")
-            else:
-                await ctx.message.add_reaction("👎")
+        elif cog in cogs:
+            self.bot.loading_extensions(reload=True, extension=cog)
         
         else:
             embed = Embed(title="Didn't Got such type of Cog \nAvailable Cogs are :",
             description="\n".join(cogs))
-
             await ctx.send(embed=embed)
         
             
