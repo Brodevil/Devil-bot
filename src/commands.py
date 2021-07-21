@@ -21,7 +21,7 @@ class Commands(commands.Cog):
     @commands.command(name="hello", aliases=("hey", "hlo", "test"))
     async def hello_world(self, ctx: commands.Context):
         await ctx.message.add_reaction("👋")
-        await ctx.reply("Hello")
+
 
 
 
