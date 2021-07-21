@@ -29,16 +29,5 @@ class Messaging(commands.Cog):
         await ctx.send('🗑️ Deleted {} message(s)'.format(len(deleted)), delete_after=5)
 
 
-
-    @clear.error
-    async def clear_error(self, ctx: commands.Context, error):
-        if isinstance(error, MissingPermissions):
-            message = "🔐 Missing **Manage Messages** permission(s)"
-
-            embed = discord.Embed(description=message, colour=constants.Colours.soft_red)
-
-            await ctx.send(embed=embed)
-
-
 def setup(bot: commands.Bot):
     bot.add_cog(Messaging(bot))
