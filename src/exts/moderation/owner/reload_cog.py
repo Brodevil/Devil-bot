@@ -35,7 +35,7 @@ class Reload_cogs(Cog):
             await ctx.reply("Reloaded All the Cogs!")
 
         elif cog in cogs:
-            self.bot.loading_extensions(reload=True, extension=cog)
+            self.bot.loading_extensions(reload=True, single_cog=cog)
         
         else:
             embed = Embed(title="Didn't Got such type of Cog \nAvailable Cogs are :",
