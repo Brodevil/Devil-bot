@@ -1,8 +1,8 @@
 import logging
 import json 
 
-from src.bot import bot             # noqa
-from src.constants import Client     # noqa
+from src.bot import bot             
+from src.constants import Client     
 
 
 log = logging.getLogger('discord')
