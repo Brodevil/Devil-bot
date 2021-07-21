@@ -21,4 +21,4 @@ class Commands(commands.Cog):
 
 
 def setup(bot: commands.Bot):
-    bot.add_cog(Commands(bot))
+    pass
