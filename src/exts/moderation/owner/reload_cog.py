@@ -13,7 +13,7 @@ from src.constants import Colours
 
 
 logger = logging.getLogger(__name__)
-__all__ = ("Reload_cog", "setup")
+__all__ = ("Reload_cogs", "setup")
 
 
 class Reload_cogs(Cog):
@@ -39,7 +39,7 @@ class Reload_cogs(Cog):
         
         else:
             embed = Embed(title="Didn't Got such type of Cog \nAvailable Cogs are :",
-            description="\n".join(cogs))
+            description="\n".join(cogs), color=Colours.soft_red)
             await ctx.send(embed=embed)
         
             
