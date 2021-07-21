@@ -43,8 +43,8 @@ class Bot(commands.Bot):
             await asyncio.sleep(30.0)
 
 
-    def loading_extensions(self,  extensions : list=None, reload=False, extension=None):
-        if extension is None and extensions is not None:
+    def loading_extensions(self,  extensions : list=None, reload=False, single_cog=None):
+        if single_cog is None and extensions is not None:
             for extension in extensions:
                 try:
                     if reload:
@@ -52,19 +52,20 @@ class Bot(commands.Bot):
                     else:
                         self.load_extension(extension)
                 except Exception as error:
-                    print('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error),  file=sys.stderr)
+                    error = 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error)
+                    print(error,  file=sys.stderr)
                     traceback.print_exc()
-                    log.error('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error))
-
+                    log.error(error)
+    
         else:   
             try:
-                self.reload_extension(extension)
+                self.reload_extension(single_cog)
             except Exception as error:
-                print('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error),  file=sys.stderr)
+                error = 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(single_cog, error)
+                print(error,  file=sys.stderr)
                 traceback.print_exc()
-                log.error('Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error))
-
-                return 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error)
+                log.error(error)
+                return error
             else:
                 return True 
 
