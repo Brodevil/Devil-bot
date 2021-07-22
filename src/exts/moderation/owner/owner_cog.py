@@ -28,6 +28,19 @@ class Bot_Controls(commands.Cog):
     async def quit(self, ctx: commands.Context):
         """Logout the bot!"""
         await ctx.message.add_reaction("✅")
+        await ctx.message.add_reaction("❌")
+        
+        def check(reaction, user):
+            if user == ctx.message.author:
+                if str(reaction.emoji) == '✅' or str(reaction.emoji) == "❌":
+                    return True
+                
+        try:
+            reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
+        except asyncio.TimeoutError:
+            embed = embed = Embed(title="Action Cancled!", color=constants.Colours.soft_green)
+            await ctx.send('👎')
+
         
 
         embed = Embed(title="🏃 Logged Out!", color=constants.Colours.soft_green)
