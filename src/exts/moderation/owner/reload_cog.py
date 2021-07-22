@@ -36,7 +36,7 @@ class Reload_cogs(Cog):
 
         elif cog in cogs:
             self.bot.loading_extensions(reload=True, single_cog=cog)
-            await ctx.replY(f"Sucessfully Reloaded {cog} Cog!")
+            await ctx.reply(f"Sucessfully Reloaded {cog} Cog!")
         
         else:
             embed = Embed(title="Didn't Got such type of Cog \nAvailable Cogs are :",
