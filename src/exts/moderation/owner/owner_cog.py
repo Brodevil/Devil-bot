@@ -45,15 +45,15 @@ class Bot_Controls(commands.Cog):
         if str(reaction) == "❌":
             embed = Embed(title="🚫 Action Cancled!", color=constants.Colours.soft_red)
             await ctx.send(embed=embed)
+            return
 
-        else:
-            embed = Embed(title="🏃 Logged Out!", color=constants.Colours.soft_green)
-            await ctx.send(embed=embed)
+        embed = Embed(title="🏃 Logged Out!", color=constants.Colours.soft_green)
+        await ctx.send(embed=embed)
 
-            await self.bot.logout()
-            await self.bot.close()
-            log.exception(f"{self.bot.user} had logged out by the bot author")
-            sys.exit(0)
+        await self.bot.logout()
+        await self.bot.close()
+        log.exception(f"{self.bot.user} had logged out by the bot author")
+        sys.exit(0)
         
     
     @commands.is_owner()
