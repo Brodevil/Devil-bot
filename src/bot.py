@@ -71,6 +71,11 @@ class Bot(commands.Bot):
             await ctx.send(embed=embed)
             return 
         
+        if str(reaction) == "❌":
+            embed = Embed(title="🚫 Action Cancled!", color=constants.Colours.soft_red)
+            await ctx.send(embed=embed)
+            return
+        
         await bot_command()
 
 
