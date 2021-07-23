@@ -5,7 +5,7 @@ import discord
 
 from src.constants import Colours  
 from src.utils.maths import calc_expresion  
-from src.utils.converter import acute_remover   
+from src.exts.utils.converter import acute_remover   
 
 
 class Calculation(commands.Cog):

@@ -10,7 +10,7 @@ from typing import Literal, Optional
 import json
 
 from src import constants                   # noqa
-from src.utils import converter        # noqa
+from src.exts.utils import converter        # noqa
 
 
 log = logging.getLogger(__name__)
@@ -63,6 +63,27 @@ class Bot_Controls(commands.Cog):
                     show_name: Literal['yes', 'y', 'true', 't', '1', 'enable', 'on', "True", True, 'no', 'n', 'false', 'f', '0', 'disable', 'off', "False", False], *, content):
                     
         """ Direct Messaging the user """
+        await ctx.message.add_reaction("✅")
+        await ctx.message.add_reaction("❌")
+        
+        def check(reaction, user):
+            if user == ctx.message.author:
+                if str(reaction.emoji) == '✅' or str(reaction.emoji) == "❌":
+                    return True
+        
+        try:
+            reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
+        except asyncio.TimeoutError:
+            embed = Embed(title="🚫 Action Cancled!", color=constants.Colours.soft_red)
+            await ctx.send(embed=embed)
+            return 
+
+        if str(reaction) == "❌":
+            embed = Embed(title="🚫 Action Cancled!", color=constants.Colours.soft_red)
+            await ctx.send(embed=embed)
+            return
+        
+
         channel = await User.create_dm()
         show_name = converter.msg_bool(show_name)
         
@@ -81,14 +102,14 @@ class Bot_Controls(commands.Cog):
         embed.set_author(name=name, icon_url=icon, url=url)
 
         await channel.send(embed=embed)
-        await ctx.message.add_reaction("👌")
+        await ctx.reply("👌")
     
 
     @commands.is_owner()
     @commands.command(name="status", aliases=("set_status", "activity"))
     async def setstatus(self, ctx: commands.Context, 
                         status: Literal['dnd', 'do_not_disturb', 'idle', 'invisible', 'offline', 'online'] = None, 
-                        run_loop : Optional[converter.msg_bool] = True, *, 
+                        run_loop : Optional[bool] = True, *, 
                         text: Optional[str] = None):
                     
         """Adding the more status and run it"""
