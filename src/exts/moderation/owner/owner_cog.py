@@ -45,7 +45,7 @@ class Bot_Controls(commands.Cog):
     @commands.command(name="dm")
     async def send_dm(self, ctx: commands.Context, 
                     User: discord.Member, 
-                    show_name: Optional[BoolConverter] = True,
+                    show_name: Optional[bool] = True,
                      *, content):
                     
         """ Direct Messaging the user """
@@ -72,7 +72,7 @@ class Bot_Controls(commands.Cog):
 
         channel = await User.create_dm()
 
-        if show_name or show_name is None:
+        if show_name:
             name = ctx.message.author.name
             url = f"https://discordapp.com/users/{ctx.message.author.id}"
             icon = ctx.message.author.avatar_url_as(format="png")
