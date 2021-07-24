@@ -45,7 +45,7 @@ class Bot_Controls(commands.Cog):
     @commands.command(name="dm")
     async def send_dm(self, ctx: commands.Context, 
                     User: discord.Member, 
-                    show_name: Optional[bool] = True,
+                    show_name: Optional[BoolConverter] = True,
                      *, content):
                     
         """ Direct Messaging the user """
@@ -58,7 +58,7 @@ class Bot_Controls(commands.Cog):
                     return True
         
         try:
-            reaction = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)[0]
+            reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
         except asyncio.TimeoutError:
             embed = Embed(title="🚫 Action Cancled!", color=constants.Colours.soft_red)
             await ctx.send(embed=embed)
@@ -71,13 +71,13 @@ class Bot_Controls(commands.Cog):
         
 
         channel = await User.create_dm()
-        print(show_name)
+
         if show_name or show_name is None:
             name = ctx.message.author.name
             url = f"https://discordapp.com/users/{ctx.message.author.id}"
             icon = ctx.message.author.avatar_url_as(format="png")
 
-        elif not show_name :
+        elif not show_name:
             name = self.bot.user.name
             url = f"https://discordapp.com/users/{self.bot.user.id}"
             icon = self.bot.user.avatar_url_as(format="png")
