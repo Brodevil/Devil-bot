@@ -10,6 +10,8 @@ from discord.ext import commands
 from discord import Embed
 import asyncio
 
+from discord.ext.commands.core import command
+
 from src.constants import Colours
 
 
@@ -63,10 +65,24 @@ class Reload_cogs(Cog):
             print(f"Sucessfully Reloaded `{cog}`` Cog!")
         
         else:
-            embed = Embed(title="Didn't Got such type of Cog \nAvailable Cogs are :",
-            description="\n".join(cogs), color=Colours.soft_red)
-            await ctx.send(embed=embed)
+            await self.cogs(ctx=ctx)
+    
+
+    @commands.is_owner()
+    @commands.command(name="cogs", aliases=("total_cogs", "show_cogs",))
+    async def cogs(self, ctx: commands.Context):
+        """Show case the Total Cogs"""
+        with open("src\\resource\\extensions\\_cogs.json") as cogs:
+            cogs = json.load(cogs)
+            cogs = list(cogs["cogs"])
         
+        description = "\n".join(cogs)
+        embed = Embed(title="Total Available Cogs :", 
+                description=f"```{description}```",
+                color=Colours.soft_red)
+        
+        await ctx.send(embed=embed)
+
 
 def setup(bot: Bot):
     bot.add_cog(Reload_cogs(bot))
