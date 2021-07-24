@@ -24,7 +24,6 @@ class Bot_Controls(commands.Cog):
         self.bot = bot
     
     
-    @self.bot.confirm_action()
     @commands.is_owner()
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
@@ -44,7 +43,7 @@ class Bot_Controls(commands.Cog):
     @commands.command(name="dm")
     async def send_dm(self, ctx: commands.Context, 
                     User: discord.Member, 
-                    show_name: Literal['yes', 'y', 'true', 't', '1', 'enable', 'on', "True", True, 'no', 'n', 'false', 'f', '0', 'disable', 'off', "False", False], *, content):
+                    show_name: Optional[converter.BoolConverter()], *, content):
                     
         """ Direct Messaging the user """
         await ctx.message.add_reaction("✅")
@@ -69,7 +68,6 @@ class Bot_Controls(commands.Cog):
         
 
         channel = await User.create_dm()
-        show_name = converter.msg_bool(show_name)
         
         if show_name:
             name = ctx.message.author.name
