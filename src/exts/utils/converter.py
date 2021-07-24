@@ -15,6 +15,7 @@ class BoolConverter(commands.Converter):
         for mode, storage in lookup.items():
             if lower in storage:
                 return mode
+        
 
 
 def acute_remover(msg: str):
