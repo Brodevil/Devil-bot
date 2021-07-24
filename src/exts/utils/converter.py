@@ -1,7 +1,8 @@
-import asyncio
-
 from discord.ext import commands
 from discord.ext.commands import Context
+
+
+__all__ = ("BoolConverter", "acute_remover")
 
 
 class BoolConverter(commands.Converter):
@@ -24,4 +25,4 @@ def acute_remover(msg: str):
         return msg[1:-1]
     
     return msg
-    
+
