@@ -11,6 +11,7 @@ import json
 
 from src import constants                   # noqa
 from src.exts.utils import converter        # noqa
+from src.exts.utils.decorators import confirm_action
 
 
 log = logging.getLogger(__name__)
@@ -24,6 +25,7 @@ class Bot_Controls(commands.Cog):
         self.bot = bot
     
     
+    @confirm_action()
     @commands.is_owner()
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
