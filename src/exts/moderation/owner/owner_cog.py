@@ -10,7 +10,7 @@ from typing import Literal, Optional
 import json
 
 from src import constants                   # noqa
-from src.exts.utils import converter        # noqa
+from src.exts.utils.converter import BoolConverter      # noqa
 from src.exts.utils.decorators import confirm_action
 
 
@@ -25,7 +25,7 @@ class Bot_Controls(commands.Cog):
         self.bot = bot
     
     
-    @confirm_action()
+    # @confirm_action()
     @commands.is_owner()
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
@@ -45,7 +45,8 @@ class Bot_Controls(commands.Cog):
     @commands.command(name="dm")
     async def send_dm(self, ctx: commands.Context, 
                     User: discord.Member, 
-                    show_name: Optional[converter.BoolConverter()], *, content):
+                    show_name: Optional[bool] = True,
+                     *, content):
                     
         """ Direct Messaging the user """
         await ctx.message.add_reaction("✅")
@@ -57,7 +58,7 @@ class Bot_Controls(commands.Cog):
                     return True
         
         try:
-            reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
+            reaction = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)[0]
         except asyncio.TimeoutError:
             embed = Embed(title="🚫 Action Cancled!", color=constants.Colours.soft_red)
             await ctx.send(embed=embed)
@@ -70,13 +71,13 @@ class Bot_Controls(commands.Cog):
         
 
         channel = await User.create_dm()
-        
-        if show_name:
+        print(show_name)
+        if show_name or show_name is None:
             name = ctx.message.author.name
             url = f"https://discordapp.com/users/{ctx.message.author.id}"
             icon = ctx.message.author.avatar_url_as(format="png")
 
-        elif not show_name:
+        elif not show_name :
             name = self.bot.user.name
             url = f"https://discordapp.com/users/{self.bot.user.id}"
             icon = self.bot.user.avatar_url_as(format="png")
