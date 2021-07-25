@@ -6,6 +6,7 @@ import discord
 
 from src.constants import Colours
 from src.exts.utils.converter import acute_remover
+from src.bot import bot
 
 
 log = logging.getLogger(__name__)
@@ -24,10 +25,11 @@ class Commands(commands.Cog):
 
     @commands.is_owner()
     @commands.command(name="eval", aliases=("e", ))
-    async def eval_cog(self, ctx: commands.Contextm, code):
-        code = acute_remover(code)
+    async def eval_cog(self, ctx: commands.Context, code: str):
+        code = acute_remover(str(code))
+        print(code)
         output = eval(code)
-        ctx.reply(f"```{output}```")
+        await ctx.reply(f"```{output}```")
 
 
 def setup(bot: commands.Bot):
