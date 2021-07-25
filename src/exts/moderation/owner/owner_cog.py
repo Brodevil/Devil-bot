@@ -25,13 +25,12 @@ class Bot_Controls(commands.Cog):
         self.bot = bot
     
     
-    # @confirm_action()
     @commands.is_owner()
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
         """Logout the bot!"""
-
-
+        await confirm_action(ctx=ctx)
+    
         embed = Embed(title="🏃 Logged Out!", color=constants.Colours.soft_green)
         await ctx.send(embed=embed)
 
@@ -49,26 +48,7 @@ class Bot_Controls(commands.Cog):
                      *, content):
                     
         """ Direct Messaging the user """
-        await ctx.message.add_reaction("✅")
-        await ctx.message.add_reaction("❌")
-        
-        def check(reaction, user):
-            if user == ctx.message.author:
-                if str(reaction.emoji) == '✅' or str(reaction.emoji) == "❌":
-                    return True
-        
-        try:
-            reaction, user = await self.bot.wait_for('reaction_add', timeout=30.0, check=check)
-        except asyncio.TimeoutError:
-            embed = Embed(title="🚫 Action Cancled!", color=constants.Colours.soft_red)
-            await ctx.send(embed=embed)
-            return 
-
-        if str(reaction) == "❌":
-            embed = Embed(title="🚫 Action Cancled!", color=constants.Colours.soft_red)
-            await ctx.send(embed=embed)
-            return
-        
+        await confirm_action(ctx)
 
         channel = await User.create_dm()
 
@@ -130,12 +110,6 @@ class Bot_Controls(commands.Cog):
 
         log.info(f"Added {text} in bot status loop")
         
-
-        
-    # async def cog_command_error(self, ctx, error):
-    #     """ Simply just send the error """
-    #     print(error)
-    #     await ctx.reply(error)
     
 
 def setup(bot: commands.Bot):
