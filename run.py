@@ -14,7 +14,7 @@ log.addHandler(handler)
 
 
 # extensions loading
-with open("src\\resource\\extensions\\_cogs.json") as _cog:
+with open("src/resource/extensions/_cogs.json") as _cog:
     _cog = json.load(_cog)
     _cog = list(_cog["cogs"])
 
