@@ -80,10 +80,8 @@ class Emojis:
     x = "\U0001f1fd"
     o = "\U0001f1f4"
 
-    status_online = "<:online:803963245567541289>"
-    status_offline = "<:offline:803963259207286834>"
-    status_idle = "<:idle:803963256141512724>"
-    status_dnd = "<:dnd:803963262269259796>"
+    status_online = "<:online_status:859727593872031794>"
+    status_offline = "<:offline_status:859727545157943316>"
 
     bots = "<:bot_tag:859726932752990238>"
     nitro_boost = "<a:nitro_boost:861146239084658709>"
