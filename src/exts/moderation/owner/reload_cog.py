@@ -50,7 +50,7 @@ class Reload_cogs(Cog):
             return 
 
 
-        with open("src\\resource\\extensions\\_cogs.json") as cogs:
+        with open("src/resource/extensions/_cogs.json") as cogs:
             cogs = json.load(cogs)
             cogs = list(cogs["cogs"])
                 
