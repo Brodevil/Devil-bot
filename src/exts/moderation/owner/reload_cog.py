@@ -46,8 +46,9 @@ class Reload_cogs(Cog):
             print(f"Sucessfully Reloaded `{cog}` Cog!")
         
         else:
+            print("H")
             for _ in cogs:
-                
+                print(_)
                 if cog in _:
                     self.bot.loading_extensions(reload=True, single_cog=cog)
                     await ctx.reply(f"**Sucessfully Reloaded `{cog}` Cog!**")
@@ -62,7 +63,7 @@ class Reload_cogs(Cog):
     @commands.command(name="cogs", aliases=("total_cogs", "show_cogs",))
     async def cogs(self, ctx: commands.Context):
         """Show case the Total Cogs"""
-        with open("sr/\resource/extensions/_cogs.json") as cogs:
+        with open("src/resource/extensions/_cogs.json") as cogs:
             cogs = json.load(cogs)
             cogs = list(cogs["cogs"])
         
