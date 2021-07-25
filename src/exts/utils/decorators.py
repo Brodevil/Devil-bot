@@ -9,9 +9,10 @@ from src.constants import Colours
 from src.bot import bot
 
 __all__ = ("confim_action")
+logger = logging.getLogger(__name__)
 
 
-async def confirm_action(ctx: commands.Context, bot_command: commands.Command):
+async def confirm_action(ctx: commands.Context):
     await ctx.message.add_reaction("✅") 
     await ctx.message.add_reaction("❌")
     
@@ -32,4 +33,3 @@ async def confirm_action(ctx: commands.Context, bot_command: commands.Command):
         await ctx.send(embed=embed)
         return
     
-    await bot_command()
