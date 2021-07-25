@@ -9,8 +9,8 @@ import asyncio
 from typing import Literal, Optional
 import json
 
-from src import constants                   # noqa
-from src.exts.utils.converter import BoolConverter      # noqa
+from src import constants                   
+from src.exts.utils.converter import BoolConverter      
 from src.exts.utils.decorators import confirm_action
 
 
@@ -29,7 +29,7 @@ class Bot_Controls(commands.Cog):
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
         """Logout the bot!"""
-        await confirm_action(ctx=ctx)
+        await confirm_action(ctx)
     
         embed = Embed(title="🏃 Logged Out!", color=constants.Colours.soft_green)
         await ctx.send(embed=embed)
@@ -49,7 +49,6 @@ class Bot_Controls(commands.Cog):
                     
         """ Direct Messaging the user """
         await confirm_action(ctx)
-
         channel = await User.create_dm()
 
         if show_name:
@@ -73,7 +72,7 @@ class Bot_Controls(commands.Cog):
     @commands.is_owner()
     @commands.command(name="status", aliases=("set_status", "activity"))
     async def setstatus(self, ctx: commands.Context, 
-                        status: Literal['dnd', 'do_not_disturb', 'idle', 'invisible', 'offline', 'online'] = None, 
+                        status: Literal['dnd', 'do_not_disturb', 'idle', 'invisible', 'offline', 'online'] = "online", 
                         run_loop : Optional[bool] = True, *, 
                         text: Optional[str] = None):
                     
@@ -82,14 +81,16 @@ class Bot_Controls(commands.Cog):
         self.bot.status = status
 
         # loop
-        if run_loop == False:
+        if run_loop == False and self.bot.change_status.is_running() == True:
             self.bot.change_status.cancel()
             log.info(f"Bot's status loop stoped and status changed to  :- {text}")
-                
+            await ctx.reply("Stoped the Activity Loop")
         
-        if run_loop == True and self.bot.chnage_status.is_running() == False:
+        
+        if run_loop == True and self.bot.change_status.is_running() == False:
             self.bot.change_status.start()
             await ctx.reply("Started the Activity Loop")
+        
         
         if text is not None:
             self.bot.activies.insert(0, text)
@@ -101,13 +102,14 @@ class Bot_Controls(commands.Cog):
                 activies.truncate()
             
             await ctx.reply("Added a new status!")
-    
+
+        if text is None:
+            text=f"Over {len(self.bot.guilds)} Servers, Over {len(set(self.bot.users))} Members"
         
+
         await self.bot.change_presence(status=self.bot.status, activity=discord.Game(name=text))
         await ctx.message.add_reaction("👍")
-        
-
-
+    
         log.info(f"Added {text} in bot status loop")
         
     
