@@ -29,7 +29,7 @@ class Information(commands.Cog):
         created = time_since(server.created_at, max_units=3)
         server_roles = len(ctx.guild.roles) - 1  # leaving @everyone
 
-        server_info = [f"📆 **Created** : {created}", f"🆔 **ID** : {server.id}", f"<:3581_voice_emoji:840975836781477938> **Voice Region** : {server.region}",
+        server_info = [f"📆 **Created** : {created}", f"🆔 **ID** : {server.id}", f"<:voice_channel:868863984269414430> **Voice Region** : {server.region}",
                         f"🔐 **Roles** : {server_roles}", f"**{constants.Emojis.nitro_boost} Server Boosts :  {server.premium_subscription_count}**"]
 
         if description is not None:
@@ -53,9 +53,10 @@ class Information(commands.Cog):
         # embed
         embed = Embed(title=server.name, color=discord.Color.blue(), description='\n'.join(server_info), icon=server.icon_url)
         embed.set_thumbnail(url=server.icon_url)
-        embed.add_field(name=f'<:3410_Channel_fluffys:840975836832071710> Channels : {total_channels}', value="\n".join(channels_info))
+        embed.add_field(name=f'<:channel:868863984185528450> Channels : {total_channels}', value="\n".join(channels_info))
         embed.add_field(name=f"👥 Members : {total_members}", value="\n".join(member_info))
         embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url_as(format="png"))
+        
         await ctx.send(embed=embed)
 
 
@@ -87,10 +88,6 @@ class Information(commands.Cog):
         
         await ctx.send(embed=embed)
 
-
-    async def cog_command_error(self, ctx, error):
-        """ Simply just send the error """
-        await ctx.send(error)
     
 
 def setup(bot: commands.Bot):
