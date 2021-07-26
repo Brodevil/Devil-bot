@@ -46,9 +46,7 @@ class Reload_cogs(Cog):
             print(f"Sucessfully Reloaded `{cog}` Cog!")
         
         else:
-            print("H")
             for _ in cogs:
-                print(_)
                 if cog in _:
                     self.bot.loading_extensions(reload=True, single_cog=cog)
                     await ctx.reply(f"**Sucessfully Reloaded `{cog}` Cog!**")
