@@ -86,6 +86,8 @@ class Bot_Controls(commands.Cog):
         # status
         self.bot.status = status
 
+        print(self.bot.status)
+
         # loop
         if run_loop == False and self.bot.change_status.is_running() == True:
             self.bot.change_status.cancel()
