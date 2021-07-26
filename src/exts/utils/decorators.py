@@ -34,3 +34,6 @@ async def confirm_action(ctx: commands.Context):
         await ctx.send(embed=embed)
         return
     
+    else:
+        return True
+    
