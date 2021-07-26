@@ -5,8 +5,11 @@ import traceback
 from contextlib import suppress
 from discord.ext.commands import *
 
+from src.bot import bot
 
-async def error_handler(ctx, error):
+
+@bot.event
+async def on_command_error(ctx: Context, error):
     """Error handler for discord.py related Errors."""
     ignored = (CommandNotFound, )
     error = getattr(error, 'original', error)
