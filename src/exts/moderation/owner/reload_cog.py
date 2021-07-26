@@ -29,7 +29,9 @@ class Reload_cogs(Cog):
     @commands.command(name="reload", aliases=("reload_cog", "recog", "cog", "load"))
     async def reload_cogs(self, ctx: commands.Context, cog: Optional[str] = None):
         """Reloads the cogs """
-        await confirm_action(ctx)
+        
+        if await confirm_action(ctx) is None:
+            return
     
         with open("src/resource/extensions/_cogs.json") as cogs:
             cogs = json.load(cogs)
