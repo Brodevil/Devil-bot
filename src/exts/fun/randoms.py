@@ -1,3 +1,4 @@
+from contextvars import Context
 import random
 import logging
 
@@ -18,6 +19,7 @@ class Random_fun(commands.Cog):
     """ Fun commands from random module """
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+
 
     @commands.command(name="guess", aliases=("guess_num",), pass_context=True)
     async def guess_num(self, ctx: commands.Context, num1: int = 1, num2: int = 10):
@@ -90,6 +92,17 @@ class Random_fun(commands.Cog):
         dice = Emojis.dices[dice_number]
 
         await ctx.reply(dice)
+
+    
+    @commands.command(name="choose", aliases=("choose_one", "select", ))
+    async def choose(self, ctx: Context, *, choices: str):
+        """Chooses between multiple choices."""
+        if ", " in choices:
+            choices = choices.split(", ")
+        else:
+            choices = choices.split()
+        
+        await ctx.reply(random.choice(choices))
 
 
 def setup(bot: commands.Bot):
