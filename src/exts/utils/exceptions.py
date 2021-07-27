@@ -9,13 +9,15 @@ import discord
 from src.bot import bot
 
 
+__all__ = ("ActionCancel", "on_command_error")
+
 class ActionCancle(discord.HTTPException):
     """Raise when the Action is Canceled"""
     pass
 
 
 @bot.event
-async def on_command_error(ctx: Context, error):
+async def on_command_error(ctx, error):
     """Error handler for discord.py related Errors."""
     ignored = (CommandNotFound, )
     error = getattr(error, 'original', error)
