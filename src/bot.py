@@ -1,7 +1,5 @@
 import logging
-import sys
 
-import traceback
 import asyncio
 import json 
 
@@ -10,8 +8,8 @@ from discord.ext import commands
 from discord.ext import tasks
 from discord.ext.commands.core import command
 
-from src.constants import Channels      
-from src.exts.backend.logging import Logging           
+from src.context import NewContext
+
 
 log = logging.getLogger(__name__)
 
@@ -28,20 +26,28 @@ class Bot(commands.Bot):
         self.status = status
         self.change_status.start()
 
-
     async def on_ready(self):
         print('Bot had Logged in as :- {0} (ID : {0.id})'.format(self.user))
         print('------' * 11)
     
 
+    async def get_context(self, message, *, cls=NewContext):
+        """Coustem Context"""
+        return await super().get_context(message, cls=cls)
+
+
     @tasks.loop(seconds=30.0)
     async def change_status(self):
-        """Changing the status on loop yee!"""
-        await super().wait_until_ready()
-        
+        """Changing the status on loop yee!"""        
         for _ in self.activies:
             await super().change_presence(status=self.status, activity=discord.Game(_), )   
             await asyncio.sleep(30.0)
+
+
+    @change_status.before_loop()
+    async def before_loops(self):
+        """Work to be done before the loops get started!"""
+        await super().wait_until_ready()
 
 
     def loading_extensions(self,  extensions : list = None, reload=False, single_cog=None):
@@ -53,7 +59,8 @@ class Bot(commands.Bot):
                     self.load_extension(extension)
         else:   
             self.reload_extension(single_cog)
-        
+    
+
 
 
 with open("src\\resource\\extensions\\status.json") as _activies:
@@ -67,7 +74,7 @@ _intents.typing = True
 _intents.presences = True
 
 status=discord.Status.online
-prefix = ("d!", "md!", "~", "!", ".")
+prefix = ("md_", "!")
 
 bot = Bot(
     activies=_activies,
