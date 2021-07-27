@@ -4,8 +4,14 @@ import traceback
 
 from contextlib import suppress
 from discord.ext.commands import *
+import discord 
 
 from src.bot import bot
+
+
+class ActionCancle(discord.HTTPException):
+    """Raise when the Action is Canceled"""
+    pass
 
 
 @bot.event
