@@ -49,8 +49,8 @@ class Bot_Controls(commands.Cog):
                      *, content):
                     
         """ Direct Messaging the user """
-        if await confirm_action(ctx) is None:
-            return
+        await ctx.confirm_action(ctx):
+
         
         channel = await User.create_dm()
 
