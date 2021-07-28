@@ -10,8 +10,7 @@ from typing import Literal, Optional
 import json
 
 from src import constants                   
-from src.exts.utils.converter import BoolConverter      
-from src.exts.utils.decorators import confirm_action
+from src.exts.utils.converter import BoolConverter
 
 
 log = logging.getLogger(__name__)
@@ -83,7 +82,7 @@ class Bot_Controls(commands.Cog):
         # status
         self.bot.status = status
 
-        print(self.
+        print(self.bot.status)
 
         # loop
         if run_loop == False and self.bot.change_status.is_running() == True:
