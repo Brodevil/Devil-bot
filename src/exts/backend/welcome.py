@@ -13,6 +13,5 @@ class Welcome(Cog):
 
 
 
-
 def setup(bot: Bot):
     bot.add_cog(Welcome(bot))
