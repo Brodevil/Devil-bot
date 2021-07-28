@@ -1,23 +1,25 @@
 import asyncio
-from multiprocessing.connection import Listener
 import sys
 import traceback
 
 from contextlib import suppress
 from discord.ext.commands import *
+from discord import Embed
+
+from src.exts.utils.exceptions import ActionCancle
+from src.constants import Colours
 
 
 __all__ = ("ErrorHandling", )
-
-
 
 
 class ErrorHandling(Cog):
     def __init__(self, bot: Bot) -> None:
         self.bot = bot
     
+
     @Cog.listener()
-    async def on_command_error(self, ctx: Context, error):
+    async def on_error(self, ctx: Context, error):
         """Error handler for discord.py related Errors."""
         ignored = (CommandNotFound, )
         error = getattr(error, 'original', error)
@@ -25,6 +27,10 @@ class ErrorHandling(Cog):
         if isinstance(error, ignored):
             return
         
+        elif isinstance(error, ActionCancle):
+            embed = Embed(title="🚫 Action Cancled!", color=Colours.soft_red)
+            await ctx.send(embed=embed)
+
         elif isinstance(error, MissingRequiredArgument):
             await ctx.reply(f'Missing Required Argument!\nMissing Arguments: `{error.param}`\n> Usage: `{ctx.prefix}{ctx.invoked_with} {ctx.command.usage}`\nNeed more info? Use `{ctx.prefix}help {ctx.invoked_with}`')
         
@@ -164,3 +170,7 @@ class ErrorHandling(Cog):
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
+
+
+def setup(bot: Bot):
+    bot.add_cog(ErrorHandling(bot))
