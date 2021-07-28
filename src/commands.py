@@ -7,7 +7,6 @@ import discord
 from src.constants import Colours
 from src.exts.utils.converter import acute_remover
 from src.bot import bot
-from src.exts.utils.decorators import confirm_action
 
 
 log = logging.getLogger(__name__)
@@ -27,10 +26,8 @@ class Commands(commands.Cog):
     @commands.is_owner()
     @commands.command(name="eval", aliases=("e", ))
     async def eval_cog(self, ctx: commands.Context, code: str):
-        
-        if await confirm_action(ctx) is None:
-            return
-        
+        await ctx.confirm_action()
+
         code = acute_remover(str(code))
         output = eval(code)
         await ctx.reply(f"```{output}```")
