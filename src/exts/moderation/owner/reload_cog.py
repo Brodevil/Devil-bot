@@ -10,10 +10,7 @@ from discord.ext import commands
 from discord import Embed
 import asyncio
 
-from discord.ext.commands.core import command
-
 from src.constants import Colours
-from src.exts.utils.decorators import confirm_action
 
 
 logger = logging.getLogger(__name__)
@@ -30,8 +27,7 @@ class Reload_cogs(Cog):
     async def reload_cogs(self, ctx: commands.Context, cog: Optional[str] = None):
         """Reloads the cogs """
         
-        if await confirm_action(ctx) is None:
-            return
+        await ctx.confirm_action()
     
         with open("src/resource/extensions/_cogs.json") as cogs:
             cogs = json.load(cogs)
