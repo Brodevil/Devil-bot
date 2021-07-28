@@ -31,9 +31,9 @@ class Bot(commands.Bot):
         print('------' * 11)
     
 
-    async def get_context(self, message, *, cls=NewContext):
-        """Coustem Context"""
-        return await super().get_context(message, cls=cls)
+    # async def get_context(self, message, *, cls=None):
+    #     """Coustem Context"""
+    #     return await super().get_context(message, cls=cls or NewContext)
 
 
     @tasks.loop(seconds=30.0)
@@ -44,7 +44,7 @@ class Bot(commands.Bot):
             await asyncio.sleep(30.0)
 
 
-    @change_status.before_loop()
+    @change_status.before_loop
     async def before_loops(self):
         """Work to be done before the loops get started!"""
         await super().wait_until_ready()
