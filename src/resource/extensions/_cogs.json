@@ -1,6 +1,7 @@
 {
     "cogs": [
         "src.exts.backend.logging",
+        "src.exts.backend.error_handler",
         "src.exts.fun.randoms",
         "src.exts.info.calculate",
         "src.exts.info.information",
