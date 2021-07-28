@@ -5,11 +5,9 @@ from discord.ext.commands import Context
 from discord.ext.commands import Bot
 
 from src.exts.utils.exceptions import ActionCancle
-from src.bot import bot
 
 
 __all__ = ("NewContext", )
-
 logger = logging.getLogger(__name__)
 
     
