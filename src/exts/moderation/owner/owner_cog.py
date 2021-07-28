@@ -29,8 +29,7 @@ class Bot_Controls(commands.Cog):
     @commands.command(name="quit", aliases=("close", "bye", "logout",))
     async def quit(self, ctx: commands.Context):
         """Logout the bot!"""
-        if await confirm_action(ctx) is None:
-            return
+        await ctx.confirm_action()
     
         embed = Embed(title="🏃 Logged Out!", color=constants.Colours.soft_green)
         await ctx.send(embed=embed)
@@ -49,8 +48,7 @@ class Bot_Controls(commands.Cog):
                      *, content):
                     
         """ Direct Messaging the user """
-        await ctx.confirm_action(ctx):
-
+        await ctx.confirm_action()
         
         channel = await User.create_dm()
 
@@ -80,13 +78,12 @@ class Bot_Controls(commands.Cog):
                         text: Optional[str] = None):
                     
         """Adding the more status and run it"""
-        if await confirm_action(ctx) is None:
-            return
+        await ctx.confirm_action()
         
         # status
         self.bot.status = status
 
-        print(self.bot.status)
+        print(self.
 
         # loop
         if run_loop == False and self.bot.change_status.is_running() == True:
