@@ -1,10 +1,9 @@
 import discord 
-
+import asyncio
 
 __all__ = ("ActionCancel", )
 
 
-
-class ActionCancle(discord.HTTPException):
+class ActionCancle(Exception):
     """Raise when the Action is Canceled"""
     pass
