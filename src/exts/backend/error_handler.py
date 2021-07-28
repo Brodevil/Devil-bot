@@ -5,24 +5,19 @@ import traceback
 
 from contextlib import suppress
 from discord.ext.commands import *
-import discord 
-
-from src.bot import bot
 
 
-__all__ = ("ActionCancel", "on_command_error")
+__all__ = ("ErrorHandling", )
 
-class ActionCancle(discord.HTTPException):
-    """Raise when the Action is Canceled"""
-    pass
+
 
 
 class ErrorHandling(Cog):
     def __init__(self, bot: Bot) -> None:
         self.bot = bot
     
-    @Listener
-    async def on_command_error(self, ctx, error):
+    @Cog.listener()
+    async def on_command_error(self, ctx: Context, error):
         """Error handler for discord.py related Errors."""
         ignored = (CommandNotFound, )
         error = getattr(error, 'original', error)
