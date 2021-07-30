@@ -10,7 +10,7 @@ from src.exts.utils.exceptions import ActionCancle
 from src.constants import Colours
 
 
-__all__ = ("ErrorHandling", )
+__all__ = ("ErrorHandling")
 
 
 class ErrorHandling(Cog):
