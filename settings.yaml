@@ -1,0 +1,10 @@
+startup:
+  load-Devil: true
+  log-message: true
+  load-cogs-on-startup: true
+
+bot:
+  default-prefix: "d!"
+  development: true
+
+debug-mode: true
