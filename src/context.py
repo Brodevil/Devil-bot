@@ -1,8 +1,6 @@
-import asyncio
 import logging
 
 from discord.ext.commands import Context
-
 
 from src.exts.utils.exceptions import ActionCancle
 from src.exts.utils.checkers import confirm_action
@@ -19,5 +17,8 @@ class NewContext(Context):
         action = confirm_action(self)
 
         if action == False:
-            raise ActionCancel("Action Cancled by the user")
+            raise ActionCancle("Action Cancled by the user")
         
+        else:
+            pass
+
