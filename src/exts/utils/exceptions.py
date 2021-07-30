@@ -1,7 +1,7 @@
 import discord 
 import asyncio
 
-__all__ = ("ActionCancle", )
+__all__ = ("ActionCancle")
 
 
 class ActionCancle(Exception):
