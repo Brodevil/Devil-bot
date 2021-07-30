@@ -2,6 +2,7 @@ import logging
 
 import asyncio
 import json 
+import traceback
 
 import discord 
 from discord.ext import commands
@@ -53,10 +54,14 @@ class Bot(commands.Bot):
     def loading_extensions(self,  extensions : list = None, reload=False, single_cog=None):
         if single_cog is None and extensions is not None:
             for extension in extensions:
-                if reload:
-                    self.reload_extension(extension)
-                else:
-                    self.load_extension(extension)
+                try:
+                    if reload:
+                        self.reload_extension(extension)
+                    else:
+                        self.load_extension(extension)
+                except Exception as e:
+                    print(f'Error loading {extension}', file=sys.stderr)
+                    traceback.print_exc()
         else:   
             self.reload_extension(single_cog)
     
