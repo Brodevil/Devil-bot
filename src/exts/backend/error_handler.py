@@ -19,7 +19,7 @@ class ErrorHandling(Cog):
     
 
     @Cog.listener()
-    async def on_error(self, ctx: Context, error):
+    async def on_command_error(self, ctx: Context, error):
         """Error handler for discord.py related Errors."""
         ignored = (CommandNotFound, )
         error = getattr(error, 'original', error)
@@ -69,22 +69,7 @@ class ErrorHandling(Cog):
         
         elif isinstance(error, BadBoolArgument):
             await ctx.reply(f'Boolean Argument does not match the valid format!\n> Arguments passed: `{error.argument}`')
-        
-        elif isinstance(error, BadFlagArgument):
-            await ctx.reply('Flag failed tO convert a value!')
-        
-        elif isinstance(error, MissingFlagArgument):
-            await ctx.reply('Missing Flag Argument! Flag did not get a value')
-        
-        elif isinstance(error, TooManyFlags):
-            await ctx.reply('Flag recieved too many Values!')
-        
-        elif isinstance(error, MissingRequiredFlag):
-            await ctx.reply('Missing Required Flag!')
-        
-        elif isinstance(error, BadLiteralArgument):
-            await ctx.send(f'Passed Invalid Value in Literal!\n> Parameter Failed: {error.param}\n> Valid Literals: `{", ".join(i for i in error.literals)}`')
-        
+   
         elif isinstance(error, BadUnionArgument):
             await ctx.reply(f'Invaild Inupt type passed in Arguments!\n> Parameter failed: {error.param}\n> Valid Input Types: {", ".join(i for i in error.converters)}\nNeed more info? Use `{ctx.prefix}help {ctx.invoked_with}`')
         
