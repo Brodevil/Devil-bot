@@ -16,6 +16,7 @@ logging.getLogger(__name__)
 
 class Channels(NamedTuple):
     LOG_CHANNEL = config.LOG_CHANNEL
+    VOICE_CHAT_CHANNEL = config.VOICE_CHAT_CHANNEL
 
 
 class Client:
