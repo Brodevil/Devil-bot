@@ -151,10 +151,10 @@ class ErrorHandling(Cog):
             await ctx.reply('Timed out waiting for response...')
             
         else:
-            await ctx.reply(f'Oops! Some error Occured...\n>>> Error: `{error}`')
+            await ctx.reply(f'Oops! Some error Occured...\n>>> Error: ```{error}```')
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-
+            traceback.print_exc()
 
 
 def setup(bot: Bot):
