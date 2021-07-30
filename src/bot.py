@@ -30,11 +30,6 @@ class Bot(commands.Bot):
     async def on_ready(self):
         print('Bot had Logged in as :- {0} (ID : {0.id})'.format(self.user))
         print('------' * 11)
-    
-
-    # async def get_context(self, message, *, cls=None):
-    #     """Coustem Context"""
-    #     return await super().get_context(message, cls=cls or NewContext)
 
 
     @tasks.loop(seconds=30.0)
@@ -49,6 +44,11 @@ class Bot(commands.Bot):
     async def before_loops(self):
         """Work to be done before the loops get started!"""
         await super().wait_until_ready()
+
+
+    async def get_context(self, message, *, cls=None):
+        """Get the custem context"""
+        return await super().get_context(message, cls=cls or NewContext)
 
 
     def loading_extensions(self,  extensions : list = None, reload=False, single_cog=None):
