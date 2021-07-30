@@ -1,4 +1,5 @@
 import logging
+import sys
 
 import asyncio
 import json 
@@ -7,7 +8,6 @@ import traceback
 import discord 
 from discord.ext import commands
 from discord.ext import tasks
-from discord.ext.commands.core import command
 
 from src.context import NewContext
 
@@ -59,13 +59,15 @@ class Bot(commands.Bot):
                         self.reload_extension(extension)
                     else:
                         self.load_extension(extension)
-                except Exception as e:
-                    print(f'Error loading {extension}', file=sys.stderr)
+                except Exception as error:
+                    error = 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error)
                     traceback.print_exc()
-        else:   
+                    log.error(error)
+        
+        else:
+            # While reloading I will be directly sending the message
             self.reload_extension(single_cog)
     
-
 
 
 with open("src\\resource\\extensions\\status.json") as _activies:
