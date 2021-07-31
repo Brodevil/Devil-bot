@@ -27,6 +27,7 @@ class Bot(commands.Bot):
         self.status = status
         self.change_status.start()
 
+
     async def on_ready(self):
         print('Bot had Logged in as :- {0} (ID : {0.id})'.format(self.user))
         print('------' * 11)
