@@ -9,7 +9,6 @@ import discord
 from discord.ext import commands
 from discord.ext import tasks
 
-from src.context import NewContext
 
 
 log = logging.getLogger(__name__)
@@ -46,9 +45,9 @@ class Bot(commands.Bot):
         await super().wait_until_ready()
 
 
-    async def get_context(self, message, *, cls=None):
+    async def get_context(self, message, *, cls):
         """Get the custem context"""
-        return await super().get_context(message, cls=cls or NewContext)
+        return await super().get_context(message, cls=cls)
 
 
     def loading_extensions(self,  extensions : list = None, reload=False, single_cog=None):
