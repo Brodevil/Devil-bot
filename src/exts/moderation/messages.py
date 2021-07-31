@@ -23,6 +23,8 @@ class Messaging(commands.Cog):
     @has_permissions(manage_messages=True, read_message_history=True)
     async def clear(self, ctx: commands.Context, num):
         """Deleting messages"""
+        await ctx.confirm_action()
+        
         num = int(num)
         deleted = await ctx.channel.purge(limit=num)
 
