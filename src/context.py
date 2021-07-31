@@ -4,12 +4,13 @@ from discord.ext.commands import Context
 
 from src.exts.utils.exceptions import ActionCancle
 from src.exts.utils.checkers import confirm_action
+from src.bot import bot
 
 
 __all__ = ("NewContext", )
 logger = logging.getLogger(__name__)
 
-    
+
 class NewContext(Context):
     """My New Coustum Context"""  
 
@@ -19,6 +20,5 @@ class NewContext(Context):
         if action == False:
             raise ActionCancle("Action Cancled by the user")
         
-        else:
-            pass
 
+bot.get_context("Confirm actions", NewContext)
