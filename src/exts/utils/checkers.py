@@ -13,4 +13,3 @@ def random_num_check(author: discord.User):
             return False
 
     return inner_check
-
