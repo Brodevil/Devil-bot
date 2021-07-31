@@ -9,6 +9,7 @@ import discord
 from discord.ext import commands
 from discord.ext import tasks
 
+from src.context import NewContext
 
 
 log = logging.getLogger(__name__)
@@ -45,12 +46,14 @@ class Bot(commands.Bot):
         await super().wait_until_ready()
 
 
-    async def get_context(self, message, *, cls):
+    async def get_context(self, message, *, cls= None):
         """Get the custem context"""
-        return await super().get_context(message, cls=cls)
+        return await super().get_context(message=message, cls=cls or NewContext)
 
 
     def loading_extensions(self,  extensions : list = None, reload=False, single_cog=None):
+        """fucntion to loads the Extension/Cogs"""
+        
         if single_cog is None and extensions is not None:
             for extension in extensions:
                 try:
@@ -60,6 +63,7 @@ class Bot(commands.Bot):
                         self.load_extension(extension)
                 except Exception as error:
                     error = 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error)
+                    print(error, file=sys.)
                     traceback.print_exc()
                     log.error(error)
         
