@@ -53,7 +53,7 @@ class Bot(commands.Bot):
 
     def loading_extensions(self,  extensions : list = None, reload=False, single_cog=None):
         """fucntion to loads the Extension/Cogs"""
-        
+
         if single_cog is None and extensions is not None:
             for extension in extensions:
                 try:
@@ -63,7 +63,7 @@ class Bot(commands.Bot):
                         self.load_extension(extension)
                 except Exception as error:
                     error = 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error)
-                    print(error, file=sys.)
+                    print(error, file=sys.stderr)
                     traceback.print_exc()
                     log.error(error)
         
