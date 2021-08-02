@@ -37,9 +37,11 @@ class Commands(commands.Cog):
     @commands.is_owner()
     @commands.command(name="cmd", aliases=("os", "shell", ))
     async def cmd(self, ctx: commands.Context, *, command: str):
+        await ctx.confirm_action()
+    
         command = acute_remover(str(command))
         system(command)
-        await ctx.reply("👌")
+        await ctx.message.add_reaction("👌")
 
 
 def setup(bot: commands.Bot):
