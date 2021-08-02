@@ -69,8 +69,13 @@ class Bot(commands.Bot):
                     log.error(error)
         
         else:
-            # While reloading I will be directly sending the message
-            self.reload_extension(single_cog)
+            try:
+                self.reload_extension(single_cog)
+            except Exception as error:
+                error = 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(single_cog, error)
+                print(error, file=sys.stderr)
+                traceback.print_exc()
+                log.error(error)
     
 
 
