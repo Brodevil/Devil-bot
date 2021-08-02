@@ -32,7 +32,8 @@ class Reload_cogs(Cog):
         with open("src/resource/extensions/_cogs.json") as cogs:
             cogs = json.load(cogs)
             cogs = list(cogs["cogs"])
-                
+            cogs.remove("src.exts.backend.logging")
+
         if cog is None:
             self.bot.loading_extensions(extensions=cogs, reload=True)
             await ctx.reply("**Reloaded All the Cogs!**")
@@ -46,8 +47,8 @@ class Reload_cogs(Cog):
         else:
             for _ in cogs:
                 if cog in _:
-                    self.bot.loading_extensions(reload=True, single_cog=cog)
-                    await ctx.reply(f"**Sucessfully Reloaded `{cog}` Cog!**")
+                    self.bot.loading_extensions(reload=True, single_cog=_)
+                    await ctx.reply(f"**Sucessfully Reloaded `{_}` Cog!**")
                     print(f"Sucessfully Reloaded `{cog}` Cog!")
                     break
     
@@ -62,6 +63,7 @@ class Reload_cogs(Cog):
         with open("src/resource/extensions/_cogs.json") as cogs:
             cogs = json.load(cogs)
             cogs = list(cogs["cogs"])
+            cogs.remove("src.exts.backend.logging")
         
         description = "\n".join(cogs)
         embed = Embed(title="Total Available Cogs :", 
