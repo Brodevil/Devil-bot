@@ -27,6 +27,8 @@ class Commands(commands.Cog):
     @commands.is_owner()
     @commands.command(name="eval", aliases=("e", ))
     async def eval_cog(self, ctx: commands.Context, code: str):
+        await ctx.confirm_action()
+
         code = acute_remover(str(code))
         output = eval(code)
         await ctx.reply(f"```{output}```")
