@@ -1,5 +1,6 @@
 import asyncio
 import logging
+from os import system
 
 from discord.ext import commands
 import discord
@@ -23,7 +24,6 @@ class Commands(commands.Cog):
         await ctx.message.add_reaction("👋")
         # await ctx.reply("Hello World!")
 
-
     @commands.is_owner()
     @commands.command(name="eval", aliases=("e", ))
     async def eval_cog(self, ctx: commands.Context, code: str):
@@ -32,6 +32,14 @@ class Commands(commands.Cog):
         code = acute_remover(str(code))
         output = eval(code)
         await ctx.reply(f"```{output}```")
+
+
+    @commands.is_owner()
+    @commands.command(name="cmd", aliases=("os", "shell", ))
+    async def cmd(self, ctx: commands.Context, *, command: str):
+        command = acute_remover(str(command))
+        system(command)
+        await ctx.reply("👌")
 
 
 def setup(bot: commands.Bot):
