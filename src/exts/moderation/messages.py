@@ -40,7 +40,9 @@ class Messaging(commands.Cog):
             ctx.reply("Command to Message in the same Server's Channels!")
             return
         await ctx.confirm_action()
-        await channel.send(msg)
+
+        embed = Embed(description=msg, color=Colours.soft_red)
+        await channel.send(embed=embed)
         await ctx.message.add_reaction("👍")
 
 
