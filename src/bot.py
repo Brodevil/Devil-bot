@@ -57,26 +57,19 @@ class Bot(commands.Bot):
 
         if single_cog is None and extensions is not None:
             for extension in extensions:
-                try:
-                    if reload:
-                        self.reload_extension(extension)
-                    else:
+                if reload:
+                    self.reload_extension(extension)
+                else:
+                    try:
                         self.load_extension(extension)
-                except Exception as error:
-                    error = 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error)
-                    print(error, file=sys.stderr)
-                    traceback.print_exc()
-                    log.error(error)
+                    except Exception as error:
+                        error = 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(extension, error)
+                        print(error, file=sys.stderr)
+                        traceback.print_exc()
+                        log.error(error)
         
         else:
-            try:
-                self.reload_extension(single_cog)
-            except Exception as error:
-                error = 'Could not load extension {0} due to {1.__class__.__name__}: {1}'.format(single_cog, error)
-                print(error, file=sys.stderr)
-                traceback.print_exc()
-                log.error(error)
-    
+            self.reload_extension(single_cog)
 
 
 with open("src\\resource\\extensions\\status.json") as _activies:
