@@ -1,13 +1,15 @@
 import logging
+from turtle import color
 
 from discord.ext import commands
 import discord
 from discord.ext.commands import has_permissions, MissingPermissions
+from discord import Embed
 
 import asyncio
 
-from src import constants   
-from src.constants import Channels              
+from src.constants import Colours
+
 
 log = logging.getLogger(__name__)
 
@@ -29,6 +31,19 @@ class Messaging(commands.Cog):
         deleted = await ctx.channel.purge(limit=num)
 
         await ctx.send('🗑️ Deleted {} message(s)'.format(len(deleted)), delete_after=5)
+
+
+    @commands.guild_only()
+    @has_permissions(administrator=True, )
+    @commands.Command(name="msg", aliases=("msg_channel", "send_msg"))
+    async def server_msg(self, ctx: commands.Context, channel: discord.TextChannel, *, msg: str):
+        """Messaging in Server channel using  bot"""
+        if channel.guild != ctx.guild:
+            ctx.reply("Command to Message in the same Server's Channels!")
+            return
+        
+        await channel.send(msg)
+        await ctx.add_rection("👍")
 
 
 def setup(bot: commands.Bot):
