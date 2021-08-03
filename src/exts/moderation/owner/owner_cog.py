@@ -3,10 +3,11 @@ import sys
 
 from discord.ext import commands
 from discord import Embed
+from discord import Status
 import discord 
 
 import asyncio
-from typing import Literal, Optional
+from typing import Optional
 import json
 
 from src import constants                   
@@ -72,7 +73,7 @@ class Bot_Controls(commands.Cog):
     @commands.is_owner()
     @commands.command(name="status", aliases=("set_status", "activity"))
     async def setstatus(self, ctx: commands.Context, 
-                        status: Literal['dnd', 'do_not_disturb', 'idle', 'invisible', 'offline', 'online'] = "online", 
+                        status: Optional[Status] = Status.online, 
                         run_loop : Optional[bool] = True, *, 
                         text: Optional[str] = None):
                     
@@ -82,7 +83,6 @@ class Bot_Controls(commands.Cog):
         # status
         self.bot.status = status
 
-        print(self.bot.status)
 
         # loop
         if run_loop == False and self.bot.change_status.is_running() == True:
@@ -96,7 +96,7 @@ class Bot_Controls(commands.Cog):
             await ctx.reply("Started the Activity Loop")
         
         
-        if text is not None:
+        if text is not None and run_loop != False:
             self.bot.activies.insert(0, text)
             with open("src\\resource\\extensions\\status.json", "r+") as activies:
                 data = json.load(activies)
