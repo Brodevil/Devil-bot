@@ -15,10 +15,8 @@ log = logging.getLogger(__name__)
 
 
 class Messaging(commands.Cog):
-
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-
 
     @commands.command(name="clear", aliases=("del", "delete", ))
     @commands.guild_only()
@@ -33,17 +31,17 @@ class Messaging(commands.Cog):
         await ctx.send('🗑️ Deleted {} message(s)'.format(len(deleted)), delete_after=5)
 
 
+    @commands.command(name="msg", aliases=("msg_channel", "send_msg"))
+    @has_permissions(administrator=True)
     @commands.guild_only()
-    @has_permissions(administrator=True, )
-    @commands.Command(name="msg", aliases=("msg_channel", "send_msg"))
     async def server_msg(self, ctx: commands.Context, channel: discord.TextChannel, *, msg: str):
         """Messaging in Server channel using  bot"""
         if channel.guild != ctx.guild:
             ctx.reply("Command to Message in the same Server's Channels!")
             return
-        
+        await ctx.confirm_action()
         await channel.send(msg)
-        await ctx.add_rection("👍")
+        await ctx.message.add_reaction("👍")
 
 
 def setup(bot: commands.Bot):
