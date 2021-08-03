@@ -42,14 +42,14 @@ class Reload_cogs(Cog):
         elif cog in cogs:
             self.bot.loading_extensions(reload=True, single_cog=cog)
             await ctx.reply(f"**Sucessfully Reloaded `{cog}` Cog!**")
-            print(f"Sucessfully Reloaded `{cog}` Cog!")
+            print(f"Sucessfully Reloaded `{cog}` Cog File!")
         
         else:
             for _ in cogs:
                 if cog in _:
                     self.bot.loading_extensions(reload=True, single_cog=_)
                     await ctx.reply(f"**Sucessfully Reloaded `{_}` Cog!**")
-                    print(f"Sucessfully Reloaded `{cog}` Cog!")
+                    print(f"Sucessfully Reloaded `{cog}` Cog File!")
                     break
     
             else:
