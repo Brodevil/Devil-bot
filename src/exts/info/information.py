@@ -104,13 +104,13 @@ class Information(Cog):
         all_roles = str()
         for _, role in enumerate(ctx.guild.roles[::-1]):
             if role.name != "@everyone":
-                all_roles += (f"{_}. {role.name}\n")
+                all_roles += (f"{_+1}. {role.name}\n")
 
         embed = Embed(title=f"Total Roles in {ctx.guild.name}", 
                     description=f"```{all_roles}```", 
                     color=constants.Colours.soft_red)
         
-        embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url_as(format="png"))
+        embed.set_footer(text=f"Requested by {ctx.message.author} Server!", icon_url=ctx.message.author.avatar_url_as(format="png"))
         await ctx.send(embed=embed)
 
 
