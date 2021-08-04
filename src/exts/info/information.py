@@ -101,12 +101,14 @@ class Information(Cog):
     @commands.guild_only()
     @commands.command(name="roles", aliases=("total_roles", "all_roles", ))
     async def total_roles(self, ctx: Context):
-        all_roles = [name.name for name in ctx.guild.roles if name != "everyone"]
-        all_roles = "\n".join(*all_roles)
-        print(all_roles)
-        embed = Embed(title=f"Total Roles in {ctx.guild.name}",
-                    description=all_roles)
+        all_roles = str()
+        for _, role in enumerate(ctx.guild.roles[::-1]):
+            if role.name != "@everyone":
+                all_roles += (f"**{_}.** {role.name}\n")
+
+        embed = Embed(title=f"Total Roles in {ctx.guild.name}", description=all_roles, color=constants.Colours.soft_red)
         embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url_as(format="png"))
+        
         await ctx.send(embed=embed)
 
 
