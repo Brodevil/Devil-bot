@@ -95,7 +95,10 @@ class Information(Cog):
     @commands.command(name="role", aliases=("r", "role_info"))
     async def role_info(self, ctx: Context, role: Optional[discord.Role] = None):
         if role is None :
-            pass
+            await self.total_roles(ctx=ctx)
+            return 
+
+
     
 
     @commands.guild_only()
@@ -106,7 +109,7 @@ class Information(Cog):
             if role.name != "@everyone":
                 all_roles += (f"{_+1}. {role.name}\n")
 
-        embed = Embed(title=f"Total Roles in {ctx.guild.name}", 
+        embed = Embed(title=f"{ctx.guild.name} Roles!", 
                     description=f"```{all_roles}```", 
                     color=constants.Colours.soft_red)
         
