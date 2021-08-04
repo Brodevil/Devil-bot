@@ -1,26 +1,28 @@
 import logging
+from typing import Optional
 
 from discord.ext import commands
+from discord.ext.commands import bot, Context, Cog
 import discord
 from discord import Embed
 
-from src import constants                   # noqa
-from src.utils.time import time_since       # noqa
+from src import constants                   
+from src.utils.time import time_since       
 
 log = logging.getLogger(__name__)
 
 
 
-class Information(commands.Cog):
+class Information(Cog):
     """A cog with commands for generating embeds with server info, such as server stats, user info and role info"""
 
-    def __init__(self, bot: commands.bot):
+    def __init__(self, bot: bot):
         self.bot = bot
 
 
     @commands.guild_only()
     @commands.command(name="server", aliases=("server_info", "guild"))
-    async def server_info(self, ctx: commands.Context):
+    async def server_info(self, ctx: Context):
         """ Server information """
 
         # server info
@@ -62,7 +64,7 @@ class Information(commands.Cog):
 
     @commands.guild_only()
     @commands.command(name="user", aliases=("u", "member"))
-    async def user(self, ctx: commands.Context, user: discord.Member = None):
+    async def user(self, ctx: Context, user: discord.Member = None):
         """ user informations """
         if user is None:
             user = ctx.author
@@ -89,6 +91,24 @@ class Information(commands.Cog):
         await ctx.send(embed=embed)
 
     
+    @commands.guild_only()
+    @commands.command(name="role", aliases=("r", "role_info"))
+    async def role_info(self, ctx: Context, role: Optional[discord.Role] = None):
+        if role is None :
+            pass
+    
+
+    @commands.guild_only()
+    @commands.command(name="roles", aliases=("total_roles", "all_roles", ))
+    async def total_roles(self, ctx: Context):
+        all_roles = [name.name for name in ctx.guild.roles if name != "everyone"]
+        all_roles = "\n".join(*all_roles)
+        print(all_roles)
+        embed = Embed(title=f"Total Roles in {ctx.guild.name}",
+                    description=all_roles)
+        embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url_as(format="png"))
+        await ctx.send(embed=embed)
+
 
 def setup(bot: commands.Bot):
     """Load the Logging cog."""
