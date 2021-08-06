@@ -94,11 +94,19 @@ class Information(Cog):
     @commands.guild_only()
     @commands.command(name="role", aliases=("r", "role_info"))
     async def role_info(self, ctx: Context, role: Optional[discord.Role] = None):
+        """Server Roles info!"""
         if role is None :
             await self.total_roles(ctx=ctx)
             return 
-
-        embed = Embed(title="", 
+        
+        role_name = f"{role.name} {'(Not-Mentionable)' if not role.mentionable else ''}"
+        created = time_since(role.created_at, max_units=3)
+        members = len(role.members)
+        
+        description = [f"🔒 **Role Name : {role_name}**\n\n", f"📆 **Created** : {created}", f"🆔 **ID** : {role.id}", 
+                    f"🌈 **Color** : {role.color}", f"👷 **Position** : {role.position}", f""]
+        
+        embed = Embed(title="Role Info :", 
                     description="",
                     color=constants.Colours.soft_red)
 
