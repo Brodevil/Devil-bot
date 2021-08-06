@@ -98,8 +98,10 @@ class Information(Cog):
             await self.total_roles(ctx=ctx)
             return 
 
+        embed = Embed(title="", 
+                    description="",
+                    color=constants.Colours.soft_red)
 
-    
 
     @commands.guild_only()
     @commands.command(name="roles", aliases=("total_roles", "all_roles", ))
