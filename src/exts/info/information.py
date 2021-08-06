@@ -104,7 +104,8 @@ class Information(Cog):
         members = len(role.members)
         
         description = [f"🔒 **Role Name : {role_name}**\n\n", f"📆 **Created** : {created}", f"🆔 **ID** : {role.id}", 
-                    f"🌈 **Color** : {role.color}", f"👷 **Position** : {role.position}", f""]
+                    f"🌈 **Color** : {role.color}", f"👷 **Position** : {role.position}", f"<:owner:873222191309783050> **Members** : {members}",
+                    f""]
         
         embed = Embed(title="Role Info :", 
                     description="",
