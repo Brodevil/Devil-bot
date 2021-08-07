@@ -107,12 +107,12 @@ class Information(Cog):
                     color=constants.Colours.soft_red)
         
 
-        embed.add_field(name="🆔 ID : ", value=role.id)
-        embed.add_field(name="📆 Created : : ", value=created)
-        embed.add_field(name="👥 Members Count :", value=members)
-        embed.add_field(name="👷 Position : ", value=role.position)
-        embed.add_field(name="🌈 Color : ", value=role.color)
-        embed.add_field(name="💪 Permissions :", value=(role.permission))
+        embed.add_field(name="ID 🆔", value=role.id, inline=True)
+        embed.add_field(name="Created 📆", value=created, inline=True)
+        embed.add_field(name="Members Count 👥", value=members, inline=True)
+        embed.add_field(name="Position 👷", value=role.position, inline=True)
+        embed.add_field(name="Color (RGB) 🌈", value=f"#{role.colour.value:0>6x}", inline=True)
+        embed.add_field(name="Permissions Code 💪", value=(role.permission.value), inline=True)
         embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
 
         await ctx.send(embed=embed)
