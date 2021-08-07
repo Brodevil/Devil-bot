@@ -106,14 +106,14 @@ class Information(Cog):
         embed = Embed(title=f"{role.name} Info",
                     color=constants.Colours.soft_red)
         
-        embed.add_field(name="🔒 Role Name : ", value=role_name)
-        embed.add_field(name="📆 Created : : ", value=created)
+
         embed.add_field(name="🆔 ID : ", value=role.id)
-        embed.add_field(name="🌈 Color : ", value=role.color)
-        embed.add_field(name="👷 Position : ", value=role.position)
+        embed.add_field(name="📆 Created : : ", value=created)
         embed.add_field(name="👥 Members Count :", value=members)
-        embed.add_field(name="💪 Permissions :", value=len(role.permissions))
-        embed.set_footer(text=f"Requested by {ctx.message.author} Server!", icon_url=ctx.message.author.avatar_url)
+        embed.add_field(name="👷 Position : ", value=role.position)
+        embed.add_field(name="🌈 Color : ", value=role.color)
+        embed.add_field(name="💪 Permissions :", value=(role.permission))
+        embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
 
         await ctx.send(embed=embed)
 
@@ -130,7 +130,7 @@ class Information(Cog):
                     description=f"```{all_roles}```", 
                     color=constants.Colours.soft_red)
         
-        embed.set_footer(text=f"Requested by {ctx.message.author} Server!", icon_url=ctx.message.author.avatar_url)
+        embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
 
