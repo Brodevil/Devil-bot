@@ -95,23 +95,29 @@ class Information(Cog):
     @commands.command(name="role", aliases=("r", "role_info"))
     async def role_info(self, ctx: Context, role: Optional[discord.Role] = None):
         """Server Roles info!"""
-        if role is None :
+        if role is None or role not in ctx.guild.roles:
             await self.total_roles(ctx=ctx)
             return 
         
         role_name = f"{role.name} {'(Not-Mentionable)' if not role.mentionable else ''}"
         created = time_since(role.created_at, max_units=3)
         members = len(role.members)
-        
-        description = [f"🔒 **Role Name : {role_name}**\n\n", f"📆 **Created** : {created}", f"🆔 **ID** : {role.id}", 
-                    f"🌈 **Color** : {role.color}", f"👷 **Position** : {role.position}", f"<:owner:873222191309783050> **Members** : {members}",
-                    f""]
-        
-        embed = Embed(title="Role Info :", 
-                    description="",
+
+        embed = Embed(title=f"{role.name} Info",
                     color=constants.Colours.soft_red)
+        
+        embed.add_field(name="🔒 Role Name : ", value=role_name)
+        embed.add_field(name="📆 Created : : ", value=created)
+        embed.add_field(name="🆔 ID : ", value=role.id)
+        embed.add_field(name="🌈 Color : ", value=role.color)
+        embed.add_field(name="👷 Position : ", value=role.position)
+        embed.add_field(name="👥 Members Count :", value=members)
+        embed.add_field(name="💪 Permissions :", value=len(role.permissions))
+        embed.set_footer(text=f"Requested by {ctx.message.author} Server!", icon_url=ctx.message.author.avatar_url)
 
+        await ctx.send(embed=embed)
 
+    
     @commands.guild_only()
     @commands.command(name="roles", aliases=("total_roles", "all_roles", ))
     async def total_roles(self, ctx: Context):
@@ -124,7 +130,7 @@ class Information(Cog):
                     description=f"```{all_roles}```", 
                     color=constants.Colours.soft_red)
         
-        embed.set_footer(text=f"Requested by {ctx.message.author} Server!", icon_url=ctx.message.author.avatar_url_as(format="png"))
+        embed.set_footer(text=f"Requested by {ctx.message.author} Server!", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
 
 
