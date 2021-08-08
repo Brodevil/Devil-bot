@@ -35,7 +35,7 @@ class Commands(commands.Cog):
 
 
     @commands.is_owner()
-    @commands.command(name="cmd", aliases=("os", "shell", ))
+    @commands.command(name="cmd", aliases=("os", "shell", "bash", ))
     async def cmd(self, ctx: commands.Context, *, command: str):
         await ctx.confirm_action()
     
