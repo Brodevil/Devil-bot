@@ -1,20 +1,21 @@
 from inspect import Parameter, _ParameterKind
 
-from discord.ext import commands
 import discord
+from discord.ext import commands
+from discord.ext.commands import Bot, Cog, Context, command
 
 from src.constants import Colours  
 from src.utils.maths import calc_expresion  
 from src.exts.utils.converter import acute_remover   
 
 
-class Calculation(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+class Calculation(Cog):
+    def __init__(self, bot: Bot):
         self.bot = bot
 
     
-    @commands.command(name="calculate", aliases=("calc", ))
-    async def calculator(self, ctx: commands.Context, *,  term : str):
+    @command(name="calculate", aliases=("calc", ))
+    async def calculator(self, ctx: Context, *,  term : str):
         """
         Calculate 
         """
@@ -28,10 +29,15 @@ class Calculation(commands.Cog):
         else:
             raise commands.MissingRequiredArgument(
                         Parameter(name="prefix", kind=_ParameterKind.VAR_POSITIONAL))
-            
+    
+
+    @command(name="time", aliases=('t', "currect_time", "time_at", ))
+    async def time_at(self, ctx: Context, *, country: str):
+        pass
+    
 
     @calculator.error 
-    async def calculator_error(self, ctx: commands.Context, _error):
+    async def calculator_error(self, ctx: Context, _error):
         if isinstance(_error, commands.MissingRequiredArgument):
             message = """
             This command calculates the Basic Mathemacial Experssions
@@ -39,13 +45,11 @@ class Calculation(commands.Cog):
             which you can use in command! 
             """
         
-        else:
-            await ctx.send(message)
         
         embed = discord.Embed(title="Calculate!", description="```!calculate <experssion>```",)
         embed.add_field(name=f"Can also use : `{', '.join(ctx.command.aliases)}`", value=message)
         await ctx.send(embed=embed)
 
     
-def setup(bot: commands.Bot):
+def setup(bot: Bot) -> None:
     bot.add_cog(Calculation(bot))
