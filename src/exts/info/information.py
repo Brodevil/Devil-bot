@@ -106,7 +106,6 @@ class Information(Cog):
         embed = Embed(title=f"{role.name} Info",
                     color=constants.Colours.soft_red)
         
-
         embed.add_field(name="ID 🆔", value=role.id, inline=True)
         embed.add_field(name="Created 📆", value=created, inline=True)
         embed.add_field(name="Members Count 👥", value=members, inline=True)
