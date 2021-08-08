@@ -102,6 +102,7 @@ class Information(Cog):
         role_name = f"{role.name} {'(Not-Mentionable)' if not role.mentionable else ''}"
         created = time_since(role.created_at, max_units=3)
         members = len(role.members)
+        position = len(ctx.guild.roles) - role.position 
 
         embed = Embed(title=f"{role.name} Info",
                     color=constants.Colours.soft_red)
@@ -109,9 +110,9 @@ class Information(Cog):
         embed.add_field(name="ID 🆔", value=role.id, inline=True)
         embed.add_field(name="Created 📆", value=created, inline=True)
         embed.add_field(name="Members Count 👥", value=members, inline=True)
-        embed.add_field(name="Position 👷", value=role.position, inline=True)
+        embed.add_field(name="Position 👷", value=position, inline=True)
         embed.add_field(name="Color (RGB) 🌈", value=f"#{role.colour.value:0>6x}", inline=True)
-        embed.add_field(name="Permissions Code 💪", value=(role.permission.value), inline=True)
+        embed.add_field(name="Permissions Code 💪", value=(role.permissions.value), inline=True)
         embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
 
         await ctx.send(embed=embed)
