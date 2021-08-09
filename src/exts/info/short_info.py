@@ -1,3 +1,6 @@
+import aiohttp
+import asyncio
+
 from inspect import Parameter, _ParameterKind
 
 import discord
@@ -34,6 +37,7 @@ class Calculation(Cog):
     @command(name="time", aliases=('t', "currect_time", "time_at", ))
     async def time_at(self, ctx: Context, *, country: str):
         pass
+    
     
 
     @calculator.error 
