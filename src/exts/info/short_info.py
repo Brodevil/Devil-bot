@@ -1,7 +1,9 @@
 import aiohttp
 import asyncio
+from typing import Optional
 
 from inspect import Parameter, _ParameterKind
+from bs4 import BeautifulSoup
 
 import discord
 from discord.ext import commands
@@ -35,8 +37,19 @@ class Calculation(Cog):
     
 
     @command(name="time", aliases=('t', "currect_time", "time_at", ))
-    async def time_at(self, ctx: Context, *, country: str):
-        pass
+    async def time_at(self, ctx: Context, *, country:  Optional[str] = None):
+        if country is None:
+            country = "UTC"
+        
+        url = f"https://www.google.com/search?q=current+time+of+{country}"
+
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as time:
+                time = time.text
+                time = BeautifulSoup(time, "html.parser")
+                time = time.find('div', class_="BNeawe").text
+            
+        await ctx.reply(time)
     
     
 
