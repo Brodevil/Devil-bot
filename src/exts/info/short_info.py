@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot, Cog, Context, command
+import soupsieve
 
 from src.constants import Colours  
 from src.utils.maths import calc_expresion  
@@ -44,13 +45,11 @@ class Calculation(Cog):
         url = f"https://www.google.com/search?q=current+time+of+{country}"
 
         async with aiohttp.ClientSession() as session:
-            async with session.get(url) as time:
-                time = time.text
-                time = BeautifulSoup(time, "html.parser")
-                time = time.find('div', class_="BNeawe").text
+            async with session.get(url) as data:
+                soup = BeautifulSoup(data.text, "html.parser")
+                time = soup.find('div', class_="BNeawe").text
             
         await ctx.reply(time)
-    
     
 
     @calculator.error 
