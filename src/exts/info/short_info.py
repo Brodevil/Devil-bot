@@ -4,6 +4,7 @@ from typing import Optional
 
 from inspect import Parameter, _ParameterKind
 from bs4 import BeautifulSoup
+import json
 
 import discord
 from discord.ext import commands
@@ -46,8 +47,7 @@ class Calculation(Cog):
 
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as data:
-                data = json.load(data)
-                data = data[]
+                data = json.load(data.text)
             
         await ctx.reply(data)
     
