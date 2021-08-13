@@ -42,14 +42,14 @@ class Calculation(Cog):
         if country is None:
             country = "UTC"
         
-        url = f"https://www.google.com/search?q=current+time+of+{country}"
+        url = f"http://ip-api.com/json/"
 
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as data:
-                soup = BeautifulSoup(data.text, "html.parser")
-                time = soup.find('div', class_="BNeawe").text
+                data = json.load(data)
+                data = data[]
             
-        await ctx.reply(time)
+        await ctx.reply(data)
     
 
     @calculator.error 
