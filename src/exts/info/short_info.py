@@ -26,7 +26,7 @@ class ShortInfo(Cog):
         Calculate 
         """
         term = acute_remover(term)
-        answer = calc_expresion(term)
+        answer = calc_expression(term)
 
         if answer is not None:
             embed = discord.Embed(description=f"**Your Answer is : **\n```\n{answer}```", color=Colours.soft_red)
