@@ -11,7 +11,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot, Cog, Context, command
 
 from src.constants import Colours  
-from src.utils.maths import calc_expresion  
+from src.utils.maths import calc_expression
 from src.exts.utils.converter import acute_remover   
 
 
@@ -46,7 +46,7 @@ class ShortInfo(Cog):
 
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as data:
-                data = json.load(data.text)
+                data = json.load(data)
             
         await ctx.reply(data)
     
