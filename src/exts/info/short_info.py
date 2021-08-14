@@ -9,14 +9,13 @@ import json
 import discord
 from discord.ext import commands
 from discord.ext.commands import Bot, Cog, Context, command
-import soupsieve
 
 from src.constants import Colours  
 from src.utils.maths import calc_expresion  
 from src.exts.utils.converter import acute_remover   
 
 
-class Calculation(Cog):
+class ShortInfo(Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
 
@@ -68,4 +67,4 @@ class Calculation(Cog):
 
     
 def setup(bot: Bot) -> None:
-    bot.add_cog(Calculation(bot))
+    bot.add_cog(ShortInfo(bot))
