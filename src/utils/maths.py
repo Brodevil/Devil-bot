@@ -17,7 +17,7 @@ def check_expression(expression: str, checker_list: list, check_word: bool = Tru
 
 
 
-def calc_expresion(expression: str):
+def calc_expression(expression: str):
     """ Calculate the Mathematical Expression using Python"""
     
     if check_expression(expression, kwlist):
