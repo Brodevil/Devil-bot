@@ -43,10 +43,15 @@ class ShortInfo(Cog):
         if country is None:
             country = "UTC"
         search = f"Current time of {country}"
+
         time = await short_google_search(search)
+        time = time.capitalize()
 
         if country == "UTC":
             await ctx.reply(f"**Current time according to UTC : {time}**")
+        else:
+            await ctx.reply(f"**Current time in {country} : {time}")
+
 
 
     
