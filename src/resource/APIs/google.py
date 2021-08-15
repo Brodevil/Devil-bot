@@ -28,5 +28,5 @@ async def http_request(url: str) -> ClientResponse:
 if __name__ == '__main__':
     url = f"http://ip-api.com/json/"
     response = asyncio.run(http_request(url))
-    print(response)
+    print(response.text())
 
