@@ -44,6 +44,14 @@ class Commands(commands.Cog):
         await ctx.message.add_reaction("👌")
 
 
+    @commands.command(name='devil', aliases=("mr_devil",))
+    async def devil(self, ctx: commands.Context):
+        async with ctx.typing():
+            embed = discord.Embed(color=Colours.soft_red)
+            embed.set_image(url="https://bit.ly/3iNqBjp")
+            await ctx.send(embed=embed)
+
+
 def setup(bot: commands.Bot):
     bot.add_cog(Commands(bot))
 
