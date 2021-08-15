@@ -14,19 +14,8 @@ async def short_google_search(queary: str) -> str:
         async with session.get(url) as data:
             data = await data.text
             data = await BeautifulSoup(data, "html.parser")
-            data = await data.find('div', class_="BNeawe").text
+            data = await data.find('div', class_="BNeawe").text()
     
-    return await data
+    return data
 
-
-async def http_request(url: str) -> ClientResponse:
-    async with ClientSession() as session:
-        async with session.get(url) as data:
-            return data
-
-
-if __name__ == '__main__':
-    url = f"http://ip-api.com/json/"
-    response = asyncio.run(http_request(url))
-    print(response.text())
 
