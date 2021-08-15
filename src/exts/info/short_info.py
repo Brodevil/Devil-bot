@@ -51,10 +51,10 @@ class ShortInfo(Cog):
             if country == "UTC":
                 await ctx.reply(f"**Current time according to UTC : {time}**")
             else:
-                await ctx.reply(f"**Current time in {country} : {time}"
+                await ctx.reply(f"**Current time in {country} : {time}")
 
 
-    @calculator.error 
+    @calculator.error
     async def calculator_error(self, ctx: Context, _error):
         if isinstance(_error, commands.MissingRequiredArgument):
             message = """
