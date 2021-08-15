@@ -12,7 +12,8 @@ from discord.ext.commands import Bot, Cog, Context, command
 
 from src.constants import Colours  
 from src.utils.maths import calc_expression
-from src.exts.utils.converter import acute_remover   
+from src.exts.utils.converter import acute_remover
+from src.resource.APIs.google import short_google_search
 
 
 class ShortInfo(Cog):
@@ -41,29 +42,27 @@ class ShortInfo(Cog):
     async def time_at(self, ctx: Context, *, country:  Optional[str] = None):
         if country is None:
             country = "UTC"
-        
-        url = f"http://ip-api.com/json/"
+        search = f"Current time of {country}"
+        time = await short_google_search(search)
 
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as data:
-                data = json.load(data)
-            
-        await ctx.reply(data)
+        if country == "UTC":
+            await ctx.reply(f"**Current time according to UTC : {time}**")
+
+
     
 
     @calculator.error 
     async def calculator_error(self, ctx: Context, _error):
         if isinstance(_error, commands.MissingRequiredArgument):
             message = """
-            This command calculates the Basic Mathemacial Experssions
+            This command calculates the Basic Mathematical Experssions
             Know more about the Arithmetics Operators [here](http://www2.hawaii.edu/~takebaya/cent110/selection/arithmetic_operators.png), 
             which you can use in command! 
             """
         
-        
-        embed = discord.Embed(title="Calculate!", description="```!calculate <experssion>```",)
-        embed.add_field(name=f"Can also use : `{', '.join(ctx.command.aliases)}`", value=message)
-        await ctx.send(embed=embed)
+            embed = discord.Embed(title="Calculate!", description="```!calculate <experssion>```",)
+            embed.add_field(name=f"Can also use : `{', '.join(ctx.command.aliases)}`", value=message)
+            await ctx.send(embed=embed)
 
     
 def setup(bot: Bot) -> None:
