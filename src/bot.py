@@ -83,7 +83,7 @@ _intents.typing = True
 _intents.presences = True
 
 status=discord.Status.online
-prefix = ("d!", "!")
+prefix = ("d!", "$")
 
 bot = Bot(
     activies=_activies,
