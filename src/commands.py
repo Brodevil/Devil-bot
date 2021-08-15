@@ -50,7 +50,7 @@ class Commands(commands.Cog):
             embed = discord.Embed(color=Colours.soft_red)
             embed.set_image(url="https://bit.ly/3iNqBjp")
             await ctx.send(embed=embed)
-            return
+
 
 
 def setup(bot: commands.Bot):

@@ -53,8 +53,6 @@ class ShortInfo(Cog):
             else:
                 await ctx.reply(f"**Current time in {country} : {time}")
 
-            return
-
 
     @calculator.error
     async def calculator_error(self, ctx: Context, _error):

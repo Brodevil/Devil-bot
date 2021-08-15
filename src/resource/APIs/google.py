@@ -13,7 +13,7 @@ async def short_google_search(queary: str) -> str:
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as data:
             data = data.text()
-            data = BeautifulSoup(data, "html5lib")
+            data = await BeautifulSoup(data, "html.parser")
             data = data.find('div', class_="BNeawe").text()
     
     return data
