@@ -36,22 +36,6 @@ class ShortInfo(Cog):
         else:
             raise commands.MissingRequiredArgument(
                         Parameter(name="prefix", kind=_ParameterKind.VAR_POSITIONAL))
-    
-
-    @command(name="time", aliases=('t', "currect_time", "time_at", ))
-    async def time_at(self, ctx: Context, *, country:  Optional[str] = None):
-        if country is None:
-            country = "UTC"
-        search = f"Current time of {country}"
-
-        async with ctx.typing():
-            time = await short_google_search(search)
-            time = time
-
-            if country == "UTC":
-                await ctx.reply(f"**Current time according to UTC : {time}**")
-            else:
-                await ctx.reply(f"**Current time in {country.capitalize()} : {time}**")
 
 
     @calculator.error
