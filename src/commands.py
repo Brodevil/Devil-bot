@@ -50,9 +50,9 @@ class Commands(commands.Cog):
             embed = discord.Embed(color=Colours.soft_red)
             embed.set_image(url="https://bit.ly/3iNqBjp")
             await ctx.send(embed=embed)
-    
+
     @commands.is_owner()
-    @commands.command(name="send", aliases=("send_msg", "repeat"))
+    @commands.command(name="send", aliases=(" use_command", "repeat"))
     async def repeat(self, ctx: commands.Context, *, msg: str):
         await ctx.send(msg)
 
