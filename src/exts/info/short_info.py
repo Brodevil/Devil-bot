@@ -46,12 +46,12 @@ class ShortInfo(Cog):
 
         async with ctx.typing():
             time = await short_google_search(search)
-            time = time.capitalize()
+            time = time
 
             if country == "UTC":
                 await ctx.reply(f"**Current time according to UTC : {time}**")
             else:
-                await ctx.reply(f"**Current time in {country} : {time}")
+                await ctx.reply(f"**Current time in {country} : {time}**")
 
 
     @calculator.error
