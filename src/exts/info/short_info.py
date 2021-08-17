@@ -51,7 +51,7 @@ class ShortInfo(Cog):
             if country == "UTC":
                 await ctx.reply(f"**Current time according to UTC : {time}**")
             else:
-                await ctx.reply(f"**Current time in {country} : {time}**")
+                await ctx.reply(f"**Current time in {country.capitalize()} : {time}**")
 
 
     @calculator.error
