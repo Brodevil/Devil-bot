@@ -9,14 +9,15 @@ async def short_google_search(queary: str) -> str:
     """Short Google Search"""
     queary = "-".join(queary.split())
     url = f"https://www.google.com/search?q={queary}"
+    print(url)
 
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as data:
             data = await data.text()
+            print(data)
             data = BeautifulSoup(data, "html.parser")
-            print(data)
             data = data.find('div', class_="BNeawe")
-            print(data)
+            # print(data)
     
     return data
 
