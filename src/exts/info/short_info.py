@@ -1,10 +1,6 @@
-import aiohttp
-import asyncio
 from typing import Optional
 
 from inspect import Parameter, _ParameterKind
-from bs4 import BeautifulSoup
-import json
 
 import discord
 from discord.ext import commands
@@ -37,6 +33,13 @@ class ShortInfo(Cog):
             raise commands.MissingRequiredArgument(
                         Parameter(name="prefix", kind=_ParameterKind.VAR_POSITIONAL))
 
+
+    @command(name="time", aliases=("time_at", "t",))
+    async def time(self, ctx: Context, *, country: Optional[str]):
+        if country is None:
+            country = "UTC"
+        
+        
 
     @calculator.error
     async def calculator_error(self, ctx: Context, _error):
