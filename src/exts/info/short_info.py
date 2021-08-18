@@ -39,7 +39,15 @@ class ShortInfo(Cog):
         if country is None:
             country = "UTC"
         
-        
+        search = f"Current time of {country}"
+        async with ctx.typing():
+            time = await short_google_search(search)
+            
+            if country == "UTC":
+                await ctx.send(f"**Current Time Cccounting To UTC : {time}**")
+            else:
+                await ctx.send(f"**Current Time in {country} : {time}**")
+
 
     @calculator.error
     async def calculator_error(self, ctx: Context, _error):
