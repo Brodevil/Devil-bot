@@ -45,3 +45,7 @@ rough.py
 
 # bot configuration files
 config.py
+
+# caches logs files
+discord.log
+.google-cookie

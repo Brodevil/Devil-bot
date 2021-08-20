@@ -25,15 +25,14 @@ class Search(Cog):
             description = ""
 
             for index, result in enumerate(results):
-                description += f"{index}. [{result}]({result})"
+                description += f"**{index+1} : [{result}]({result})**"
                 description += "\n"
 
-            embed = discord.Embed(title=queary, 
+            embed = discord.Embed(title="Google Search Results :", 
                                 description=description, 
                                 color=Colours.soft_red)
             
             await ctx.send(embed=embed)
-      
 
 
 def setup(bot: Bot) -> None:
