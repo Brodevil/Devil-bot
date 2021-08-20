@@ -37,6 +37,7 @@ class ShortInfo(Cog):
 
     @command(name="time", aliases=("time_at", "t",))
     async def time(self, ctx: Context, *, country: Optional[str]):
+        """Get the current time of any place in the world"""
         if country is None:
             country = "UTC"
         
@@ -52,6 +53,7 @@ class ShortInfo(Cog):
 
     @command(name="celcius", aliases=("temprature", "c",))
     async def temprature(self, ctx: Context, *, place: Optional[str]):
+        """Get the temprature of any place in celcius """
         if place is None:
             await ctx.send("Also Enter the Place!")
             return
