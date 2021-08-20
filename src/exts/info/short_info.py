@@ -1,3 +1,4 @@
+from lib2to3.pgen2.token import OP
 from typing import Optional
 
 from inspect import Parameter, _ParameterKind
@@ -44,9 +45,20 @@ class ShortInfo(Cog):
             time = await short_google_search(search)
             
             if country == "UTC":
-                await ctx.send(f"**Current Time Cccounting To UTC : {time.capitalize()}**")
+                await ctx.send(f"**Current Time According to UTC : {time.upper()}**")
             else:
-                await ctx.send(f"**Current Time in {country.capitalize()} : {time.capitalize()}**")
+                await ctx.send(f"**Current Time in {country.upper()} : {time.upper()}**")
+
+
+    @command(name="celcius", aliases=("temprature", "c",))
+    async def temprature(self, ctx: Context, *, place: Optional[str]):
+        if place is None:
+            await ctx.send("Also Enter the Place!")
+            return
+        
+        search = f"Current Tempature in {place}"
+        temprature = await short_google_search(search)
+        await ctx.send(f"**Current Tempareture in {place} : {temprature.capitalize()}**")
 
 
     @calculator.error
