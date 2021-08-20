@@ -1,6 +1,4 @@
-from lib2to3.pgen2.token import OP
 from typing import Optional
-
 from inspect import Parameter, _ParameterKind
 
 import discord
