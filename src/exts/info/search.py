@@ -25,7 +25,7 @@ class Search(Cog):
             description = ""
 
             for index, result in enumerate(results):
-                description += f"{index}. [{results}]({results})"
+                description += f"{index}. [{result}]({result})"
                 description += "\n"
 
             embed = discord.Embed(title=queary, 
