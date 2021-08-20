@@ -44,9 +44,9 @@ class ShortInfo(Cog):
             time = await short_google_search(search)
             
             if country == "UTC":
-                await ctx.send(f"**Current Time Cccounting To UTC : {time}**")
+                await ctx.send(f"**Current Time Cccounting To UTC : {time.capitalize()}**")
             else:
-                await ctx.send(f"**Current Time in {country} : {time}**")
+                await ctx.send(f"**Current Time in {country.capitalize()} : {time.capitalize()}**")
 
 
     @calculator.error
