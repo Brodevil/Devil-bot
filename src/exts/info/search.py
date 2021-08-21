@@ -1,5 +1,4 @@
 from logging import getLogger
-from turtle import color
 from googlesearch import search
 
 import discord
