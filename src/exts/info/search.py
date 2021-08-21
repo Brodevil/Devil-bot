@@ -15,6 +15,7 @@ class Search(Cog):
     def __init__(self, bot: Bot) -> None:
         self.bot = Bot
     
+
     @commands.guild_only()
     @command(name="google", aliases=("search", "google_search", "find", ))
     async def google_search(self, ctx: Context, *, queary: str):
@@ -27,7 +28,7 @@ class Search(Cog):
                 description += f"**{index+1} : [{result}]({result})**"
                 description += "\n"
 
-            embed = discord.Embed(title="Google Search Results :", 
+            embed = discord.Embed(title="Google Search Top Results :", 
                                 description=description, 
                                 color=Colours.soft_red)
             
