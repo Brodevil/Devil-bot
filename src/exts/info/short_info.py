@@ -44,9 +44,9 @@ class ShortInfo(Cog):
             time = await short_google_search(search)
             
             if country == "UTC":
-                await ctx.send(f"**Current Time According to UTC : {time.upper()}**")
+                await ctx.send(f"**🕰️ Current Time According to UTC : {time.upper()}**")
             else:
-                await ctx.send(f"**Current Time in {country.upper()} : {time.upper()}**")
+                await ctx.send(f"**🕰️ Current Time in {country.upper()} : {time.upper()}**")
 
 
     @command(name="celcius", aliases=("temprature", "c",))
