@@ -4,6 +4,7 @@
         "src.exts.backend.error_handler",
         "src.exts.backend.welcome",
         "src.exts.fun.randoms",
+        "src.exts.fun.laugh",
         "src.exts.info.bot_info",
         "src.exts.info.information",
         "src.exts.info.search",
