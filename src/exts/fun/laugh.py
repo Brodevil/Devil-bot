@@ -1,3 +1,4 @@
+import asyncio
 from logging import getLogger
 
 import discord
@@ -10,6 +11,12 @@ import pyjokes
 
 log = getLogger(__name__)
 
+laughing = [
+    "😆",
+    "😂",
+    "😹",
+    "🤣"
+]
 
 class Laugh(Cog):
     def __init__(self, bot: Bot) -> None:
@@ -17,8 +24,10 @@ class Laugh(Cog):
     
     @command(name="joke", aliases=("text_joke", "small_joke", ))
     async def shortJokes(self, ctx: Context):
-        joke = pyjokes.get_joke()
-        await ctx.reply(f"**{joke}**")
+        async with ctx.typing():
+            joke = pyjokes.get_joke()
+            msg = await ctx.reply(f"**{joke}**")
+            await msg.add_reaction("😆")
 
 
     @command(name="inspire", aliases=("quotes", "thoughts"))
