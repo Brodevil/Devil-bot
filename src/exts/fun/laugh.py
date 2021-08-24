@@ -5,7 +5,7 @@ from discord.ext.commands import Context, Bot, Cog, command
 from discord.ext import commands
 
 from src.constants import Colours
-import pyjoke
+import pyjokes
 
 
 log = getLogger(__name__)
