@@ -5,8 +5,9 @@ import discord
 from discord.ext.commands import Context, Bot, Cog, command
 from discord.ext import commands
 
-from src.constants import Colours
+from random import choice
 import pyjokes
+from src.constants import Colours
 
 
 log = getLogger(__name__)
@@ -27,7 +28,7 @@ class Laugh(Cog):
         async with ctx.typing():
             joke = pyjokes.get_joke()
             msg = await ctx.reply(f"**{joke}**")
-            await msg.add_reaction("😆")
+            await msg.add_reaction(choice(laughing))
 
 
     @command(name="inspire", aliases=("quotes", "thoughts"))
