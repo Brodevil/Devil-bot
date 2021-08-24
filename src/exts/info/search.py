@@ -25,7 +25,10 @@ class Search(Cog):
             description = ""
 
             for index, result in enumerate(results):
-                description += f"**{index+1} : [{result}]({result})**"
+                if len(result) >= 25:
+                    description += f"**{index+1} : [{result[:25]}...]({result})**"
+                else:
+                    description += f"**{index+1} : [{result}]({result})**"
                 description += "\n"
 
             embed = discord.Embed(title="Google Search Top Results :", 
