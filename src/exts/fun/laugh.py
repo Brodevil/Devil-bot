@@ -17,8 +17,13 @@ class Laugh(Cog):
     
     @command(name="joke", aliases=("text_joke", "small_joke", ))
     async def shortJokes(self, ctx: Context):
-        pass
+        joke = pyjokes.get_joke()
+        await ctx.reply(f"**{joke}**")
 
+
+    @command(name="inspire", aliases=("quotes", "thoughts"))
+    async def inspire(self, ctx: Context):
+        pass
 
 
 def setup(bot: Bot) -> None:
