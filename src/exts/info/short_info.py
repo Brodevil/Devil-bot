@@ -58,7 +58,7 @@ class ShortInfo(Cog):
         
         search = f"Current Tempature in {place}"
         temprature = await short_google_search(search)
-        await ctx.send(f"**Current Tempareture in {place} : {temprature.capitalize()}**")
+        await ctx.send(f"**Current Tempareture in {place} : {temprature.upper()}**")
 
 
     @calculator.error
