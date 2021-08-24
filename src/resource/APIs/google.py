@@ -12,18 +12,17 @@ async def short_google_search(queary: str) -> str:
     url = f"https://www.google.com/search?q={queary}"
 
 
-    # async with aiohttp.ClientSession() as session:
-    #     async with session.get(url) as data:
-    #         data = await data.text()
-    #         print(data)
-    #         data = BeautifulSoup(data, "html.parser")
-    #         data = data.find('div', class_="BNeawe")
-    #         # print(data)
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as data:
+            data = await data.text()
+            data = BeautifulSoup(data, "html.parser")
+            data = data.find('div', class_="BNeawe")
+            print(data)
 
     data = requests.get(url)
-    print()
     data = BeautifulSoup(data.text, "html.parser")
     data = data.find("div", class_="BNeawe").text
+    print(data)
 
     return data
 
