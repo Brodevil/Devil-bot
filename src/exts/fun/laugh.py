@@ -9,7 +9,7 @@ from random import choice
 import pyjokes
 
 from src.constants import Colours
-
+from src.resource.APIs.plant_text import get_quote
 
 log = getLogger(__name__)
 
@@ -32,9 +32,12 @@ class Laugh(Cog):
             await msg.add_reaction(choice(laughing))
 
 
-    @command(name="inspire", aliases=("quotes", "thoughts"))
+    @command(name="inspire", aliases=("quotes", "thoughts", "quote", ))
     async def inspire(self, ctx: Context):
-        pass
+        async with ctx.typing():
+            quote, author = await get_quote()
+            embed = discord.Embed(title="Quotes!", color=Colours.soft_red)
+            embed.add_field(name=quote, value=f"-  {author}")
 
 
 def setup(bot: Bot) -> None:
