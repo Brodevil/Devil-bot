@@ -2,7 +2,7 @@ from logging import getLogger
 
 import asyncio
 import aiohttp
-from json import load
+from json import loads
 
 __all__= ("get_quote", )
 log = getLogger(__name__)
@@ -14,5 +14,5 @@ async def get_quote() -> str:
         async with session.get(url) as quote:
             quote = await quote.text()
             print(quote)
-            quote = load(quote)
+            quote = loads(quote)
             return quote[0]["q"], quote[0]["a"]
