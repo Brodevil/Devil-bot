@@ -13,6 +13,5 @@ async def get_quote() -> str:
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as quote:
             quote = await quote.text()
-            print(quote)
             quote = loads(quote)
             return quote[0]["q"], quote[0]["a"]
