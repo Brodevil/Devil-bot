@@ -7,6 +7,7 @@ from discord.ext import commands
 
 from random import choice
 import pyjokes
+
 from src.constants import Colours
 
 
