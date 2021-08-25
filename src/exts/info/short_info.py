@@ -56,9 +56,10 @@ class ShortInfo(Cog):
             await ctx.send("Also Enter the Place!")
             return
         
-        search = f"Current Tempature in {place}"
-        temprature = await short_google_search(search)
-        await ctx.send(f"**Current Tempareture in {place} : {temprature.upper()}**")
+        async with ctx.typing():
+            search = f"Current Tempature in {place}"
+            temprature = await short_google_search(search)
+            await ctx.send(f"**Current Tempareture in {place} : {temprature.upper()}**")
 
 
     @calculator.error
