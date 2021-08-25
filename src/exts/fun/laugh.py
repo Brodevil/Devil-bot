@@ -37,7 +37,8 @@ class Laugh(Cog):
         async with ctx.typing():
             quote, author = await get_quote()
             embed = discord.Embed(title="Quotes!", color=Colours.soft_red)
-            embed.add_field(name=quote, value=f"-  {author}")
+            embed.add_field(name=quote, value=f"- {author}")
+            await ctx.send(embed=embed)
 
 
 def setup(bot: Bot) -> None:
