@@ -22,7 +22,6 @@ async def short_google_search(queary: str) -> str:
     data = requests.get(url)
     data = BeautifulSoup(data.text, "html.parser")
     data = data.find("div", class_="BNeawe").text
-    print(data)
 
     return data
 
