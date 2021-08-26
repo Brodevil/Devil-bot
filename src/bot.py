@@ -91,4 +91,3 @@ bot = Bot(
     status=status, 
     intents=_intents
     )
-;
