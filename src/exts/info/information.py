@@ -1,3 +1,4 @@
+import imp
 import logging
 from typing import Optional
 
@@ -6,7 +7,7 @@ from discord.ext.commands import bot, Context, Cog
 import discord
 from discord import Embed
 
-from src import constants                   
+from src.constants import Colours
 from src.utils.time import time_since       
 
 log = logging.getLogger(__name__)
@@ -53,7 +54,7 @@ class Information(Cog):
                             f"**Voice Channels** : {len(server.voice_channels)}", f"**Categories** : {len(server.categories)}"]
 
         # embed
-        embed = Embed(title=server.name, color=discord.Color.blue(), description='\n'.join(server_info), icon=server.icon_url)
+        embed = Embed(title=server.name, color=Colours.soft_red, description='\n'.join(server_info), icon=server.icon_url)
         embed.set_thumbnail(url=server.icon_url)
         embed.add_field(name=f'<:channel:868863984185528450> Channels : {total_channels}', value="\n".join(channels_info))
         embed.add_field(name=f"👥 Members : {total_members}", value="\n".join(member_info))

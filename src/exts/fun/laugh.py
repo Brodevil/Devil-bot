@@ -40,6 +40,7 @@ class Laugh(Cog):
             embed.add_field(name=quote, value=f"- {author}")
             await ctx.send(embed=embed)
 
+    
 
 def setup(bot: Bot) -> None:
     bot.add_cog(Laugh(bot))
