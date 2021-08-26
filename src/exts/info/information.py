@@ -7,7 +7,7 @@ from discord.ext.commands import bot, Context, Cog
 import discord
 from discord import Embed
 
-from src.constants import Colours
+from src.constants import Colours, Emojis
 from src.utils.time import time_since       
 
 log = logging.getLogger(__name__)
@@ -33,7 +33,7 @@ class Information(Cog):
         server_roles = len(ctx.guild.roles) - 1  # leaving @everyone
 
         server_info = [f"📆 **Created** : {created}", f"🆔 **ID** : {server.id}", f"<:voice_channel:868863984269414430> **Voice Region** : {server.region}",
-                        f"🔐 **Roles** : {server_roles}", f"**{constants.Emojis.nitro_boost} Server Boosts :  {server.premium_subscription_count}**"]
+                        f"🔐 **Roles** : {server_roles}", f"**{Emojis.nitro_boost} Server Boosts :  {server.premium_subscription_count}**"]
 
         if description is not None:
             server_info.insert(0, f"**Description** : {description}\n")
@@ -45,7 +45,7 @@ class Information(Cog):
         bots = sum(member.bot is True for member in server.members)
         offline = server.member_count - (online + bots)
 
-        member_info = [f"{constants.Emojis.status_online} **Online** : {online}", f"{constants.Emojis.status_offline} **Offline** : {offline} ", f"{constants.Emojis.bots} **Bots** : {bots}"]
+        member_info = [f"{Emojis.status_online} **Online** : {online}", f"{Emojis.status_offline} **Offline** : {offline} ", f"{Emojis.bots} **Bots** : {bots}"]
 
         # Channel
         total_channels = len(server.channels)
