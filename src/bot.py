@@ -10,6 +10,7 @@ from discord.ext import commands
 from discord.ext import tasks
 
 from src.context import NewContext
+from src.constants import Client
 
 
 log = logging.getLogger(__name__)
@@ -83,11 +84,10 @@ _intents.typing = True
 _intents.presences = True
 
 status=discord.Status.online
-prefix = ("d!", "!")
 
 bot = Bot(
     activies=_activies,
-    command_prefix=prefix, 
+    command_prefix=Client.PREFIX, 
     status=status, 
     intents=_intents
     )

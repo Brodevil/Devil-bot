@@ -23,6 +23,7 @@ class Client:
     BOT_NAME = "Mr. Devil"
     TOKEN = config.TOKEN
     OWNER_ID = config.OWNER_ID
+    PREFIX = config.PREFIX
 
 
 class Colours:
