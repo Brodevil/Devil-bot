@@ -8,7 +8,7 @@ from discord.ext.commands import Bot, Cog, Context, command
 from src.constants import Colours  
 from src.utils.maths import calc_expression
 from src.exts.utils.converter import acute_remover
-from src.resource.APIs.google import short_google_search
+from src.resource.APIs.filter_request import short_google_search
 
 
 class ShortInfo(Cog):
@@ -75,6 +75,6 @@ class ShortInfo(Cog):
             embed.add_field(name=f"Can also use : `{', '.join(ctx.command.aliases)}`", value=message)
             await ctx.send(embed=embed)
 
-    
+
 def setup(bot: Bot) -> None:
     bot.add_cog(ShortInfo(bot))
