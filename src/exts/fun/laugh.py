@@ -10,6 +10,7 @@ import pyjokes
 
 from src.constants import Colours
 from src.resource.APIs.plant_text import get_quote
+from src.resource.APIs.filter_request import short_google_search
 
 log = getLogger(__name__)
 
@@ -40,7 +41,7 @@ class Laugh(Cog):
     @command(name="jokeimg", aliases=("joke_img", "qjoke"))
     async def qna_joke(self, ctx: Context):
         async with ctx.typing():
-            
+
 
 
     @command(name="inspire", aliases=("quotes", "thoughts", "quote", ))
