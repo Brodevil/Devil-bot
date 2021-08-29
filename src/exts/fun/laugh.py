@@ -26,10 +26,21 @@ class Laugh(Cog):
     
     @command(name="joke", aliases=("text_joke", "small_joke", ))
     async def shortJokes(self, ctx: Context):
+        """Text Short Jokes"""
         async with ctx.typing():
             joke = pyjokes.get_joke()
-            msg = await ctx.reply(f"**{joke}**")
+            title = "Text Joke!\n"
+            embed = discord.Embed(color=Colours.soft_red)
+            embed.add_field(name=title, value=joke)
+            
+            msg = await ctx.send(embed=embed)
             await msg.add_reaction(choice(laughing))
+    
+
+    @command(name="jokeimg", aliases=("joke_img", "qjoke"))
+    async def qna_joke(self, ctx: Context):
+        async with ctx.typing():
+            
 
 
     @command(name="inspire", aliases=("quotes", "thoughts", "quote", ))
@@ -39,7 +50,7 @@ class Laugh(Cog):
             embed = discord.Embed(title="Quotes!", color=Colours.soft_red)
             embed.add_field(name=quote, value=f"- {author}")
             await ctx.send(embed=embed)
-
+    
 
 
 def setup(bot: Bot) -> None:
