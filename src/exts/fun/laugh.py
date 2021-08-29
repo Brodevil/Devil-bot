@@ -7,10 +7,11 @@ from discord.ext import commands
 
 from random import choice
 import pyjokes
+from urllib3 import disable_warnings
 
 from src.constants import Colours
 from src.resource.APIs.plant_text import get_quote
-from src.resource.APIs.filter_request import short_google_search
+
 
 log = getLogger(__name__)
 
@@ -41,8 +42,9 @@ class Laugh(Cog):
     @command(name="jokeimg", aliases=("joke_img", "qjoke"))
     async def qna_joke(self, ctx: Context):
         async with ctx.typing():
-            pass
-
+            embed = discord.Embed(color=Colours.soft_red)
+            embed.set_image(url=r"https://readme-jokes.vercel.app/api?bgColor=%23696969&textColor=%23FFC0CB&aColor=%23AFEEEE&borderColor=%23F5F5F5")
+            await ctx.send(embed=embed)
 
     @command(name="inspire", aliases=("quotes", "thoughts", "quote", ))
     async def inspire(self, ctx: Context):
