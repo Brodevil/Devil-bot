@@ -11,6 +11,7 @@ from urllib3 import disable_warnings
 
 from src.constants import Colours
 from src.resource.APIs.plant_text import get_quote
+from src.resource.APIs.filter_request import qna_jokes
 
 
 log = getLogger(__name__)
@@ -39,12 +40,13 @@ class Laugh(Cog):
             await msg.add_reaction(choice(laughing))
     
 
-    @command(name="jokeimg", aliases=("joke_img", "qjoke"))
+    @command(name="jokeimg", aliases=("joke_img", "qjoke", "qna_joke", ))
     async def qna_joke(self, ctx: Context):
         async with ctx.typing():
-            embed = discord.Embed(color=Colours.soft_red)
-            embed.set_image(url=r"https://readme-jokes.vercel.app/api?bgColor=%23696969&textColor=%23FFC0CB&aColor=%23AFEEEE&borderColor=%23F5F5F5")
-            await ctx.send(embed=embed)
+            question = await qna_jokes()
+            # embed = discord.Embed(color=Colours.soft_red)
+            # await ctx.send(embed=embed)
+
 
     @command(name="inspire", aliases=("quotes", "thoughts", "quote", ))
     async def inspire(self, ctx: Context):
