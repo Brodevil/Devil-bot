@@ -41,7 +41,7 @@ class Laugh(Cog):
     @command(name="jokeimg", aliases=("joke_img", "qjoke"))
     async def qna_joke(self, ctx: Context):
         async with ctx.typing():
-
+            pass
 
 
     @command(name="inspire", aliases=("quotes", "thoughts", "quote", ))
