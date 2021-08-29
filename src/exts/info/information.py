@@ -83,7 +83,7 @@ class Information(Cog):
             name = f"{user.nick} ({name})"
             member_info.insert(1, f"**📛 Nick Name** : {user.nick}")
 
-        embed = Embed(title=name, color=constants.Colours.blue, inline=False)
+        embed = Embed(title=name, color=Colours.soft_red, inline=False)
         embed.add_field(name="User Information \n", value="\n".join(user_info), inline=False)
         embed.add_field(name="Member Information", value="\n".join(member_info), inline=False)
         embed.set_thumbnail(url=user.avatar_url)
@@ -106,7 +106,7 @@ class Information(Cog):
         position = len(ctx.guild.roles) - role.position 
 
         embed = Embed(title=f"{role.name} Info",
-                    color=constants.Colours.soft_red)
+                    color=Colours.soft_red)
         
         embed.add_field(name="ID 🆔", value=role.id, inline=True)
         embed.add_field(name="Created 📆", value=created, inline=True)
@@ -129,7 +129,7 @@ class Information(Cog):
 
         embed = Embed(title=f"{ctx.guild.name} Roles!", 
                     description=f"```{all_roles}```", 
-                    color=constants.Colours.soft_red)
+                    color=Colours.soft_red)
         
         embed.set_footer(text=f"Requested by {ctx.message.author}", icon_url=ctx.message.author.avatar_url)
         await ctx.send(embed=embed)
