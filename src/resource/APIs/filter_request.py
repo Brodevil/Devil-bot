@@ -29,8 +29,8 @@ async def qna_jokes():
             joke = BeautifulSoup(joke, "html5lib")
             question = joke.find('p', attrs = {'class': "question"})
             answer = joke.find('p', attrs = {'class': "answer"})
-            question = question.split("</b>")[-1].replace("</p>", ""))
-            answer = answer.split("</b>")[-1].replace("</p>", ""))
+            question = str(question).split("</b>")[-1].replace("</p>", "")
+            answer = str(answer).split("</b>")[-1].replace("</p>", "")
             return question, answer
 
 
