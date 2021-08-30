@@ -33,7 +33,3 @@ async def qna_jokes():
             answer = str(answer).split("</b>")[-1].replace("</p>", "")
             return question, answer
 
-
-if __name__ == "__main__":
-    run = asyncio.get_event_loop()
-    print(run.run_until_complete(qna_jokes()))
