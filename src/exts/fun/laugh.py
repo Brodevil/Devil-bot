@@ -1,5 +1,6 @@
 import asyncio
 from logging import getLogger
+from multiprocessing.connection import answer_challenge
 
 import discord
 from discord.ext.commands import Context, Bot, Cog, command
@@ -43,9 +44,11 @@ class Laugh(Cog):
     @command(name="jokeimg", aliases=("joke_img", "qjoke", "qna_joke", ))
     async def qna_joke(self, ctx: Context):
         async with ctx.typing():
-            question = await qna_jokes()
-            # embed = discord.Embed(color=Colours.soft_red)
-            # await ctx.send(embed=embed)
+            question, answer = await qna_jokes()
+            embed = discord.Embed(color=Colours.soft_red)
+            embed.add_field(name=question.strip(), value=answer.strip())
+
+            await ctx.send(embed=embed)
 
 
     @command(name="inspire", aliases=("quotes", "thoughts", "quote", ))
