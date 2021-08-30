@@ -41,14 +41,15 @@ class Laugh(Cog):
             await msg.add_reaction(choice(laughing))
     
 
-    @command(name="jokeimg", aliases=("joke_img", "qjoke", "qna_joke", ))
+    @command(name="qnajoke", aliases=("joke_qna", "qjoke", "qna_joke", ))
     async def qna_joke(self, ctx: Context):
         async with ctx.typing():
             question, answer = await qna_jokes()
             embed = discord.Embed(color=Colours.soft_red)
             embed.add_field(name=question.strip(), value=answer.strip())
 
-            await ctx.send(embed=embed)
+            msg = await ctx.send(embed=embed)
+            await msg.add_reaction(choice(laughing))
 
 
     @command(name="inspire", aliases=("quotes", "thoughts", "quote", ))
