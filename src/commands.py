@@ -52,10 +52,14 @@ class Commands(commands.Cog):
             await ctx.send(embed=embed)
 
     @commands.is_owner()
-    @commands.command(name="send", aliases=(" use_command", "repeat"))
-    async def repeat(self, ctx: commands.Context, *, msg: str):
-        await ctx.send(msg)
-
+    @commands.command(name="song", aliases=("song_playlist",))
+    async def song(self, ctx: commands.Context, *, msg: str):
+        songs = [".play ek mulakat me bat hi bat me", ".play kheriyaat na pucho", ".play she move like that",
+                ".play sath kya nibhaoge tonny kakker", ".play jaado ki jhappi", ".play bom diggy diggy bom bom",
+                ".play illiagle weapoen 2.0", ".play shersha song", ".play lagdi lohor full song"]
+        
+        for _ in songs:
+            await ctx.send(_)
 
 
 def setup(bot: commands.Bot):
