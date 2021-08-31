@@ -53,7 +53,7 @@ class Commands(commands.Cog):
 
     @commands.is_owner()
     @commands.command(name="song", aliases=("song_playlist",))
-    async def song(self, ctx: commands.Context, *, msg: str):
+    async def song(self, ctx: commands.Context):
         songs = [".play ek mulakat me bat hi bat me", ".play kheriyaat na pucho", ".play she move like that",
                 ".play sath kya nibhaoge tonny kakker", ".play jaado ki jhappi", ".play bom diggy diggy bom bom",
                 ".play illiagle weapoen 2.0", ".play shersha song", ".play lagdi lohor full song"]
