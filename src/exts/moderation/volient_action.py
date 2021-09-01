@@ -19,8 +19,12 @@ class VolientAction(Cog):
 
     @commands.has_permissions(ban_members = True)
     @command(name="ban", aliases=("ban_user", ))
-    async def ban(self, ctx: Context, user: discord.User,):
-        pass
+    async def ban(self, ctx: Context, user: discord.Member, *, reason : Optional[str]):
+        await user.ban(reason=reason)
+        await ctx.message.delete()
+        await ctx.send(f'**👌 {user} has been banned from server' 
+                        f'Reason: {reason}')
+        await user.send(f"**You had Banned from {ctx.guild} Server ")
 
 
 def setup(bot: Bot) -> None:
