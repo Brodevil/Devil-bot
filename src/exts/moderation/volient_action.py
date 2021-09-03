@@ -18,14 +18,14 @@ class VolientAction(Cog):
     
     @commands.guild_only()
     @commands.has_permissions(ban_members = True)
-    @command(name="ban", aliases=("ban_user", ))
+    @command(name="ban", aliases=("ban_user", "BAN", ))
     async def ban(self, ctx: Context, user: discord.Member, *, reason : Optional[str]):
         if reason is None:
             reason = "Mischief Behavior"
         
         await user.ban(reason=reason)
         await ctx.message.delete()
-        await ctx.send(f'>>> **👌 ||{user}|| has been banned from {ctx.guild} Server!** \nReason : ||{reason}||')
+        await ctx.send(f'>>> **👌 ||<{user.id}>|| has been banned from {ctx.guild} Server!** \nReason : ||{reason}||')
         await user.send(f">>> **You had Banned from {ctx.guild} Server!**")
     
 
@@ -38,8 +38,17 @@ class VolientAction(Cog):
         
         await user.unban(reason=reason)
         await ctx.message.delete()
-        await ctx.send(f">>> **👌 ||{user}|| had unbanned from {ctx.guild} Server!**")
-        await user.send(f">>> **You had Unbanned from {ctx.guild} Server!**")
+        await ctx.send(f">>> **👌 ||<{user.id}>|| had unbanned from {ctx.guild} Server!**")
+        await user.send(f">>> **You had Unbanned from {ctx.guild} Server!** \n Reason : {reason}")
+
+
+    @commands.guild_only()
+    @commands.has_permissions(administrator=True)
+    @command(name="kick", aliases=("kick_user", ))
+    async def kick(self, ctx: Context, user: discord.Member):
+        await self.bot.kick(user)
+        await ctx.message.delete()
+        await ctx.send(f">>> **👌 ||<{user.id}>|| had kciked form the Server!**")
 
 
 def setup(bot: Bot) -> None:
