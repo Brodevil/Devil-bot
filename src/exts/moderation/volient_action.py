@@ -31,7 +31,7 @@ class VolientAction(Cog):
 
     @commands.guild_only()
     @commands.has_permissions(administrator = True)
-    @command(name="unban", aliases=("unban_user", "remove_ban"))
+    @command(name="unban", aliases=("unban_user", "remove_ban", "UNBAN"))
     async def unban(self, ctx: Context, user: discord.Member, *, reason: Optional[str]):
         if reason is None:
             reason = "Forgiven"
@@ -44,7 +44,7 @@ class VolientAction(Cog):
 
     @commands.guild_only()
     @commands.has_permissions(administrator=True)
-    @command(name="kick", aliases=("kick_user", ))
+    @command(name="kick", aliases=("kick_user", "KICK"))
     async def kick(self, ctx: Context, user: discord.Member):
         await self.bot.kick(user)
         await ctx.message.delete()
