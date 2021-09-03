@@ -25,13 +25,13 @@ class VolientAction(Cog):
         
         await user.ban(reason=reason)
         await ctx.message.delete()
-        await ctx.send(f'>>> **👌 ||{user}|| has been banned from {ctx.guild} Server!**'f'Reason : ||{reason}||')
+        await ctx.send(f'>>> **👌 ||{user}|| has been banned from {ctx.guild} Server!** \nReason : ||{reason}||')
         await user.send(f">>> **You had Banned from {ctx.guild} Server!**")
     
 
     @commands.guild_only()
-    @commands.has_permissions(administration = True,)
-    @command(name="unban", aliases=("unban_user", ))
+    @commands.has_permissions(administrator = True)
+    @command(name="unban", aliases=("unban_user", "remove_ban"))
     async def unban(self, ctx: Context, user: discord.Member, *, reason: Optional[str]):
         if reason is None:
             reason = "Forgiven"
@@ -39,6 +39,7 @@ class VolientAction(Cog):
         await user.unban(reason=reason)
         await ctx.message.delete()
         await ctx.send(f">>> **👌 ||{user}|| had unbanned from {ctx.guild} Server!**")
+        await user.send(f">>> **You had Unbanned from {ctx.guild} Server!**")
 
 
 def setup(bot: Bot) -> None:
