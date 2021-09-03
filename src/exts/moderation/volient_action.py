@@ -46,7 +46,7 @@ class VolientAction(Cog):
     @commands.has_permissions(administrator=True)
     @command(name="kick", aliases=("kick_user", "KICK"))
     async def kick(self, ctx: Context, user: discord.Member):
-        await self.bot.kick(user)
+        await ctx.guild.kick(user)
         await ctx.message.delete()
         await ctx.send(f">>> **👌 ||<{user.id}>|| had kciked form the Server!**")
 
