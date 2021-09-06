@@ -1,4 +1,3 @@
-import imp
 import logging
 from time import time
 from datetime import timedelta
@@ -23,9 +22,9 @@ class Bot_info(Cog):
     @command(name="ping")
     async def ping(self, ctx: Context):
         """Ping of Bot in miliseconds"""
-        start_time = time.time()
+        start_time = time()
         message = await ctx.send("Testing Ping...")
-        end_time = time.time()
+        end_time = time()
 
         embed = Embed(title="Pong!", color=Colours.soft_red)
         
