@@ -1,3 +1,4 @@
+from curses.ascii import EM
 import logging
 import time
 from datetime import timedelta
@@ -41,7 +42,9 @@ class Bot_info(Cog):
     async def uptime(self, ctx: Context):
         bot_uptime = int(time.time() - start_time)
         bot_uptime = timedelta(seconds=bot_uptime)
-        await ctx.send(f"{Emojis.status_online} I Started up {bot_uptime} ago!")
+        embed = Embed(title=f"{Emojis.status_online} Bot UpTime!", color=Colours.soft_red
+                    description=f"I Started up {bot_uptime} ago!")
+        await ctx.send(embed=embed)
 
 
 def setup(bot: Bot):
