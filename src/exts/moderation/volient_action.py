@@ -3,7 +3,6 @@ from typing import Optional
 
 from discord.ext.commands import Bot, Context, command, Cog
 from discord.ext import commands
-from discord import Embed
 import discord
 
 from src.constants import Colours
