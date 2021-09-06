@@ -1,16 +1,15 @@
-from curses.ascii import EM
+import imp
 import logging
-import time
+from time import time
 from datetime import timedelta
 
 import discord
 from discord import Embed
 from discord.ext.commands import Bot, Cog, Context, command
 
-from src.constants import Colours, Emojis
+from src.constants import Colours, Emojis, Client
 
 
-start_time = time.time()
 logging.getLogger(__name__)
 
 
@@ -40,9 +39,10 @@ class Bot_info(Cog):
 
     @command(name="uptime")
     async def uptime(self, ctx: Context):
-        bot_uptime = int(time.time() - start_time)
+        """Bot run's Uptime"""
+        bot_uptime = int(time() - Client.UP_TIME)
         bot_uptime = timedelta(seconds=bot_uptime)
-        embed = Embed(title=f"{Emojis.status_online} Bot UpTime!", color=Colours.soft_red
+        embed = Embed(title=f"{Emojis.status_online} Bot UpTime!", color=Colours.soft_red,
                     description=f"I Started up {bot_uptime} ago!")
         await ctx.send(embed=embed)
 
