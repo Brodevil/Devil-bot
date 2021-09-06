@@ -1,5 +1,6 @@
 import logging
 import config 
+from time import time
 
 from typing import Dict, NamedTuple
 
@@ -24,6 +25,7 @@ class Client:
     TOKEN = config.TOKEN
     OWNER_ID = config.OWNER_ID
     PREFIX = config.PREFIX
+    UP_TIME = time()
 
 
 class Colours:
