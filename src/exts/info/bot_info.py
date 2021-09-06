@@ -1,12 +1,15 @@
 import logging
 import time
+from datetime import timedelta
 
 import discord
 from discord import Embed
 from discord.ext.commands import Bot, Cog, Context, command
-from src.constants import Colours
 
-starttime = time.time()
+from src.constants import Colours, Emojis
+
+
+start_time = time.time()
 logging.getLogger(__name__)
 
 
@@ -36,7 +39,9 @@ class Bot_info(Cog):
 
     @command(name="uptime")
     async def uptime(self, ctx: Context):
-        pass
+        bot_uptime = int(time.time() - start_time)
+        bot_uptime = timedelta(seconds=bot_uptime)
+        await ctx.send(f"{Emojis.status_online} I Started up {bot_uptime} ago!")
 
 
 def setup(bot: Bot):
