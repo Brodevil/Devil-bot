@@ -42,7 +42,7 @@ class Bot_info(Cog):
         bot_uptime = int(time() - Client.UP_TIME)
         bot_uptime = timedelta(seconds=bot_uptime)
         embed = Embed(title=f"{Emojis.status_online} Bot UpTime!", color=Colours.soft_red,
-                    description=f"I Started up {bot_uptime} ago!")
+                    description=f"I Started up `{bot_uptime}` ago!")
         await ctx.send(embed=embed)
 
 
