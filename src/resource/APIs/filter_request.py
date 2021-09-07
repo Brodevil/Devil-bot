@@ -11,10 +11,18 @@ async def short_google_search(queary: str) -> str:
     """Short Google Search"""
     queary = "-".join(queary.split())
     url = f"https://www.google.com/search?q={queary}"
+    
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as _time:
+            _time = await _time.read()
+            data = BeautifulSoup(_time.decode('utf-8'), "html5lib")
+            print(data)
+            data = data.find("div", class_="BNeawe")
+            print(data)
 
-    data = requests.get(url)
-    data = BeautifulSoup(data.text, "html.parser")
-    data = data.find("div", class_="BNeawe").text
+    # data = requests.get(url)
+    # data = BeautifulSoup(data.text, "html.parser")
+    # data = data.find("div", class_="BNeawe").text
 
     return data
 
@@ -33,3 +41,7 @@ async def qna_jokes():
             answer = str(answer).split("</b>")[-1].replace("</p>", "")
             return question, answer
 
+if __name__ == "__main__":
+    run = asyncio.get_event_loop()
+    time = run.run_until_complete(short_google_search("Currect time in UK"))
+    print(time)
