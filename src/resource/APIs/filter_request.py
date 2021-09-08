@@ -32,7 +32,3 @@ async def qna_jokes():
             answer = str(answer).split("</b>")[-1].replace("</p>", "")
             return question, answer
 
-if __name__ == "__main__":
-    run = asyncio.get_event_loop()
-    time = run.run_until_complete(short_google_search("Currect time in UK"))
-    print(time)
