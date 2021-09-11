@@ -10,7 +10,7 @@ import asyncio
 from typing import Optional
 import json
 
-from src import constants                   
+from src.constants import Colours              
 from src.exts.utils.converter import BoolConverter
 
 
@@ -31,7 +31,7 @@ class Bot_Controls(commands.Cog):
         """Logout the bot!"""
         await ctx.confirm_action()
     
-        embed = Embed(title="🏃 Logged Out!", color=constants.Colours.soft_green)
+        embed = Embed(title="🏃 Logged Out!", color=Colours.soft_red)
         await ctx.send(embed=embed)
 
         await self.bot.logout()
