@@ -50,7 +50,7 @@ class Bot_Controls(commands.Cog):
         """ Direct Messaging the user """
         await ctx.confirm_action()
         await ctx.message.delete()
-        
+
         channel = await User.create_dm()
 
         if show_name:
@@ -64,7 +64,7 @@ class Bot_Controls(commands.Cog):
             icon = self.bot.user.avatar_url_as(format="png")
         
 
-        embed = discord.Embed(description=content, color=constants.Colours.soft_red)
+        embed = Embed(description=content, color=Colours.soft_red)
         embed.set_author(name=name, icon_url=icon, url=url)
 
         await channel.send(embed=embed)
