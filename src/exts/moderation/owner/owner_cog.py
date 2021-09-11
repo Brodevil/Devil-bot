@@ -49,6 +49,7 @@ class Bot_Controls(commands.Cog):
                     
         """ Direct Messaging the user """
         await ctx.confirm_action()
+        await ctx.message.delete()
         
         channel = await User.create_dm()
 
