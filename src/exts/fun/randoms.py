@@ -41,7 +41,8 @@ class Random_fun(commands.Cog):
             guess_num = int(user_guess.content)
 
             if guess_num == answer:
-                embed = Embed(description=f"**🥳 Congratulation!\nYou had <a:Correct:863427548423782441> Correctly answered in {5-guess+1} Attempts.**", color=Colours.blue)
+                embed = Embed(description=f"**🥳 Congratulation!\nYou had <a:Correct:863427548423782441> Correctly answered in {5-guess+1} Attempts.**", 
+                        color=Colours.soft_red)
                 await user_guess.reply(embed=embed)
                 break
             
