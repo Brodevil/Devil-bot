@@ -30,6 +30,7 @@ class Bot_Controls(commands.Cog):
     async def quit(self, ctx: commands.Context):
         """Logout the bot!"""
         await ctx.confirm_action()
+        await self.bot.change_presence(status="offline")
     
         embed = Embed(title="🏃 Logged Out!", color=Colours.soft_red)
         await ctx.send(embed=embed)
