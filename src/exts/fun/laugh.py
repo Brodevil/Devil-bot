@@ -1,6 +1,5 @@
 import asyncio
 from logging import getLogger
-from multiprocessing.connection import answer_challenge
 
 import discord
 from discord.ext.commands import Context, Bot, Cog, command
@@ -8,7 +7,6 @@ from discord.ext import commands
 
 from random import choice
 import pyjokes
-from urllib3 import disable_warnings
 
 from src.constants import Colours
 from src.resource.APIs.plant_text import get_quote
@@ -28,6 +26,8 @@ class Laugh(Cog):
     def __init__(self, bot: Bot) -> None:
         self.bot = bot
     
+
+    @commands.cooldown(rate=1, per=9.0)
     @command(name="joke", aliases=("text_joke", "small_joke", ))
     async def shortJokes(self, ctx: Context):
         """Text Short Jokes"""
@@ -41,6 +41,7 @@ class Laugh(Cog):
             await msg.add_reaction(choice(laughing))
     
 
+    @commands.cooldown(rate=1, per=9.0)
     @command(name="qnajoke", aliases=("joke_qna", "qjoke", "qna_joke", ))
     async def qna_joke(self, ctx: Context):
         async with ctx.typing():
@@ -52,6 +53,7 @@ class Laugh(Cog):
             await msg.add_reaction(choice(laughing))
 
 
+    @commands.cooldown(rate=1, per=9.0)
     @command(name="inspire", aliases=("quotes", "thoughts", "quote", ))
     async def inspire(self, ctx: Context):
         async with ctx.typing():
