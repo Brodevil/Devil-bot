@@ -13,7 +13,8 @@
         "src.exts.moderation.owner.reload_cog",
         "src.exts.moderation.messages",
         "src.exts.moderation.volient_action",
-        "src.commands"
+        "src.commands",
+        "src.voice"
 
     ]
 }
