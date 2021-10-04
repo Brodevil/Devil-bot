@@ -127,4 +127,5 @@ class Music(commands.Cog):
 
 
 def setup(bot: bot) -> None:
-    bot.add_cog()
+    bot.add_cog(Music(bot))
+
