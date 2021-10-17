@@ -49,3 +49,7 @@ config.py
 # caches logs files
 discord.log
 .google-cookie
+*.webm
+*.mp3
+*.mp4
+
