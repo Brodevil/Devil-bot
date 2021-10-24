@@ -1,3 +1,6 @@
+import logging
+from typing import Optional
+
 from discord import (
     VoiceChannel, 
     PCMVolumeTransformer, 
@@ -6,7 +9,6 @@ from discord import (
 
 from discord.ext import commands
 from discord.ext.commands import Context
-
 
 from src.bot import bot
 from src.exts.voice.youtubeWork import YTDLSource
@@ -17,9 +19,9 @@ class Music(commands.Cog):
         self.bot = bot
 
     @commands.command(name="connect", aliases=["join", ])
-    async def join(self, ctx: Context, *, channel: VoiceChannel):
+    async def join(self, ctx: Context, *, channel: Optional[VoiceChannel]):
         """Joins a voice channel"""
-
+        
         if ctx.voice_client is not None:
             return await ctx.voice_client.move_to(channel)
 
