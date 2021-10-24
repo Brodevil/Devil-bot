@@ -1,8 +1,12 @@
-import discord
+from discord import (
+    VoiceChannel, 
+    PCMVolumeTransformer, 
+    FFmpegPCMAudio
+)
 
 from discord.ext import commands
 from discord.ext.commands import Context
-from discord import VoiceChannel
+
 
 from src.bot import bot
 from src.exts.voice.youtubeWork import YTDLSource
@@ -26,12 +30,23 @@ class Music(commands.Cog):
         """Stops and disconnects the bot from voice"""
         await ctx.voice_client.disconnect()
 
+    @commands.command(name="volume")
+    async def volume(self, ctx: Context, volume: int):
+        """Changes the player's volume"""
 
+        if ctx.voice_client is None:
+            return await ctx.send("Not connected to a voice channel.")
+
+        ctx.voice_client.source.volume = volume / 100
+        await ctx.send(f"Changed volume to {volume}%")
+    
+
+    @commands.is_owner()
     @commands.command(name="local_play", aliases=["lp", "play_file"])
     async def play_from_file(self, ctx, *, query: str):
         """Plays a file from the local filesystem"""
 
-        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(query))
+        source = PCMVolumeTransformer(FFmpegPCMAudio(query))
         ctx.voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)
 
         await ctx.send(f'Now playing: {query}')
@@ -46,17 +61,6 @@ class Music(commands.Cog):
             ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
 
         await ctx.send(f'Now playing: {player.title}')
-
-
-    @commands.command(name="volume")
-    async def volume(self, ctx: Context, volume: int):
-        """Changes the player's volume"""
-
-        if ctx.voice_client is None:
-            return await ctx.send("Not connected to a voice channel.")
-
-        ctx.voice_client.source.volume = volume / 100
-        await ctx.send(f"Changed volume to {volume}%")
 
 
     @play.before_invoke
