@@ -57,12 +57,13 @@ class Music(commands.Cog):
     @commands.command(name="play", aliases=("p", "play_song", "song"))
     async def play(self, ctx: Context, *, queary: str):
         """Play from a url / Song queary"""
+        queary = queary.split(', ')
+        for song in queary:
+            async with ctx.typing():
+                player = await YTDLSource.from_url(song, loop=self.bot.loop, stream=True)
+                ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
 
-        async with ctx.typing():
-            player = await YTDLSource.from_url(queary, loop=self.bot.loop, stream=True)
-            ctx.voice_client.play(player, after=lambda e: print(f'Player error: {e}') if e else None)
-
-        await ctx.send(f'Now playing: {player.title}')
+            await ctx.send(f'Now playing: {player.title}')
 
 
     @play.before_invoke
