@@ -4,8 +4,8 @@ import discord
 from discord.ext.commands import Cog, command, cooldown, Context
 from discord.ext import commands
 
-from bot.bot import bot
-from bot.constants import Colours
+from src.bot import bot
+from src.constants import Colours
 
 
 logger = logging.getLogger(__name__)
@@ -41,21 +41,21 @@ class Define(Cog):
                         f"Unexpected status code {resp.status} from dictionaryAPI.dev"
                     )
                     await ctx.send(embed=STATUS_NOT_200)
-                    return 
+                    return
 
                 data = await resp.json()
                 data = data[0]
         
         if data.get("title") is not None:
             ctx.send(embed=ERROR)
-            return 
+            return
         
         defination = data["meanings"][0]["definitions"][0]["definition"]
 
         embed = discord.Embed(
             title="{0} Defination :".format(word.capitalize()),
             description=defination.capitalize(),
-            color=Colours.soft_green
+            color=Colours.soft_red
         )
         await ctx.send(embed=embed)
 
