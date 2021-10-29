@@ -1,3 +1,4 @@
+import socket
 import logging
 import sys
 
@@ -8,6 +9,7 @@ import traceback
 import discord 
 from discord.ext import commands
 from discord.ext import tasks
+from aiohttp import AsyncResolver, ClientSession, TCPConnector
 
 from src.context import NewContext
 from src.constants import Client
@@ -27,6 +29,9 @@ class Bot(commands.Bot):
         self.activies = activies
         self.status = status
         self.change_status.start()
+        self.http_session = ClientSession(
+            connector=TCPConnector(resolver=AsyncResolver(), family=socket.AF_INET)
+        )
 
 
     async def on_ready(self):
