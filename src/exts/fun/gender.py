@@ -7,6 +7,7 @@ from discord.ext import commands
 from src.bot import Bot
 from src.constants import Colours
 
+
 logger = logging.getLogger(__name__)
 
 API_URL = "https://api.genderize.io/?name={0}"
