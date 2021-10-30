@@ -86,7 +86,7 @@ _intents.members = True
 _intents.typing = True
 _intents.presences = True
 
-status=discord.Status.online
+status = discord.Status.online
 
 bot = Bot(
     activies=_activies,
