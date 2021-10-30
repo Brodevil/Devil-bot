@@ -4,7 +4,6 @@ from discord import VoiceChannel
 from discord.ext import commands
 
 from dcactivity import DCApplication
-from dcactivity.errors import InvalidChannel
 
 
 class MyAdvancedCog(commands.Cog):
