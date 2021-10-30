@@ -16,6 +16,7 @@
         "src.exts.moderation.messages",
         "src.exts.moderation.volient_action",
         "src.exts.voice.voice",
+        "src.exts.voice.dcactivites",
         "src.commands"        
 
     ]
