@@ -25,9 +25,9 @@ class MyAdvancedCog(commands.Cog):
             _channel = channel
         
         invite = await self.bot.dcactivity.create_invite(
-            _channel, DCApplication.youtube, max_age=0, max_uses=10)
+            _channel, DCApplication.youtube, max_age=86400, max_uses=10)
         
-        await ctx.send(invite)
+        await ctx.send(f"Join the Together Activity Session by clicking on this link {invite}")
 
 
 def setup(bot):

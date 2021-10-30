@@ -95,4 +95,4 @@ bot = Bot(
     intents=_intents
     )
 
-bot.deactivity = DCActivity(bot)
+bot.dcactivity = DCActivity(bot)
