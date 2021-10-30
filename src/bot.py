@@ -1,4 +1,3 @@
-import socket
 import logging
 import sys
 
@@ -9,10 +8,11 @@ import traceback
 import discord 
 from discord.ext import commands
 from discord.ext import tasks
-from aiohttp import AsyncResolver, ClientSession, TCPConnector
+from aiohttp import ClientSession
 
 from src.context import NewContext
 from src.constants import Client
+from dcactivity import DCActivity
 
 
 log = logging.getLogger(__name__)
@@ -94,3 +94,5 @@ bot = Bot(
     status=status, 
     intents=_intents
     )
+
+bot.deactivity = DCActivity(bot)
