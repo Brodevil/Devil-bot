@@ -4,6 +4,7 @@ from discord import VoiceChannel
 from discord.ext import commands
 
 from dcactivity import DCApplication
+from src.bot import Bot
 
 
 class MyAdvancedCog(commands.Cog):
@@ -27,8 +28,8 @@ class MyAdvancedCog(commands.Cog):
         invite = await self.bot.dcactivity.create_invite(
             _channel, DCApplication.youtube, max_age=86400, max_uses=10)
         
-        await ctx.send(f"Join the Together Activity Session by clicking on this link {invite}")
+        await ctx.send(f"Join the Together Activity Session by clicking on this link : \n{invite}")
 
 
-def setup(bot):
+def setup(bot: Bot) -> None:
     bot.add_cog(MyAdvancedCog(bot))
