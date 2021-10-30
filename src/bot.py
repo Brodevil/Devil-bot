@@ -29,9 +29,7 @@ class Bot(commands.Bot):
         self.activies = activies
         self.status = status
         self.change_status.start()
-        self.http_session = ClientSession(
-            connector=TCPConnector(resolver=AsyncResolver(), family=socket.AF_INET)
-        )
+        self.http_session = ClientSession()
 
 
     async def on_ready(self):
