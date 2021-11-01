@@ -2,9 +2,12 @@ from typing import Optional
 
 from discord import VoiceChannel
 from discord.ext import commands
+from discord import Embed
 
 from dcactivity import DCApplication
+
 from src.bot import Bot
+from src.constants import Colours
 
 
 class MyAdvancedCog(commands.Cog):
@@ -28,7 +31,9 @@ class MyAdvancedCog(commands.Cog):
         invite = await self.bot.dcactivity.create_invite(
             _channel, DCApplication.youtube, max_age=86400, max_uses=10)
         
-        await ctx.send(f"Join the Together Activity Session by clicking on this link : \n{invite}")
+        embed = Embed(title="Together YouTube !", color=Colours.soft_red)
+        embed.set_image(url="https://shorturl.at/gGQS2", link=invite)
+        await ctx.send(embed=embed)
 
 
 def setup(bot: Bot) -> None:
