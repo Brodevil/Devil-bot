@@ -48,7 +48,7 @@ class Commands(commands.Cog):
             await ctx.send(embed=embed)
 
 
-    @commands.command(name="test"):
+    @commands.command(name="testc")
     async def test(self, ctx: commands.Context, *, url: str):
         pass
 

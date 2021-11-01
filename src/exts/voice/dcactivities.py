@@ -14,7 +14,7 @@ class MyAdvancedCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="video", aliase=["vid", "v"])
+    @commands.command(name="video", aliase=["vid", "yt"])
     async def youtube_video(self, ctx: commands.Context, channel: Optional[VoiceChannel] = None):
         if not channel:
             if not ctx.author.voice:
@@ -32,13 +32,13 @@ class MyAdvancedCog(commands.Cog):
             _channel, DCApplication.youtube, max_age=86400, max_uses=10)
 
         embed = Embed(title="Let's Watch YouTube Together!", color=Colours.soft_red)
+        embed.add_field(name="Invitation Link :", value=invite)
         embed.set_image(url="https://shorturl.at/gGQS2")
-        embed.set_footer(text=f"**Invitation Link :** {invite}")
         
         await ctx.send(embed=embed)
 
 
-    @commands.command(name="twitch", aliases=["twitchtv"])
+    @commands.command(name="poker", aliases=["poker_game"])
     async def twitch_video(self, ctx: commands.Context, channel: Optional[VoiceChannel] = None):
         if not channel:
             if not ctx.author.voice:
@@ -53,11 +53,11 @@ class MyAdvancedCog(commands.Cog):
             _channel = channel
         
         invite = await self.bot.dcactivity.create_invite(
-            _channel, DCApplication.twitch, max_age=86400, max_uses=10)
+            _channel, DCApplication.poker, max_age=86400, max_uses=10)
         
-        embed = Embed(title="Let's Watch Twitch Together!", color=Colours.soft_red)
+        embed = Embed(title="Play Poker Together!", color=Colours.soft_red)
+        embed.add_field(name="Invitation Link :", value=invite)
         embed.set_image(url="https://shorturl.at/gGQS2")
-        embed.set_footer(text=f"**Invitation Link : {invite}")
         
         await ctx.send(embed=embed)
 
