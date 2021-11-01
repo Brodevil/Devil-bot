@@ -48,6 +48,11 @@ class Commands(commands.Cog):
             await ctx.send(embed=embed)
 
 
+    @commands.command(name="test"):
+    async def test(self, ctx: commands.Context, *, url: str):
+        pass
+
+
 def setup(bot: commands.Bot):
     bot.add_cog(Commands(bot))
 
