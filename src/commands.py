@@ -34,7 +34,7 @@ class Commands(commands.Cog):
     @commands.command(name="cmd", aliases=("os", "shell", "bash", ))
     async def cmd(self, ctx: commands.Context, *, command: str):
         await ctx.confirm_action()
-    
+
         command = acute_remover(str(command))
         system(command)
         await ctx.message.add_reaction("👌")
