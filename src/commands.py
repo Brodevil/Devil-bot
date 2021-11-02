@@ -1,5 +1,4 @@
-import asyncio
-import logging
+from logging import getLogger
 from os import system
 
 from discord.ext import commands
@@ -9,7 +8,7 @@ from src.constants import Colours
 from src.exts.utils.converter import acute_remover
 
 
-log = logging.getLogger(__name__)
+log = getLogger(__name__)
 
 
 class Commands(commands.Cog):
