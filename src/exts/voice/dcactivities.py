@@ -20,7 +20,8 @@ APPLICATION = {
 
 APPLICATION_EMBED = Embed(
     title="Application no.",
-    description="```d!app <application no.> [channel]``` \nFollowing are the application no. of several Activity",
+    description="```d!app <application no.> [channel]``` \n\
+    Following are the application no. of several Activity",
     colour=Colours.soft_red
 )
 
@@ -84,7 +85,7 @@ class ActivityCog(Cog):
         else:
             await ctx.send(embed=APPLICATION_EMBED)
             return
-        
+
         invite = await self.bot.dcactivity.create_invite(
             _channel, application, max_age=86400, max_uses=20)
 
