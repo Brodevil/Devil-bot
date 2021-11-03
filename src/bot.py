@@ -29,6 +29,7 @@ class Bot(commands.Bot):
         self.activies = activies
         self.status = status
         self.change_status.start()
+        self.bot.dcactivity = DCActivity(self)
         self.http_session = ClientSession()
 
 
@@ -94,5 +95,3 @@ bot = Bot(
     status=status, 
     intents=_intents
     )
-
-bot.dcactivity = DCActivity(bot)

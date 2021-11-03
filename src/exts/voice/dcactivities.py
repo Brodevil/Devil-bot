@@ -82,9 +82,6 @@ class ActivityCog(Cog):
                 await ctx.send(embed=APPLICATION_EMBED)
                 return
 
-        else:
-            await ctx.send(embed=APPLICATION_EMBED)
-            return
 
         invite = await self.bot.dcactivity.create_invite(
             _channel, application, max_age=86400, max_uses=20)
