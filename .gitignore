@@ -1,0 +1,55 @@
+# environment file
+*.env
+
+# Virtual Environmen
+venv/
+
+# Code editor and IDE files
+.idea/
+.vscode/
+
+# logs
+*.log
+discord.log
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+
+# rough python file for just testing or running somthing
+rough.py
+
+
+# bot configuration files
+config.py
+
+# caches logs files
+discord.log
+.google-cookie
+*.webm
+*.mp3
+*.mp4
+

@@ -1,0 +1,25 @@
+{
+    "cogs": [
+        "src.exts.backend.logging",
+        "src.exts.backend.error_handler",
+        "src.exts.backend.welcome",
+        "src.exts.fun.randoms",
+        "src.exts.fun.laugh",
+        "src.exts.fun.memes",
+        "src.exts.fun.gender",
+        "src.exts.fun.inspiration",
+        "src.exts.info.bot_info",
+        "src.exts.info.information",
+        "src.exts.info.search",
+        "src.exts.info.short_info",
+        "src.exts.info.dictionary",
+        "src.exts.moderation.owner.owner_cog",
+        "src.exts.moderation.owner.cog_stuff",
+        "src.exts.moderation.messages",
+        "src.exts.moderation.volient_action",
+        "src.exts.voice.voice",
+        "src.exts.voice.dcactivities",
+        "src.commands"        
+
+    ]
+}
