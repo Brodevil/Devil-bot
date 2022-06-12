@@ -88,7 +88,7 @@ class Bot(commands.Bot):
                 traceback.print_exc()
                 log.error(error)
 
-        self.load_extension('jishaku')
+        # self.load_extension('jishaku')
         self.total_cogs = list(self.cogs)
 
 

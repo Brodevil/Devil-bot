@@ -11,10 +11,13 @@ log = getLogger(__name__)
 class Database:
     def __init__(self) -> None:
         """Connect to database"""
-        self.connection = self.connect_db()
-        self.cursor = self.connection.cursor()
-        self.create_tables()
-
+        try:
+            self.connection = self.connect_db()
+            self.cursor = self.connection.cursor()
+            self.create_tables()
+        except Exception:
+            pass
+        
     def connect_db(self) -> connect:
         """Connect to database"""
         try:
